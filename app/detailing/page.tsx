@@ -65,9 +65,25 @@ const gallery = [
   "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80",
 ];
 
+const DETAILING_BACKGROUND =
+  "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1920&q=80";
+
 export default function DetailingPage() {
   return (
     <>
+      {/* Fixed full-screen background unique to the detailing page */}
+      <div className="fixed inset-0 -z-10">
+        <Image
+          src={DETAILING_BACKGROUND}
+          alt="Детейлинг автомобиля"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+      </div>
+
       <HeroVideo>
         <p className="text-sm font-normal uppercase tracking-widest text-white/80">
           JetQ Детейлинг
