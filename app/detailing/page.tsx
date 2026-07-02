@@ -87,7 +87,7 @@ export default function DetailingPage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-black py-20">
+      <section className="bg-charcoal py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Услуги детейлинга"
@@ -97,7 +97,7 @@ export default function DetailingPage() {
             {services.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="bg-charcoal p-6"
+                className="bg-black p-6"
               >
                 <Icon className="h-10 w-10 text-gold" />
                 <h3 className="mt-4 text-xl font-normal uppercase tracking-tight text-white">
@@ -110,7 +110,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-black py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Процесс работы"

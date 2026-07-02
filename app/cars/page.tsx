@@ -52,7 +52,7 @@ export default function CarsPage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-black py-20">
+      <section className="bg-charcoal py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Актуальные предложения"
@@ -66,7 +66,7 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-black py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Способы приобретения"
@@ -76,7 +76,7 @@ export default function CarsPage() {
             {purchaseOptions.map((option) => (
               <div
                 key={option.title}
-                className="bg-black p-6"
+                className="bg-charcoal p-6"
               >
                 <h3 className="text-xl font-normal uppercase tracking-tight text-white">
                   {option.title}
@@ -88,13 +88,13 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-black py-20">
+      <section className="bg-charcoal py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Trade-In / Обмен авто"
             subtitle="Обменяйте свой автомобиль на новый — быстрая оценка и честные условия."
           />
-          <div className="bg-charcoal p-8 md:p-12">
+          <div className="bg-black p-8 md:p-12">
             <div className="grid items-center gap-8 md:grid-cols-2">
               <div>
                 <h3 className="text-2xl font-normal uppercase tracking-tight text-white">
