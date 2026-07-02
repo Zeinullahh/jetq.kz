@@ -19,7 +19,7 @@ export function ServiceCard({
     <Link
       href={href}
       className={cn(
-        "group flex flex-col justify-between rounded-none bg-card p-6 transition-colors hover:bg-muted",
+        "group flex flex-col justify-between rounded-none bg-white/50 p-6 backdrop-blur-md transition-colors hover:bg-white/70 dark:bg-charcoal/50 dark:hover:bg-charcoal/70",
         featured && "border-l-4 border-gold"
       )}
     >

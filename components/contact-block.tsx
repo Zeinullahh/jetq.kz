@@ -2,7 +2,7 @@ import { MapPin, Phone, Clock } from "lucide-react";
 
 export function ContactBlock() {
   return (
-    <div className="grid gap-6 md:grid-cols-3">
+    <div className="grid gap-6 rounded-none bg-white/50 backdrop-blur-md dark:bg-charcoal/50 md:grid-cols-3">
       <div className="flex items-start gap-4">
         <MapPin className="mt-1 text-gold" />
         <div>

@@ -48,7 +48,7 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
       {open && (
         <div
           id={menuId}
-          className="fixed inset-0 z-50 flex flex-col bg-background px-6 py-4"
+          className="fixed inset-0 z-50 flex flex-col bg-black/80 px-6 py-4 backdrop-blur-md"
         >
           <div className="flex items-center justify-between">
             <span className="text-sm font-normal uppercase tracking-wide text-muted-foreground">

@@ -8,7 +8,7 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="bg-muted text-foreground">
+    <footer className="rounded-none bg-charcoal/50 text-foreground backdrop-blur-md">
       <div className="mx-auto max-w-7xl px-4 py-12 grid gap-8 md:grid-cols-4">
         <div>
           <p className="text-2xl font-medium uppercase tracking-tight">JETQ</p>

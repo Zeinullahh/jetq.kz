@@ -6,7 +6,7 @@ interface ProcessStepProps {
 
 export function ProcessStep({ number, title, description }: ProcessStepProps) {
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 rounded-none bg-white/50 backdrop-blur-md dark:bg-charcoal/50">
       <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-gold text-black font-normal uppercase">
         {number}
       </div>
