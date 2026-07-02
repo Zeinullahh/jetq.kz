@@ -113,7 +113,7 @@ export default function HomePage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-muted py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Наши услуги"
@@ -127,7 +127,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-20">
+      <section className="bg-background py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Почему JetQ?"
@@ -137,19 +137,19 @@ export default function HomePage() {
             {advantages.map((item) => (
               <div
                 key={item.title}
-                className="bg-charcoal p-6"
+                className="bg-card p-6"
               >
-                <h3 className="text-lg font-normal uppercase tracking-tight text-white">
+                <h3 className="text-lg font-normal uppercase tracking-tight text-card-foreground">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-ash">{item.description}</p>
+                <p className="mt-2 text-muted-foreground">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-muted py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Как мы работаем"
@@ -163,7 +163,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-black py-20">
+      <section className="bg-background py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Свяжитесь с нами"

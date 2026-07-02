@@ -5,7 +5,7 @@ import { MobileMenu } from "./mobile-menu";
 
 export function Navbar() {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-black dark:bg-transparent">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-white/10">
       <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
         <MobileMenu
           trigger={

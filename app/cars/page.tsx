@@ -52,7 +52,7 @@ export default function CarsPage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-muted py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Актуальные предложения"
@@ -66,7 +66,7 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-black py-20">
+      <section className="bg-background py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Способы приобретения"
@@ -76,31 +76,31 @@ export default function CarsPage() {
             {purchaseOptions.map((option) => (
               <div
                 key={option.title}
-                className="bg-charcoal p-6"
+                className="bg-card p-6"
               >
-                <h3 className="text-xl font-normal uppercase tracking-tight text-white">
+                <h3 className="text-xl font-normal uppercase tracking-tight text-card-foreground">
                   {option.title}
                 </h3>
-                <p className="mt-2 text-ash">{option.description}</p>
+                <p className="mt-2 text-muted-foreground">{option.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-muted py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Trade-In / Обмен авто"
             subtitle="Обменяйте свой автомобиль на новый — быстрая оценка и честные условия."
           />
-          <div className="bg-black p-8 md:p-12">
+          <div className="bg-card p-8 md:p-12">
             <div className="grid items-center gap-8 md:grid-cols-2">
               <div>
-                <h3 className="text-2xl font-normal uppercase tracking-tight text-white">
+                <h3 className="text-2xl font-normal uppercase tracking-tight text-card-foreground">
                   У нас есть Trade-In
                 </h3>
-                <p className="mt-4 text-ash">
+                <p className="mt-4 text-muted-foreground">
                   Оценим ваш автомобиль по рыночной стоимости, поможем подобрать новый
                   и оформим все документы. Экономьте время и деньги с JetQ.
                 </p>
@@ -110,7 +110,7 @@ export default function CarsPage() {
                   </CTAButton>
                 </div>
               </div>
-              <div className="relative aspect-video overflow-hidden bg-dark-iron">
+              <div className="relative aspect-video overflow-hidden bg-muted">
                 <Image
                   src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80"
                   alt="Trade-In — обмен автомобиля"
@@ -124,7 +124,7 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-black py-20">
+      <section className="bg-background py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Свяжитесь с нами"

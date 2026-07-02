@@ -87,7 +87,7 @@ export default function DetailingPage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-muted py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Услуги детейлинга"
@@ -97,20 +97,20 @@ export default function DetailingPage() {
             {services.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="bg-black p-6"
+                className="bg-card p-6"
               >
                 <Icon className="h-10 w-10 text-gold" />
-                <h3 className="mt-4 text-xl font-normal uppercase tracking-tight text-white">
+                <h3 className="mt-4 text-xl font-normal uppercase tracking-tight text-card-foreground">
                   {title}
                 </h3>
-                <p className="mt-2 text-ash">{description}</p>
+                <p className="mt-2 text-muted-foreground">{description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-black py-20">
+      <section className="bg-background py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Процесс работы"
@@ -124,7 +124,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-charcoal py-20">
+      <section className="bg-muted py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Галерея"
@@ -132,7 +132,7 @@ export default function DetailingPage() {
           />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {gallery.map((src, i) => (
-              <div key={src} className="relative aspect-video overflow-hidden bg-dark-iron">
+              <div key={src} className="relative aspect-video overflow-hidden bg-muted">
                 <Image
                   src={src}
                   alt={`Пример детейлинга ${i + 1}`}
@@ -146,7 +146,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-black py-20">
+      <section className="bg-background py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Запишитесь на детейлинг"

@@ -8,19 +8,19 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="bg-charcoal text-white">
+    <footer className="bg-muted text-foreground">
       <div className="mx-auto max-w-7xl px-4 py-12 grid gap-8 md:grid-cols-4">
         <div>
           <p className="text-2xl font-medium uppercase tracking-tight">JETQ</p>
-          <p className="mt-2 text-ash">
+          <p className="mt-2 text-muted-foreground">
             Премиальные автомобильные услуги в Алматы.
           </p>
         </div>
         <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-ash">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Быстрые ссылки
           </p>
-          <ul className="mt-4 space-y-2 text-white">
+          <ul className="mt-4 space-y-2 text-foreground">
             <li>
               <Link
                 href="/"
@@ -48,10 +48,10 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-ash">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Контакты
           </p>
-          <address className="mt-4 not-italic text-white space-y-1">
+          <address className="mt-4 not-italic text-foreground space-y-1">
             <p>г. Алматы, ЖК Forum Residence</p>
             <p>ул. Байтурсынова 179/2, блок 2</p>
             <p>+7 (775) 006-14-11</p>
@@ -59,10 +59,10 @@ export function Footer() {
           </address>
         </div>
         <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-ash">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Мы в соцсетях
           </p>
-          <ul className="mt-4 space-y-2 text-white">
+          <ul className="mt-4 space-y-2 text-foreground">
             {socials.map((social) => (
               <li key={social.href}>
                 <a
@@ -78,7 +78,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10 py-6 text-center text-sm text-ash">
+      <div className="border-t border-border/10 py-6 text-center text-sm text-muted-foreground">
         © {new Date().getFullYear()} ТОО «JETQ GROUP». Все права защищены.
       </div>
     </footer>

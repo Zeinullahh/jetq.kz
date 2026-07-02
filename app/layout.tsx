@@ -32,8 +32,8 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <VideoBackground />
-          <div className="fixed inset-0 -z-10 bg-black/60" aria-hidden="true" />
-          <main className="relative min-h-screen dark">
+          <div className="fixed inset-0 -z-10 bg-black/0 dark:bg-black/60" aria-hidden="true" />
+          <main className="relative min-h-screen">
             <PageTransition>{children}</PageTransition>
           </main>
           <Footer />

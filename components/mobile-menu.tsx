@@ -48,15 +48,15 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
       {open && (
         <div
           id={menuId}
-          className="fixed inset-0 z-50 flex flex-col bg-black px-6 py-4"
+          className="fixed inset-0 z-50 flex flex-col bg-background px-6 py-4"
         >
           <div className="flex items-center justify-between">
-            <span className="text-sm font-normal uppercase tracking-wide text-white">
+            <span className="text-sm font-normal uppercase tracking-wide text-muted-foreground">
               МЕНЮ
             </span>
             <button
               onClick={() => setOpen(false)}
-              className="p-2 text-white"
+              className="p-2 text-foreground"
               aria-label="Закрыть меню"
             >
               <X size={24} />
@@ -68,7 +68,7 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="text-4xl font-normal uppercase tracking-tight text-white transition-colors hover:text-gold-text md:text-5xl"
+                className="text-4xl font-normal uppercase tracking-tight text-foreground transition-colors hover:text-gold-text md:text-5xl"
               >
                 {link.label}
               </Link>
