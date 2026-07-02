@@ -14,13 +14,17 @@ export function HeroVideo({ children, className }: HeroVideoProps) {
       )}
     >
       <div className="absolute inset-0 -z-20">
-        <iframe
-          src="https://www.youtube.com/embed/3Kh2gpornEY?autoplay=1&mute=1&loop=1&playlist=3Kh2gpornEY&controls=0&showinfo=0&rel=0"
-          className="absolute inset-0 hidden h-full w-full md:block"
-          allow="autoplay; encrypted-media"
-          allowFullScreen
-          title="JetQ desktop background"
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/videos/hero-desktop-poster.jpg"
+          className="absolute inset-0 hidden h-full w-full object-cover md:block"
+        >
+          <source src="/videos/hero-desktop.mp4" type="video/mp4" />
+        </video>
         <iframe
           src="https://www.instagram.com/reel/DWoVn-0DfAz/embed"
           className="h-full w-full object-cover md:hidden"
