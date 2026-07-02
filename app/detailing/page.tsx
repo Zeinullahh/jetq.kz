@@ -60,8 +60,8 @@ const gallery = [
   "https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1552930294-6a8f015c827b?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1520340356584-76214b2f5e7b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1492144534633-79f5e10b9f6a?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80",
 ];
 
