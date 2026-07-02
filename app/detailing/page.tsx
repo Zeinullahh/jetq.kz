@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HeroVideo } from "@/components/hero-video";
 import { SectionHeader } from "@/components/section-header";
 import { ProcessStep } from "@/components/process-step";
@@ -111,15 +112,25 @@ export default function DetailingPage() {
       <section className="mx-auto max-w-7xl px-4 py-20">
         <SectionHeader
           title="Галерея"
-          subtitle="Примеры наших работ — скоро здесь появятся фото до и после."
+          subtitle="Примеры наших работ — премиальный уход за кузовом и салоном."
         />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div
-              key={i}
-              className="aspect-video rounded-xl bg-muted flex items-center justify-center text-muted-foreground"
-            >
-              Фото работы {i}
+          {[
+            "https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1552930294-6a8f015c827b?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1520340356584-76214b2f5e7b?auto=format&fit=crop&w=800&q=80",
+            "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80",
+          ].map((src, i) => (
+            <div key={src} className="relative aspect-video overflow-hidden rounded-xl">
+              <Image
+                src={src}
+                alt={`Пример детейлинга ${i + 1}`}
+                fill
+                className="object-cover"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              />
             </div>
           ))}
         </div>

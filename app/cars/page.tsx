@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HeroVideo } from "@/components/hero-video";
 import { SectionHeader } from "@/components/section-header";
 import { ServiceCard } from "@/components/service-card";
@@ -8,17 +9,17 @@ const cars = [
   {
     title: "Zeekr 8X",
     description: "Первый и единственный Zeekr 8X в Казахстане. Премиальный электрокроссовер.",
-    href: "#",
+    href: "/cars",
   },
   {
     title: "Популярные китайские авто",
     description: "Широкий выбор бюджетных и премиальных моделей под заказ из Китая.",
-    href: "#",
+    href: "/cars",
   },
   {
     title: "Авто в наличии",
     description: "Готовые автомобили в Алматы. Быстрое оформление и выдача.",
-    href: "#",
+    href: "/cars",
   },
 ];
 
@@ -100,8 +101,14 @@ export default function CarsPage() {
                 </CTAButton>
               </div>
             </div>
-            <div className="aspect-video rounded-xl bg-muted flex items-center justify-center text-muted-foreground">
-              Изображение обмена
+            <div className="relative aspect-video overflow-hidden rounded-xl">
+              <Image
+                src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80"
+                alt="Trade-In — обмен автомобиля"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
           </div>
         </div>

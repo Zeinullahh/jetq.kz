@@ -9,6 +9,10 @@ interface CTAButtonProps {
   onClick?: () => void;
 }
 
+function isExternal(href: string) {
+  return /^https?:\/\//.test(href) || href.startsWith("tel:") || href.startsWith("mailto:");
+}
+
 export function CTAButton({
   href,
   variant = "primary",
@@ -26,6 +30,19 @@ export function CTAButton({
   };
 
   const classes = cn(base, styles[variant], className);
+
+  if (href && isExternal(href)) {
+    return (
+      <a
+        href={href}
+        className={classes}
+        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+        target={href.startsWith("http") ? "_blank" : undefined}
+      >
+        {children}
+      </a>
+    );
+  }
 
   if (href) {
     return (

@@ -10,15 +10,14 @@ export function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return null;
-
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="rounded-full p-2 hover:bg-muted transition-colors"
       aria-label="Переключить тему"
+      disabled={!mounted}
     >
-      {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+      {mounted && theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
     </button>
   );
 }
