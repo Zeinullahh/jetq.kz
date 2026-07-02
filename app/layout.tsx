@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { PageTransition } from "@/components/page-transition";
+import { VideoBackground } from "@/components/video-background";
 
 const oswald = Oswald({
   subsets: ["cyrillic", "latin"],
@@ -30,18 +31,7 @@ export default function RootLayout({
       <body className={cn(oswald.variable, "font-sans")}>
         <Providers>
           <Navbar />
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/videos/hero-desktop-poster.jpg"
-            className="fixed inset-0 -z-20 h-screen w-full object-cover"
-            aria-hidden="true"
-          >
-            <source src="/videos/hero-desktop.mp4" type="video/mp4" />
-          </video>
+          <VideoBackground />
           <div className="fixed inset-0 -z-10 bg-black/60" aria-hidden="true" />
           <main className="relative min-h-screen dark">
             <PageTransition>{children}</PageTransition>
