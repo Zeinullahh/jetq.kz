@@ -4,6 +4,8 @@ import { ServiceCard } from "@/components/service-card";
 import { ProcessStep } from "@/components/process-step";
 import { ContactBlock } from "@/components/contact-block";
 import { CTAButton } from "@/components/cta-button";
+import { FAQAccordion } from "@/components/faq-accordion";
+import { Sparkles, Phone } from "lucide-react";
 
 const services = [
   {
@@ -51,6 +53,14 @@ const advantages = [
     description: "Помогаем выбрать удобный способ приобретения авто.",
   },
   {
+    title: "Работаем с банками",
+    description: "Партнерские программы кредитования и лизинга для физических и юридических лиц.",
+  },
+  {
+    title: "Привозим для юридических лиц с НДС",
+    description: "Официальная поставка автомобилей с полным пакетом документов и НДС.",
+  },
+  {
     title: "Гарантия качества",
     description: "Отвечаем за результат всех работ и услуг.",
   },
@@ -63,28 +73,56 @@ const advantages = [
 const steps = [
   {
     number: "01",
-    title: "Заявка",
-    description: "Оставляете заявку или звоните нам. Менеджер отвечает на все вопросы.",
+    title: "Оставляете заявка",
+    description: "Наш менеджер связывается с вами и отвечает на все вопросы.",
   },
   {
     number: "02",
-    title: "Подбор",
-    description: "Подбираем автомобиль или пакет услуг под ваши задачи и бюджет.",
+    title: "Подписание договора",
+    description: "Заключение договора, в котором прописываем ответственность сторон.",
   },
   {
     number: "03",
-    title: "Договор",
-    description: "Заключаем договор с прозрачными условиями и фиксированной ценой.",
+    title: "Поиск и выкуп вашего авто",
+    description: "Вместе мы подбираем подходящий автомобиль.",
   },
   {
     number: "04",
-    title: "Выполнение",
-    description: "Доставляем авто или выполняем детейлинг строго в срок.",
+    title: "Доставка и таможня",
+    description: "Доставляем авто до Алматы, и закрываем все таможенные вопросы.",
   },
   {
     number: "05",
-    title: "Передача",
-    description: "Передаем автомобиль с полным пакетом документов и результатами работ.",
+    title: "Вручение автомобиля",
+    description: "Вручаем автомобиль.",
+  },
+];
+
+const faqItems = [
+  {
+    question: "Как купить авто из Китая через JetQ?",
+    answer:
+      "Оставьте заявку на сайте или позвоните нам. Менеджер проконсультирует, поможет подобрать модель, заключим договор и возьмем на себя поиск, выкуп, доставку и таможенное оформление.",
+  },
+  {
+    question: "Какие способы оплаты доступны?",
+    answer:
+      "Доступны наличный и безналичный расчет, кредит, рассрочка и лизинг. Для юридических лиц возможна поставка с НДС.",
+  },
+  {
+    question: "Что такое Trade-In?",
+    answer:
+      "Trade-In — это обмен вашего автомобиля на новый с доплатой. Мы оценим ваш авто по рыночной стоимости и подберем лучшее предложение.",
+  },
+  {
+    question: "Сколько занимает доставка?",
+    answer:
+      "Срок зависит от модели, комплектации и маршрута. В среднем доставка автомобиля из Китая занимает от нескольких недель до двух месяцев. Точные сроки озвучивает менеджер после подбора авто.",
+  },
+  {
+    question: "Где находится ваш офис?",
+    answer:
+      "Наш офис находится в Алматы, ЖК Forum Residence, ул. Байтурсынова 179/2, блок 2. Работаем ежедневно с 10:00 до 19:00.",
   },
 ];
 
@@ -116,6 +154,51 @@ export default function HomePage() {
       <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
+            title="Актуальные акции на авто в JetQ"
+            subtitle="Топовые позиции и популярные автомобили."
+          />
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2 rounded-none bg-gold p-8 md:p-10">
+              <div className="flex h-10 w-10 items-center justify-center bg-black text-gold">
+                <Sparkles size={20} />
+              </div>
+              <h3 className="mt-6 text-2xl font-normal uppercase tracking-tight text-black md:text-3xl">
+                Первый и единственный Zeekr 8X в Казахстане!
+              </h3>
+              <p className="mt-4 text-black/80">
+                Посмотреть автомобиль можно по адресу г. Алматы, Байтурсынова 179/2.
+              </p>
+              <div className="mt-6">
+                <CTAButton href="/cars" variant="white">
+                  Смотреть авто
+                </CTAButton>
+              </div>
+            </div>
+            <div className="space-y-6">
+              <div className="rounded-none bg-white/50 p-6 backdrop-blur-md dark:bg-charcoal/50">
+                <h3 className="text-xl font-normal uppercase tracking-tight text-foreground">
+                  Топовые позиции
+                </h3>
+                <p className="mt-2 text-muted-foreground">
+                  Эксклюзивные модели и редкие комплектации в наличии и под заказ.
+                </p>
+              </div>
+              <div className="rounded-none bg-white/50 p-6 backdrop-blur-md dark:bg-charcoal/50">
+                <h3 className="text-xl font-normal uppercase tracking-tight text-foreground">
+                  Популярные автомобили
+                </h3>
+                <p className="mt-2 text-muted-foreground">
+                  Востребованные китайские бренды с лучшим соотношением цены и качества.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-background/50 backdrop-blur-md py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <SectionHeader
             title="Наши услуги"
             subtitle="Полный спектр премиальных услуг для вашего автомобиля."
           />
@@ -127,13 +210,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-background/50 backdrop-blur-md py-20">
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Почему JetQ?"
             subtitle="Работаем для тех, кто ценит качество, прозрачность и сервис."
           />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {advantages.map((item) => (
               <div
                 key={item.title}
@@ -145,6 +228,27 @@ export default function HomePage() {
                 <p className="mt-2 text-muted-foreground">{item.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-background/50 backdrop-blur-md py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="rounded-none bg-white/50 p-8 backdrop-blur-md dark:bg-charcoal/50 md:p-12">
+            <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+              <div>
+                <h2 className="text-3xl font-normal uppercase tracking-tight md:text-4xl">
+                  Бесплатная консультация специалиста
+                </h2>
+                <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
+                  Проконсультируем по всем вопросам и поможем подобрать нужный вариант авто.
+                </p>
+              </div>
+              <CTAButton href="tel:+77750061411" variant="primary">
+                <Phone size={18} className="mr-2" />
+                Позвонить
+              </CTAButton>
+            </div>
           </div>
         </div>
       </section>
@@ -164,6 +268,16 @@ export default function HomePage() {
       </section>
 
       <section className="bg-background/50 backdrop-blur-md py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <SectionHeader
+            title="Частые вопросы"
+            subtitle="Отвечаем на популярные вопросы о наших услугах."
+          />
+          <FAQAccordion items={faqItems} />
+        </div>
+      </section>
+
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Свяжитесь с нами"
