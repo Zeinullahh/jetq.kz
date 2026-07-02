@@ -4,10 +4,12 @@ export function ContactBlock() {
   return (
     <div className="grid gap-6 md:grid-cols-3">
       <div className="flex items-start gap-4">
-        <MapPin className="mt-1 text-primary" />
+        <MapPin className="mt-1 text-gold" />
         <div>
-          <p className="font-semibold">Адрес</p>
-          <p className="text-muted-foreground">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
+            Адрес
+          </p>
+          <p className="mt-1 text-foreground">
             г. Алматы, ЖК Forum Residence
             <br />
             ул. Байтурсынова 179/2, блок 2
@@ -15,22 +17,26 @@ export function ContactBlock() {
         </div>
       </div>
       <div className="flex items-start gap-4">
-        <Phone className="mt-1 text-primary" />
+        <Phone className="mt-1 text-gold" />
         <div>
-          <p className="font-semibold">Телефон</p>
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
+            Телефон
+          </p>
           <a
             href="tel:+77750061411"
-            className="text-muted-foreground hover:text-foreground"
+            className="mt-1 text-foreground hover:text-link-blue transition-colors"
           >
             +7 (775) 006-14-11
           </a>
         </div>
       </div>
       <div className="flex items-start gap-4">
-        <Clock className="mt-1 text-primary" />
+        <Clock className="mt-1 text-gold" />
         <div>
-          <p className="font-semibold">Режим работы</p>
-          <p className="text-muted-foreground">10:00 – 19:00, ежедневно</p>
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
+            Режим работы
+          </p>
+          <p className="mt-1 text-foreground">10:00 – 19:00, ежедневно</p>
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ export function HeroVideo({ children, className }: HeroVideoProps) {
           title="JetQ mobile background"
         />
       </div>
-      <div className="absolute inset-0 -z-10 bg-black/40" />
+      <div className="absolute inset-0 -z-10 bg-black/50" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 text-center text-white">
         {children}
       </div>

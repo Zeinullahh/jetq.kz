@@ -13,7 +13,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="rounded-full p-2 hover:bg-muted transition-colors"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-none border border-white/50 bg-transparent text-white transition-colors hover:border-teal-action hover:bg-teal-action"
       aria-label="Переключить тему"
       disabled={!mounted}
     >

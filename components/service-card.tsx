@@ -19,16 +19,18 @@ export function ServiceCard({
     <Link
       href={href}
       className={cn(
-        "group flex flex-col justify-between rounded-2xl border border-border bg-card p-6 transition-all hover:shadow-lg",
-        featured && "ring-1 ring-primary"
+        "group flex flex-col justify-between rounded-none bg-card p-6 transition-colors hover:bg-dark-iron",
+        featured && "border-l-4 border-gold"
       )}
     >
       <div>
-        <h3 className="text-xl font-semibold">{title}</h3>
+        <h3 className="text-xl font-normal uppercase tracking-tight text-card-foreground">
+          {title}
+        </h3>
         <p className="mt-3 text-muted-foreground">{description}</p>
       </div>
-      <div className="mt-6 flex items-center gap-2 text-sm font-medium text-primary">
-        Подробнее <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+      <div className="mt-6 flex items-center gap-2 text-sm font-normal uppercase tracking-wide text-card-foreground">
+        Подробнее <ArrowRight size={16} />
       </div>
     </Link>
   );

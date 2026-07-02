@@ -8,37 +8,50 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-muted/30">
+    <footer className="bg-charcoal text-white">
       <div className="mx-auto max-w-7xl px-4 py-12 grid gap-8 md:grid-cols-4">
         <div>
-          <p className="text-2xl font-bold">JETQ</p>
-          <p className="mt-2 text-muted-foreground">
+          <p className="text-2xl font-medium uppercase tracking-tight">JETQ</p>
+          <p className="mt-2 text-ash">
             Премиальные автомобильные услуги в Алматы.
           </p>
         </div>
         <div>
-          <p className="font-semibold">Быстрые ссылки</p>
-          <ul className="mt-2 space-y-2 text-muted-foreground">
+          <p className="text-xs font-normal uppercase tracking-widest text-ash">
+            Быстрые ссылки
+          </p>
+          <ul className="mt-4 space-y-2 text-white">
             <li>
-              <Link href="/" className="hover:text-foreground">
+              <Link
+                href="/"
+                className="hover:text-link-blue transition-colors"
+              >
                 Главная
               </Link>
             </li>
             <li>
-              <Link href="/detailing" className="hover:text-foreground">
+              <Link
+                href="/detailing"
+                className="hover:text-link-blue transition-colors"
+              >
                 Детейлинг
               </Link>
             </li>
             <li>
-              <Link href="/cars" className="hover:text-foreground">
+              <Link
+                href="/cars"
+                className="hover:text-link-blue transition-colors"
+              >
                 Авто в наличии
               </Link>
             </li>
           </ul>
         </div>
         <div>
-          <p className="font-semibold">Контакты</p>
-          <address className="mt-2 not-italic text-muted-foreground space-y-1">
+          <p className="text-xs font-normal uppercase tracking-widest text-ash">
+            Контакты
+          </p>
+          <address className="mt-4 not-italic text-white space-y-1">
             <p>г. Алматы, ЖК Forum Residence</p>
             <p>ул. Байтурсынова 179/2, блок 2</p>
             <p>+7 (775) 006-14-11</p>
@@ -46,15 +59,17 @@ export function Footer() {
           </address>
         </div>
         <div>
-          <p className="font-semibold">Мы в соцсетях</p>
-          <ul className="mt-2 space-y-2 text-muted-foreground">
+          <p className="text-xs font-normal uppercase tracking-widest text-ash">
+            Мы в соцсетях
+          </p>
+          <ul className="mt-4 space-y-2 text-white">
             {socials.map((social) => (
               <li key={social.href}>
                 <a
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 hover:text-foreground"
+                  className="inline-flex items-center gap-2 hover:text-link-blue transition-colors"
                 >
                   {social.label} <ExternalLink size={14} />
                 </a>
@@ -63,7 +78,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-border py-6 text-center text-sm text-muted-foreground">
+      <div className="border-t border-white/10 py-6 text-center text-sm text-ash">
         © {new Date().getFullYear()} ТОО «JETQ GROUP». Все права защищены.
       </div>
     </footer>

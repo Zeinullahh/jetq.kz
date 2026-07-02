@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Oswald } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
-const inter = Inter({
+const oswald = Oswald({
   subsets: ["cyrillic", "latin"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-oswald",
   display: "swap",
 });
 
@@ -25,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <body className={cn(inter.variable, "font-sans")}>
+      <body className={cn(oswald.variable, "font-sans")}>
         <Providers>
           <Navbar />
           <main className="min-h-screen pt-16">{children}</main>

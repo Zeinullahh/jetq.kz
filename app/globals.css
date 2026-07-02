@@ -4,27 +4,27 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 220 13% 9%;
+    --background: 0 0% 97%;
+    --foreground: 0 0% 13%;
     --card: 0 0% 100%;
-    --card-foreground: 220 13% 9%;
-    --primary: 221 83% 33%;
-    --primary-foreground: 0 0% 100%;
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
-    --border: 220 13% 91%;
+    --card-foreground: 0 0% 13%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --muted: 0 0% 97%;
+    --muted-foreground: 0 0% 29%;
+    --border: 0 0% 13%;
   }
 
   .dark {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 95%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 100%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
-    --border: 0 0% 18%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 13%;
+    --card-foreground: 0 0% 100%;
+    --primary: 45 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --muted: 0 0% 13%;
+    --muted-foreground: 0 0% 49%;
+    --border: 0 0% 100% / 0.5;
   }
 
   * {

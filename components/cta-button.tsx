@@ -3,14 +3,18 @@ import { cn } from "@/lib/utils";
 
 interface CTAButtonProps {
   href?: string;
-  variant?: "primary" | "secondary" | "outline";
+  variant?: "primary" | "ghost" | "white" | "outline";
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
 }
 
 function isExternal(href: string) {
-  return /^https?:\/\//.test(href) || href.startsWith("tel:") || href.startsWith("mailto:");
+  return (
+    /^https?:\/\//.test(href) ||
+    href.startsWith("tel:") ||
+    href.startsWith("mailto:")
+  );
 }
 
 export function CTAButton({
@@ -21,12 +25,14 @@ export function CTAButton({
   onClick,
 }: CTAButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors";
+    "inline-flex items-center justify-center rounded-none text-base font-normal uppercase tracking-wide transition-colors";
   const styles = {
-    primary: "bg-primary text-primary-foreground hover:bg-primary/90",
-    secondary: "bg-muted text-foreground hover:bg-muted/80",
+    primary: "bg-gold text-black px-6 py-3 hover:bg-dark-gold",
+    ghost:
+      "border border-white/50 bg-transparent text-white px-4 py-3 hover:bg-teal-action hover:border-teal-action hover:text-white",
     outline:
-      "border border-border bg-transparent hover:bg-muted text-foreground",
+      "border border-white/50 bg-transparent text-white px-4 py-3 hover:bg-teal-action hover:border-teal-action hover:text-white",
+    white: "bg-white text-charcoal px-6 py-3 hover:bg-smoke",
   };
 
   const classes = cn(base, styles[variant], className);
