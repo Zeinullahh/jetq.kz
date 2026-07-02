@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { href: "/", label: "Главная" },
@@ -38,44 +39,58 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-2 text-sm font-normal uppercase tracking-wide text-white"
+        className="inline-flex items-center gap-2 text-sm font-normal uppercase tracking-wide text-foreground"
         aria-label="Открыть меню"
         aria-expanded={open}
         aria-controls={menuId}
       >
         {trigger ?? "МЕНЮ"}
       </button>
-      {open && (
-        <div
-          id={menuId}
-          className="fixed inset-0 z-50 flex flex-col bg-black/80 px-6 py-4 backdrop-blur-md"
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-normal uppercase tracking-wide text-muted-foreground">
-              МЕНЮ
-            </span>
-            <button
-              onClick={() => setOpen(false)}
-              className="p-2 text-foreground"
-              aria-label="Закрыть меню"
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id={menuId}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed inset-0 z-50 flex flex-col bg-white/90 px-6 py-4 backdrop-blur-lg dark:bg-black/80"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="flex h-full flex-col"
             >
-              <X size={24} />
-            </button>
-          </div>
-          <nav className="flex flex-1 flex-col items-center justify-center gap-8">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-4xl font-normal uppercase tracking-tight text-foreground transition-colors hover:text-gold-text md:text-5xl"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-normal uppercase tracking-wide text-muted-foreground">
+                  МЕНЮ
+                </span>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="p-2 text-foreground"
+                  aria-label="Закрыть меню"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              <nav className="flex flex-1 flex-col items-center justify-center gap-8">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="text-4xl font-normal uppercase tracking-tight text-foreground transition-colors hover:text-gold-text md:text-5xl"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
