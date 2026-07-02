@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { HeroVideo } from "@/components/hero-video";
 import { SectionHeader } from "@/components/section-header";
 import { ServiceCard } from "@/components/service-card";
@@ -5,96 +6,84 @@ import { ProcessStep } from "@/components/process-step";
 import { ContactBlock } from "@/components/contact-block";
 import { CTAButton } from "@/components/cta-button";
 import { FAQAccordion } from "@/components/faq-accordion";
-import { Sparkles, Phone } from "lucide-react";
+import { Sparkles, Phone, ArrowRight, ArrowDown, ChevronRight } from "lucide-react";
 
 const services = [
   {
     title: "Детейлинг",
-    description:
-      "Премиальный уход за кузовом и салоном. Керамика, полировка, химчистка и защита ЛКП.",
+    description: "Премиальный уход за кузовом и салоном.",
     href: "/detailing",
     featured: true,
   },
   {
     title: "Авто из Китая",
-    description:
-      "Привезем любой автомобиль из Китая под ключ: подбор, выкуп, доставка и таможня.",
+    description: "Подбор, выкуп, доставка и таможня под ключ.",
     href: "/cars",
   },
   {
-    title: "Trade-In / Обмен",
-    description:
-      "Обменяйте свой автомобиль на новый с доплатой. Оценим ваш авто и подберем лучшее предложение.",
+    title: "Trade-In",
+    description: "Обмен вашего авто на новый с доплатой.",
     href: "/cars",
   },
   {
     title: "Авто в наличии",
-    description:
-      "Готовые автомобили в Алматы. Просмотр, тест-драйв и оформление в день визита.",
+    description: "Готовые автомобили в Алматы.",
     href: "/cars",
   },
 ];
 
 const advantages = [
   {
-    title: "Прямые поставки из Китая",
-    description: "Работаем напрямую с производителями и поставщиками.",
+    title: "Прямые поставки",
+    description: "Работаем напрямую с производителями и поставщиками из Китая.",
   },
   {
-    title: "Современное оборудование",
-    description: "Детейлинг-центр оснащен профессиональными материалами.",
+    title: "Современный детейлинг",
+    description: "Профессиональное оборудование и материалы премиум-класса.",
   },
   {
     title: "Прозрачные цены",
     description: "Фиксируем стоимость в договоре без скрытых доплат.",
   },
   {
-    title: "Кредит, лизинг и trade-in",
-    description: "Помогаем выбрать удобный способ приобретения авто.",
+    title: "Кредит, лизинг, trade-in",
+    description: "Удобные способы приобретения авто под любой бюджет.",
   },
   {
-    title: "Работаем с банками",
-    description: "Партнерские программы кредитования и лизинга для физических и юридических лиц.",
-  },
-  {
-    title: "Привозим для юридических лиц с НДС",
-    description: "Официальная поставка автомобилей с полным пакетом документов и НДС.",
+    title: "Юридическим лицам с НДС",
+    description: "Официальная поставка с полным пакетом документов.",
   },
   {
     title: "Гарантия качества",
     description: "Отвечаем за результат всех работ и услуг.",
-  },
-  {
-    title: "Расположение в Алматы",
-    description: "ЖК Forum Residence, удобный заезд и парковка.",
   },
 ];
 
 const steps = [
   {
     number: "01",
-    title: "Оставляете заявка",
-    description: "Наш менеджер связывается с вами и отвечает на все вопросы.",
+    title: "Заявка",
+    description: "Менеджер связывается и отвечает на вопросы.",
   },
   {
     number: "02",
-    title: "Подписание договора",
-    description: "Заключение договора, в котором прописываем ответственность сторон.",
+    title: "Договор",
+    description: "Закрепляем условия и ответственность сторон.",
   },
   {
     number: "03",
-    title: "Поиск и выкуп вашего авто",
-    description: "Вместе мы подбираем подходящий автомобиль.",
+    title: "Подбор авто",
+    description: "Вместе находим подходящий автомобиль.",
   },
   {
     number: "04",
-    title: "Доставка и таможня",
-    description: "Доставляем авто до Алматы, и закрываем все таможенные вопросы.",
+    title: "Доставка",
+    description: "Привозим авто в Алматы и проходим таможню.",
   },
   {
     number: "05",
-    title: "Вручение автомобиля",
-    description: "Вручаем автомобиль.",
+    title: "Вручение",
+    description: "Передаем ключи и документы.",
   },
 ];
 
@@ -151,100 +140,154 @@ export default function HomePage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-muted/50 backdrop-blur-md py-20">
+      <section className="relative bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
-            title="Актуальные акции на авто в JetQ"
-            subtitle="Топовые позиции и популярные автомобили."
+            title="Актуальные акции"
+            subtitle="Топовые позиции и популярные автомобили в JetQ."
           />
-          <div className="grid gap-6 lg:grid-cols-3">
-            <div className="lg:col-span-2 rounded-none bg-gold p-8 md:p-10">
+          <div className="grid gap-0 overflow-hidden bg-gold lg:grid-cols-2">
+            <div className="relative min-h-[320px] lg:min-h-[420px]">
+              <Image
+                src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80"
+                alt="Zeekr 8X — первый в Казахстане"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                priority
+              />
+            </div>
+            <div className="flex flex-col justify-center p-8 md:p-12">
               <div className="flex h-10 w-10 items-center justify-center bg-black text-gold">
                 <Sparkles size={20} />
               </div>
-              <h3 className="mt-6 text-2xl font-normal uppercase tracking-tight text-black md:text-3xl">
-                Первый и единственный Zeekr 8X в Казахстане!
+              <h3 className="mt-6 text-2xl font-normal uppercase tracking-tight text-black md:text-3xl lg:text-4xl">
+                Первый Zeekr 8X в Казахстане
               </h3>
-              <p className="mt-4 text-black/80">
-                Посмотреть автомобиль можно по адресу г. Алматы, Байтурсынова 179/2.
+              <p className="mt-4 max-w-md text-black/80">
+                Уникальный электромобиль уже в Алматы. Запишитесь на просмотр.
               </p>
-              <div className="mt-6">
+              <div className="mt-8 flex flex-wrap items-center gap-4">
                 <CTAButton href="/cars" variant="white">
                   Смотреть авто
                 </CTAButton>
-              </div>
-            </div>
-            <div className="space-y-6">
-              <div className="rounded-none bg-white/50 p-6 backdrop-blur-md dark:bg-charcoal/50">
-                <h3 className="text-xl font-normal uppercase tracking-tight text-foreground">
-                  Топовые позиции
-                </h3>
-                <p className="mt-2 text-muted-foreground">
-                  Эксклюзивные модели и редкие комплектации в наличии и под заказ.
-                </p>
-              </div>
-              <div className="rounded-none bg-white/50 p-6 backdrop-blur-md dark:bg-charcoal/50">
-                <h3 className="text-xl font-normal uppercase tracking-tight text-foreground">
-                  Популярные автомобили
-                </h3>
-                <p className="mt-2 text-muted-foreground">
-                  Востребованные китайские бренды с лучшим соотношением цены и качества.
-                </p>
+                <span className="text-sm uppercase tracking-wide text-black/70">
+                  Байтурсынова 179/2
+                </span>
               </div>
             </div>
           </div>
         </div>
+        <div className="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-1/2 text-gold/20 lg:block">
+          <ArrowDown size={48} strokeWidth={1} />
+        </div>
       </section>
 
-      <section className="bg-background/50 backdrop-blur-md py-20">
+      <section className="relative bg-background/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Наши услуги"
-            subtitle="Полный спектр премиальных услуг для вашего автомобиля."
+            subtitle="Все, что нужно для вашего автомобиля."
           />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((service) => (
-              <ServiceCard key={service.title} {...service} />
-            ))}
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div className="relative min-h-[280px] overflow-hidden bg-muted/50 lg:min-h-full">
+              <Image
+                src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=1000&q=80"
+                alt="Премиальный автомобиль"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-6 md:p-8">
+                <p className="text-xs uppercase tracking-widest text-white/70">
+                  JetQ
+                </p>
+                <h3 className="mt-2 text-2xl uppercase tracking-tight text-white md:text-3xl">
+                  Премиум-уход
+                </h3>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {services.map((service) => (
+                <ServiceCard key={service.title} {...service} />
+              ))}
+            </div>
           </div>
+        </div>
+        <div className="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-1/2 text-white/10 lg:block">
+          <ChevronRight size={56} strokeWidth={1} className="rotate-90" />
         </div>
       </section>
 
-      <section className="bg-muted/50 backdrop-blur-md py-20">
+      <section className="relative bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Почему JetQ?"
-            subtitle="Работаем для тех, кто ценит качество, прозрачность и сервис."
+            subtitle="Качество, прозрачность и сервис для тех, кто ценит авто."
           />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {advantages.map((item) => (
-              <div
-                key={item.title}
-                className="bg-card p-6"
-              >
-                <h3 className="text-lg font-normal uppercase tracking-tight text-card-foreground">
-                  {item.title}
+          <div className="grid gap-8 lg:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {advantages.map((item, index) => (
+                <div
+                  key={item.title}
+                  className="group flex flex-col justify-between bg-card p-6"
+                >
+                  <div>
+                    <div className="flex items-center gap-2 text-gold">
+                      <span className="text-xs font-normal uppercase tracking-widest">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <ArrowRight size={14} className="opacity-0 transition-opacity group-hover:opacity-100" />
+                    </div>
+                    <h3 className="mt-3 text-lg font-normal uppercase tracking-tight text-card-foreground">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="relative min-h-[320px] overflow-hidden bg-background/50 lg:min-h-full">
+              <Image
+                src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1000&q=80"
+                alt="Автомобиль в движении"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-6 md:p-8">
+                <p className="text-xs uppercase tracking-widest text-white/70">
+                  JetQ
+                </p>
+                <h3 className="mt-2 text-2xl uppercase tracking-tight text-white md:text-3xl">
+                  Надежность на каждом этапе
                 </h3>
-                <p className="mt-2 text-muted-foreground">{item.description}</p>
               </div>
-            ))}
+            </div>
           </div>
+        </div>
+        <div className="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-1/2 text-gold/20 lg:block">
+          <ArrowDown size={48} strokeWidth={1} />
         </div>
       </section>
 
-      <section className="bg-background/50 backdrop-blur-md py-20">
+      <section className="bg-background/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
-          <div className="rounded-none bg-white/50 p-8 backdrop-blur-md dark:bg-charcoal/50 md:p-12">
+          <div className="overflow-hidden bg-gold p-8 md:p-12">
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
               <div>
-                <h2 className="text-3xl font-normal uppercase tracking-tight md:text-4xl">
-                  Бесплатная консультация специалиста
+                <h2 className="text-3xl font-normal uppercase tracking-tight text-black md:text-4xl">
+                  Бесплатная консультация
                 </h2>
-                <p className="mt-4 max-w-2xl text-lg text-muted-foreground">
-                  Проконсультируем по всем вопросам и поможем подобрать нужный вариант авто.
+                <p className="mt-4 max-w-2xl text-lg text-black/80">
+                  Проконсультируем по всем вопросам и подберем нужный вариант авто.
                 </p>
               </div>
-              <CTAButton href="tel:+77750061411" variant="primary">
+              <CTAButton href="tel:+77750061411" variant="white">
                 <Phone size={18} className="mr-2" />
                 Позвонить
               </CTAButton>
@@ -253,21 +296,33 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-muted/50 backdrop-blur-md py-20">
+      <section className="relative bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Как мы работаем"
             subtitle="Простой и понятный процесс от заявки до результата."
           />
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {steps.map((step) => (
-              <ProcessStep key={step.number} {...step} />
-            ))}
+          <div className="relative">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {steps.map((step, index) => (
+                <div key={step.number} className="relative">
+                  <ProcessStep {...step} />
+                  {index < steps.length - 1 && (
+                    <div className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 text-gold/30 lg:block">
+                      <ChevronRight size={24} strokeWidth={1} />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+        <div className="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-1/2 text-white/10 lg:block">
+          <ArrowDown size={48} strokeWidth={1} />
         </div>
       </section>
 
-      <section className="bg-background/50 backdrop-blur-md py-20">
+      <section className="bg-background/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Частые вопросы"
@@ -277,11 +332,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-muted/50 backdrop-blur-md py-20">
+      <section className="bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Свяжитесь с нами"
-            subtitle="Приезжайте в наш офис или позвоните — мы ответим на все вопросы."
+            subtitle="Приезжайте в офис или позвоните — мы ответим на все вопросы."
           />
           <ContactBlock />
         </div>
