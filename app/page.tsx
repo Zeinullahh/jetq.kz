@@ -148,8 +148,9 @@ export default function HomePage() {
           />
           <div className="grid gap-0 overflow-hidden bg-gold lg:grid-cols-2">
             <div className="relative min-h-[320px] lg:min-h-[420px]">
+              {/* Replace with "/images/zeekr-8x.jpg" when the file is available */}
               <Image
-                src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80"
+                src="https://images.unsplash.com/photo-1710774965929-89c8234ba2b9?auto=format&fit=crop&w=1200&q=80"
                 alt="Zeekr 8X — первый в Казахстане"
                 fill
                 className="object-cover"
@@ -302,6 +303,16 @@ export default function HomePage() {
             title="Как мы работаем"
             subtitle="Простой и понятный процесс от заявки до результата."
           />
+          <div className="relative mb-10 aspect-video min-h-[300px] w-full overflow-hidden bg-muted/50">
+            <Image
+              src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80"
+              alt="Электромобиль"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+          </div>
           <div className="relative">
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {steps.map((step, index) => (
