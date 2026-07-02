@@ -9,7 +9,7 @@ export function HeroVideo({ children, className }: HeroVideoProps) {
   return (
     <section
       className={cn(
-        "relative flex min-h-[80vh] items-center justify-center overflow-hidden md:min-h-screen",
+        "relative flex min-h-screen items-center justify-center overflow-hidden",
         className
       )}
     >

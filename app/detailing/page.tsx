@@ -56,15 +56,26 @@ const steps = [
   },
 ];
 
+const gallery = [
+  "https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1552930294-6a8f015c827b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1520340356584-76214b2f5e7b?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80",
+];
+
 export default function DetailingPage() {
   return (
     <>
       <HeroVideo>
-        <p className="text-sm font-medium uppercase tracking-widest text-white/80">
+        <p className="text-sm font-normal uppercase tracking-widest text-white/80">
           JetQ Детейлинг
         </p>
-        <h1 className="mt-4 text-4xl font-bold leading-tight md:text-6xl">
-          Идеальный вид вашего автомобиля
+        <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
+          Идеальный вид
+          <br />
+          вашего автомобиля
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
           Премиальный уход за кузовом и салоном в Алматы.
@@ -76,26 +87,30 @@ export default function DetailingPage() {
         </div>
       </HeroVideo>
 
-      <section className="mx-auto max-w-7xl px-4 py-20">
-        <SectionHeader
-          title="Услуги детейлинга"
-          subtitle="Комплексный уход, который сохраняет и подчеркивает достоинства вашего авто."
-        />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map(({ icon: Icon, title, description }) => (
-            <div
-              key={title}
-              className="rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-lg"
-            >
-              <Icon className="h-10 w-10 text-primary" />
-              <h3 className="mt-4 text-xl font-semibold">{title}</h3>
-              <p className="mt-2 text-muted-foreground">{description}</p>
-            </div>
-          ))}
+      <section className="bg-black py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <SectionHeader
+            title="Услуги детейлинга"
+            subtitle="Комплексный уход, который сохраняет и подчеркивает достоинства вашего авто."
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map(({ icon: Icon, title, description }) => (
+              <div
+                key={title}
+                className="bg-charcoal p-6"
+              >
+                <Icon className="h-10 w-10 text-gold" />
+                <h3 className="mt-4 text-xl font-normal uppercase tracking-tight text-white">
+                  {title}
+                </h3>
+                <p className="mt-2 text-ash">{description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-muted/30 py-20">
+      <section className="bg-charcoal py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Процесс работы"
@@ -109,34 +124,29 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20">
-        <SectionHeader
-          title="Галерея"
-          subtitle="Примеры наших работ — премиальный уход за кузовом и салоном."
-        />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            "https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1552930294-6a8f015c827b?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1520340356584-76214b2f5e7b?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80",
-          ].map((src, i) => (
-            <div key={src} className="relative aspect-video overflow-hidden rounded-xl">
-              <Image
-                src={src}
-                alt={`Пример детейлинга ${i + 1}`}
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              />
-            </div>
-          ))}
+      <section className="bg-charcoal py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <SectionHeader
+            title="Галерея"
+            subtitle="Примеры наших работ — премиальный уход за кузовом и салоном."
+          />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {gallery.map((src, i) => (
+              <div key={src} className="relative aspect-video overflow-hidden bg-dark-iron">
+                <Image
+                  src={src}
+                  alt={`Пример детейлинга ${i + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-muted/30 py-20">
+      <section className="bg-black py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Запишитесь на детейлинг"

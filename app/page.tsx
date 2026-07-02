@@ -33,6 +33,33 @@ const services = [
   },
 ];
 
+const advantages = [
+  {
+    title: "Прямые поставки из Китая",
+    description: "Работаем напрямую с производителями и поставщиками.",
+  },
+  {
+    title: "Современное оборудование",
+    description: "Детейлинг-центр оснащен профессиональными материалами.",
+  },
+  {
+    title: "Прозрачные цены",
+    description: "Фиксируем стоимость в договоре без скрытых доплат.",
+  },
+  {
+    title: "Кредит, лизинг и trade-in",
+    description: "Помогаем выбрать удобный способ приобретения авто.",
+  },
+  {
+    title: "Гарантия качества",
+    description: "Отвечаем за результат всех работ и услуг.",
+  },
+  {
+    title: "Расположение в Алматы",
+    description: "ЖК Forum Residence, удобный заезд и парковка.",
+  },
+];
+
 const steps = [
   {
     number: "01",
@@ -65,11 +92,13 @@ export default function HomePage() {
   return (
     <>
       <HeroVideo>
-        <p className="text-sm font-medium uppercase tracking-widest text-white/80">
+        <p className="text-sm font-normal uppercase tracking-widest text-white/80">
           JetQ Group
         </p>
-        <h1 className="mt-4 text-4xl font-bold leading-tight md:text-6xl lg:text-7xl">
-          Премиальный автомобильный сервис
+        <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
+          Премиальный
+          <br />
+          автомобильный сервис
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
           Детейлинг, продажа и обмен автомобилей в Алматы. Качество, которое видно с первого взгляда.
@@ -78,63 +107,63 @@ export default function HomePage() {
           <CTAButton href="/detailing" variant="primary">
             JetQ Детейлинг
           </CTAButton>
-          <CTAButton href="/cars" variant="outline" className="text-white border-white hover:bg-white/10">
+          <CTAButton href="/cars" variant="ghost">
             Авто в наличии
           </CTAButton>
         </div>
       </HeroVideo>
 
-      <section className="mx-auto max-w-7xl px-4 py-20">
-        <SectionHeader
-          title="Наши услуги"
-          subtitle="Полный спектр премиальных услуг для вашего автомобиля."
-        />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => (
-            <ServiceCard key={service.title} {...service} />
-          ))}
+      <section className="bg-charcoal py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <SectionHeader
+            title="Наши услуги"
+            subtitle="Полный спектр премиальных услуг для вашего автомобиля."
+          />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {services.map((service) => (
+              <ServiceCard key={service.title} {...service} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-muted/30 py-20">
+      <section className="bg-black py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Почему JetQ?"
             subtitle="Работаем для тех, кто ценит качество, прозрачность и сервис."
           />
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              "Прямые поставки из Китая",
-              "Современное детейлинг-оборудование",
-              "Прозрачные цены без скрытых доплат",
-              "Помощь в кредите, лизинге и trade-in",
-              "Гарантия качества на все работы",
-              "Удобное расположение в Алматы",
-            ].map((item) => (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {advantages.map((item) => (
               <div
-                key={item}
-                className="rounded-xl border border-border bg-card p-6"
+                key={item.title}
+                className="bg-charcoal p-6"
               >
-                <p className="font-medium">{item}</p>
+                <h3 className="text-lg font-normal uppercase tracking-tight text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-ash">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20">
-        <SectionHeader
-          title="Как мы работаем"
-          subtitle="Простой и понятный процесс от заявки до результата."
-        />
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {steps.map((step) => (
-            <ProcessStep key={step.number} {...step} />
-          ))}
+      <section className="bg-charcoal py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <SectionHeader
+            title="Как мы работаем"
+            subtitle="Простой и понятный процесс от заявки до результата."
+          />
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {steps.map((step) => (
+              <ProcessStep key={step.number} {...step} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-muted/30 py-20">
+      <section className="bg-black py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Свяжитесь с нами"

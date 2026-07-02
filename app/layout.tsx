@@ -29,7 +29,7 @@ export default function RootLayout({
       <body className={cn(oswald.variable, "font-sans")}>
         <Providers>
           <Navbar />
-          <main className="min-h-screen pt-16">{children}</main>
+          <main className="min-h-screen dark">{children}</main>
           <Footer />
         </Providers>
       </body>
