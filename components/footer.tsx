@@ -3,7 +3,6 @@ import { ExternalLink } from "lucide-react";
 
 const socials = [
   { href: "https://www.instagram.com/jetqauto.kz/", label: "Instagram" },
-  { href: "https://jetq.kz/", label: "jetq.kz" },
 ];
 
 export function Footer() {
