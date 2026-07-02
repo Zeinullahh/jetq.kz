@@ -61,25 +61,25 @@ const gallery = [
   "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1492144534633-79f5e10b9f6a?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=800&q=80",
 ];
-
-const DETAILING_BACKGROUND =
-  "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=1920&q=80";
 
 export default function DetailingPage() {
   return (
     <>
       {/* Fixed full-screen background unique to the detailing page */}
       <div className="fixed inset-0 -z-10">
-        <Image
-          src={DETAILING_BACKGROUND}
-          alt="Детейлинг автомобиля"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
+        <video
+          src="/videos/hero-detailing.mp4"
+          poster="/videos/hero-detailing-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          webkit-playsinline="true"
+          className="fixed inset-0 -z-10 h-screen w-full object-cover"
         />
         <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
       </div>
