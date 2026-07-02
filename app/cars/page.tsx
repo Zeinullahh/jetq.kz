@@ -52,7 +52,7 @@ export default function CarsPage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-muted py-20">
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Актуальные предложения"
@@ -66,7 +66,7 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-background py-20">
+      <section className="bg-background/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Способы приобретения"
@@ -88,7 +88,7 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-muted py-20">
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Trade-In / Обмен авто"
@@ -124,7 +124,7 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-background py-20">
+      <section className="bg-background/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Свяжитесь с нами"

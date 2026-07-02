@@ -87,7 +87,7 @@ export default function DetailingPage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-muted py-20">
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Услуги детейлинга"
@@ -110,7 +110,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-background py-20">
+      <section className="bg-background/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Процесс работы"
@@ -124,7 +124,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-muted py-20">
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Галерея"
@@ -146,7 +146,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-background py-20">
+      <section className="bg-background/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Запишитесь на детейлинг"

@@ -113,7 +113,7 @@ export default function HomePage() {
         </div>
       </HeroVideo>
 
-      <section className="bg-muted py-20">
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Наши услуги"
@@ -127,7 +127,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-background py-20">
+      <section className="bg-background/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Почему JetQ?"
@@ -149,7 +149,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-muted py-20">
+      <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Как мы работаем"
@@ -163,7 +163,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-background py-20">
+      <section className="bg-background/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <SectionHeader
             title="Свяжитесь с нами"
