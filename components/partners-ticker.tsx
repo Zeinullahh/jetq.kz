@@ -18,7 +18,7 @@ function LogoStrip({ suffix }: { suffix: string }) {
       {partners.map((partner) => (
         <div
           key={`${partner.name}-${suffix}`}
-          className="flex h-[120px] w-[200px] flex-shrink-0 items-center justify-center border-r border-white/10 px-8 last:border-r-0 md:h-[140px] md:w-[260px]"
+          className="flex h-[120px] w-[200px] flex-shrink-0 items-center justify-center px-8 md:h-[140px] md:w-[260px]"
         >
           <div className="flex items-center justify-center">
             <Image
@@ -35,6 +35,8 @@ function LogoStrip({ suffix }: { suffix: string }) {
   );
 }
 
+const COPIES = 6;
+
 export function PartnersTicker() {
   const prefersReducedMotion = useReducedMotion() ?? false;
 
@@ -47,14 +49,18 @@ export function PartnersTicker() {
         />
       </div>
 
-      <div className="mt-2 border-y border-white/10 bg-card">
+      <div className="mt-2 bg-smoke">
         <div className="group relative overflow-hidden">
           <div
             className={`flex w-max items-center ${prefersReducedMotion ? "" : "animate-marquee"}`}
-            style={{ "--marquee-duration": "40s" } as CSSProperties}
+            style={{
+              "--marquee-duration": "40s",
+              "--marquee-translate": `-${100 / COPIES}%`,
+            } as CSSProperties}
           >
-            <LogoStrip suffix="a" />
-            <LogoStrip suffix="b" />
+            {Array.from({ length: COPIES }).map((_, i) => (
+              <LogoStrip key={i} suffix={String.fromCharCode(97 + i)} />
+            ))}
           </div>
         </div>
       </div>
