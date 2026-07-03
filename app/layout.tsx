@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { CursorSpotlight } from "@/components/cursor-spotlight";
+import { LoadingScreen } from "@/components/loading-screen";
 
 const oswald = Oswald({
   subsets: ["cyrillic", "latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body className={cn(oswald.variable, "font-sans")}>
+        <LoadingScreen />
         <ScrollProgress />
         <CursorSpotlight />
         <Navbar />

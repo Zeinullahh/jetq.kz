@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -10,21 +11,27 @@ import { MobileMenu } from "./mobile-menu";
 export function Navbar() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Default to dark styles on the server/initial render to match defaultTheme.
   const isDark = mounted ? theme === "dark" : true;
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 border-b backdrop-blur-md transition-colors duration-300 ${
-        isDark
-          ? "bg-black/50 border-white/10"
-          : "bg-white/50 border-black/10"
-      }`}
-    >
-      <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-4">
+      <nav
+        className={`mx-auto flex max-w-5xl items-center justify-between rounded-full border px-4 py-3 shadow-lg backdrop-blur-xl transition-all duration-300 md:px-6 md:py-3.5 ${
+          isDark
+            ? "border-white/10 bg-black/60 shadow-black/40"
+            : "border-black/10 bg-white/70 shadow-black/10"
+        } ${scrolled ? "scale-[0.98] opacity-95" : "scale-100 opacity-100"}`}
+      >
         <MobileMenu
           trigger={
             <span
@@ -37,13 +44,15 @@ export function Navbar() {
             </span>
           }
         />
-        <Link
-          href="/"
-          className={`absolute left-1/2 -translate-x-1/2 text-2xl font-medium uppercase tracking-tight transition-colors duration-300 ${
-            isDark ? "text-white" : "text-black"
-          }`}
-        >
-          JETQ
+        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+          <Image
+            src={isDark ? "/images/JetQ_Type_White.png" : "/images/JetQ_Type_Black.png"}
+            alt="JetQ"
+            width={200}
+            height={68}
+            className="h-12 w-auto object-contain transition-opacity duration-300 md:h-14"
+            priority
+          />
         </Link>
         <ThemeToggle />
       </nav>
