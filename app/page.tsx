@@ -1,12 +1,23 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { HeroVideo } from "@/components/hero-video";
-import { SectionHeader } from "@/components/section-header";
+import { MotionHeroText, MotionHeroItem } from "@/components/motion-hero-text";
+import { MotionSectionHeader } from "@/components/motion-section-header";
 import { ServiceCard } from "@/components/service-card";
-import { ProcessStep } from "@/components/process-step";
 import { ContactBlock } from "@/components/contact-block";
 import { CTAButton } from "@/components/cta-button";
 import { FAQAccordion } from "@/components/faq-accordion";
-import { Sparkles, Phone, ArrowRight, ArrowDown, ChevronRight } from "lucide-react";
+import { YouTubeBackground } from "@/components/youtube-background";
+import { PartnersTicker } from "@/components/partners-ticker";
+import { ProcessTimeline } from "@/components/process-timeline";
+import { MotionCard } from "@/components/motion-card";
+import { MagneticButton } from "@/components/magnetic-button";
+import { ParallaxImage } from "@/components/parallax-image";
+import { FadeIn } from "@/components/fade-in";
+import { WHATSAPP_URL } from "@/lib/constants";
+import { Phone, ArrowRight, ArrowDown, ChevronRight } from "lucide-react";
 
 const services = [
   {
@@ -118,66 +129,79 @@ const faqItems = [
 export default function HomePage() {
   return (
     <>
+      <YouTubeBackground videoId="0_Or6gyR87g" />
       <HeroVideo>
-        <p className="text-sm font-normal uppercase tracking-widest text-white/80">
-          JetQ Group
-        </p>
-        <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
-          Премиальный
-          <br />
-          автомобильный сервис
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
-          Детейлинг, продажа и обмен автомобилей в Алматы. Качество, которое видно с первого взгляда.
-        </p>
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <CTAButton href="/detailing" variant="primary">
-            JetQ Детейлинг
-          </CTAButton>
-          <CTAButton href="/cars" variant="ghost">
-            Авто в наличии
-          </CTAButton>
-        </div>
+        <MotionHeroText className="flex flex-col items-center">
+          <MotionHeroItem>
+            <p className="text-sm font-normal uppercase tracking-widest text-white/80">
+              JetQ Group
+            </p>
+          </MotionHeroItem>
+          <MotionHeroItem>
+            <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
+              Премиальный
+              <br />
+              автомобильный сервис
+            </h1>
+          </MotionHeroItem>
+          <MotionHeroItem>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
+              Детейлинг, продажа и обмен автомобилей в Алматы. Качество, которое видно с первого взгляда.
+            </p>
+          </MotionHeroItem>
+          <MotionHeroItem>
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <MagneticButton>
+                <CTAButton href={WHATSAPP_URL} variant="primary">
+                  JetQ Детейлинг
+                </CTAButton>
+              </MagneticButton>
+              <MagneticButton>
+                <CTAButton href={WHATSAPP_URL} variant="ghost">
+                  Авто в наличии
+                </CTAButton>
+              </MagneticButton>
+            </div>
+          </MotionHeroItem>
+        </MotionHeroText>
       </HeroVideo>
 
       <section className="relative bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
-          <SectionHeader
+          <MotionSectionHeader
             title="Актуальные акции"
             subtitle="Топовые позиции и популярные автомобили в JetQ."
           />
-          <div className="grid gap-0 overflow-hidden bg-gold lg:grid-cols-2">
-            <div className="relative min-h-[320px] lg:min-h-[420px]">
-              {/* Replace with "/images/zeekr-8x.jpg" when the file is available */}
-              <Image
-                src="https://images.unsplash.com/photo-1710774965929-89c8234ba2b9?auto=format&fit=crop&w=1200&q=80"
-                alt="Zeekr 8X — первый в Казахстане"
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                priority
-              />
-            </div>
-            <div className="flex flex-col justify-center p-8 md:p-12">
-              <div className="flex h-10 w-10 items-center justify-center bg-black text-gold">
-                <Sparkles size={20} />
-              </div>
-              <h3 className="mt-6 text-2xl font-normal uppercase tracking-tight text-black md:text-3xl lg:text-4xl">
-                Первый Zeekr 8X в Казахстане
-              </h3>
-              <p className="mt-4 max-w-md text-black/80">
-                Уникальный электромобиль уже в Алматы. Запишитесь на просмотр.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <CTAButton href="/cars" variant="white">
-                  Смотреть авто
-                </CTAButton>
-                <span className="text-sm uppercase tracking-wide text-black/70">
-                  Байтурсынова 179/2
-                </span>
+          <FadeIn>
+            <div className="grid gap-0 overflow-hidden bg-gold lg:grid-cols-2">
+              <ParallaxImage className="relative min-h-[320px] lg:min-h-[420px]" speed={0.15}>
+                <Image
+                  src="/images/zeekr-8x.jpg"
+                  alt="Zeekr 8X — первый в Казахстане"
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  priority
+                />
+              </ParallaxImage>
+              <div className="flex flex-col justify-center p-8 md:p-12">
+                <h3 className="text-2xl font-normal uppercase tracking-tight text-black md:text-3xl lg:text-4xl">
+                  Первый Zeekr 8X в Казахстане
+                </h3>
+                <p className="mt-4 max-w-md text-black/80">
+                  Уникальный электромобиль уже в Алматы. Запишитесь на просмотр.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <CTAButton href={WHATSAPP_URL} variant="white">
+                    Смотреть авто
+                  </CTAButton>
+                  <span className="text-sm uppercase tracking-wide text-black/70">
+                    Байтурсынова 179/2
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
+          </FadeIn>
         </div>
         <div className="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-1/2 text-gold/20 lg:block">
           <ArrowDown size={48} strokeWidth={1} />
@@ -186,7 +210,7 @@ export default function HomePage() {
 
       <section className="relative bg-background/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
-          <SectionHeader
+          <MotionSectionHeader
             title="Наши услуги"
             subtitle="Все, что нужно для вашего автомобиля."
           />
@@ -210,8 +234,23 @@ export default function HomePage() {
               </div>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              {services.map((service) => (
-                <ServiceCard key={service.title} {...service} />
+              {services.map((service, index) => (
+                <motion.div
+                  key={service.title}
+                  initial={{ opacity: 0, y: 40, rotateX: 20 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{
+                    duration: 0.6,
+                    delay: index * 0.08,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                  style={{ perspective: 1000 }}
+                >
+                  <MotionCard className="h-full" sheen={service.featured}>
+                    <ServiceCard {...service} />
+                  </MotionCard>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -223,32 +262,35 @@ export default function HomePage() {
 
       <section className="relative bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
-          <SectionHeader
+          <MotionSectionHeader
             title="Почему JetQ?"
             subtitle="Качество, прозрачность и сервис для тех, кто ценит авто."
           />
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="grid gap-4 sm:grid-cols-2">
               {advantages.map((item, index) => (
-                <div
+                <motion.div
                   key={item.title}
-                  className="group flex flex-col justify-between bg-card p-6"
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: index * 0.08 }}
                 >
-                  <div>
-                    <div className="flex items-center gap-2 text-gold">
-                      <span className="text-xs font-normal uppercase tracking-widest">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      <ArrowRight size={14} className="opacity-0 transition-opacity group-hover:opacity-100" />
+                  <MotionCard className="group flex h-full flex-col justify-between bg-card p-6" sheen>
+                    <div>
+                      <div className="flex items-center gap-2 text-gold">
+                        <span className="text-xs font-normal uppercase tracking-widest">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <ArrowRight size={14} className="opacity-0 transition-opacity group-hover:opacity-100" />
+                      </div>
+                      <h3 className="mt-3 text-lg font-normal uppercase tracking-tight text-card-foreground">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm text-muted-foreground">{item.description}</p>
                     </div>
-                    <h3 className="mt-3 text-lg font-normal uppercase tracking-tight text-card-foreground">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
+                  </MotionCard>
+                </motion.div>
               ))}
             </div>
             <div className="relative min-h-[320px] overflow-hidden bg-background/50 lg:min-h-full">
@@ -276,6 +318,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <PartnersTicker />
+
       <section className="bg-background/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <div className="overflow-hidden bg-gold p-8 md:p-12">
@@ -288,68 +332,40 @@ export default function HomePage() {
                   Проконсультируем по всем вопросам и подберем нужный вариант авто.
                 </p>
               </div>
-              <CTAButton href="tel:+77750061411" variant="white">
-                <Phone size={18} className="mr-2" />
-                Позвонить
-              </CTAButton>
+              <MagneticButton>
+                <CTAButton href={WHATSAPP_URL} variant="white">
+                  <Phone size={18} className="mr-2" />
+                  Написать в WhatsApp
+                </CTAButton>
+              </MagneticButton>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="relative bg-muted/50 py-24">
-        <div className="mx-auto max-w-7xl px-4">
-          <SectionHeader
-            title="Как мы работаем"
-            subtitle="Простой и понятный процесс от заявки до результата."
-          />
-          <div className="relative mb-10 aspect-video min-h-[300px] w-full overflow-hidden bg-muted/50">
-            <Image
-              src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1200&q=80"
-              alt="Электромобиль"
-              fill
-              className="object-cover"
-              sizes="100vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-          </div>
-          <div className="relative">
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {steps.map((step, index) => (
-                <div key={step.number} className="relative">
-                  <ProcessStep {...step} />
-                  {index < steps.length - 1 && (
-                    <div className="pointer-events-none absolute -right-3 top-1/2 hidden -translate-y-1/2 text-gold/30 lg:block">
-                      <ChevronRight size={24} strokeWidth={1} />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="pointer-events-none absolute bottom-0 left-1/2 hidden -translate-x-1/2 translate-y-1/2 text-white/10 lg:block">
-          <ArrowDown size={48} strokeWidth={1} />
-        </div>
-      </section>
+      <ProcessTimeline steps={steps} />
 
       <section className="bg-background/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
-          <SectionHeader
+          <MotionSectionHeader
             title="Частые вопросы"
             subtitle="Отвечаем на популярные вопросы о наших услугах."
           />
-          <FAQAccordion items={faqItems} />
+          <FadeIn>
+            <FAQAccordion items={faqItems} />
+          </FadeIn>
         </div>
       </section>
 
       <section className="bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
-          <SectionHeader
+          <MotionSectionHeader
             title="Свяжитесь с нами"
             subtitle="Приезжайте в офис или позвоните — мы ответим на все вопросы."
           />
-          <ContactBlock />
+          <FadeIn>
+            <ContactBlock />
+          </FadeIn>
         </div>
       </section>
     </>
