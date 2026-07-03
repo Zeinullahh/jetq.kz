@@ -15,7 +15,7 @@ const partners = [
 
 // Duplicate enough times so the track is always wider than the viewport.
 const DUPLICATES = 4;
-const SCROLL_SPEED = 1.0; // pixels per frame (~60 fps)
+const SCROLL_SPEED = 0.4; // pixels per frame (~60 fps)
 const RESUME_DELAY = 1200; // ms
 
 export function PartnersTicker() {
@@ -71,7 +71,7 @@ export function PartnersTicker() {
 
     let timeout: ReturnType<typeof setTimeout>;
     const handleScroll = () => {
-      setBoost(2.0);
+      setBoost(0.6);
       clearTimeout(timeout);
       timeout = setTimeout(() => setBoost(0), 500);
     };
