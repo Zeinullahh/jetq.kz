@@ -3,7 +3,8 @@
 import { useEffect, useId, useState } from "react";
 import { X } from "lucide-react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { createPortal } from "react-dom";
 
 const links = [
   { href: "/", label: "Главная" },
@@ -46,15 +47,13 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
       >
         {trigger ?? "МЕНЮ"}
       </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
+      {open &&
+        createPortal(
+          <div
             id={menuId}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 z-50 flex flex-col bg-white/95 backdrop-blur-xl dark:bg-black/95"
+            role="dialog"
+            aria-modal="true"
+            className="fixed inset-0 z-[100] flex flex-col bg-mist dark:bg-charcoal"
           >
             <div className="flex items-center justify-between px-6 py-4">
               <span className="text-sm font-normal uppercase tracking-wide text-muted-foreground">
@@ -74,7 +73,6 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
                   key={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
                   transition={{
                     duration: 0.3,
                     ease: "easeInOut",
@@ -91,9 +89,9 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
                 </motion.div>
               ))}
             </nav>
-          </motion.div>
+          </div>,
+          document.body as HTMLElement
         )}
-      </AnimatePresence>
     </>
   );
 }

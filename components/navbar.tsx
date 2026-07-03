@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { Menu, Phone } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
@@ -54,7 +54,20 @@ export function Navbar() {
             priority
           />
         </Link>
-        <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <a
+            href="tel:+77750061411"
+            aria-label="Позвонить +7 (775) 006-14-11"
+            className={`rounded-full p-2 transition-colors duration-300 ${
+              isDark
+                ? "text-white hover:bg-white/10"
+                : "text-black hover:bg-black/10"
+            }`}
+          >
+            <Phone size={20} />
+          </a>
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );

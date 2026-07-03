@@ -64,12 +64,12 @@ const steps = [
 ];
 
 const gallery = [
-  "https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80",
+  "/images/placeholder-1.jpg",
+  "/images/placeholder-2.png",
+  "/images/placeholder-3.png",
   "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=80",
-  "https://images.unsplash.com/photo-1492144534633-79f5e10b9f6a?auto=format&fit=crop&w=800&q=80",
+  "/images/zeekr-9x.jpg",
 ];
 
 export default function DetailingPage() {
@@ -179,7 +179,7 @@ export default function DetailingPage() {
                       initial={false}
                       whileInView={{ scale: [0.8, 1.1, 1] }}
                       viewport={{ once: true }}
-                      transition={{ type: "spring", stiffness: 300, damping: 15, delay: index * 0.12 }}
+                      transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.12 }}
                     >
                       {step.number}
                     </motion.div>
@@ -211,7 +211,7 @@ export default function DetailingPage() {
                 key={src}
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ amount: "some", margin: "-100px" }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
               >
                 <MotionCard className="group relative aspect-video overflow-hidden bg-muted" hoverScale={1.03}>
