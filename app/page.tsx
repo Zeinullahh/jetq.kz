@@ -17,7 +17,7 @@ import { MagneticButton } from "@/components/magnetic-button";
 import { ParallaxImage } from "@/components/parallax-image";
 import { FadeIn } from "@/components/fade-in";
 import { WHATSAPP_URL } from "@/lib/constants";
-import { Phone, ArrowRight, ArrowDown, ChevronRight } from "lucide-react";
+import { Phone, ArrowDown, ChevronRight } from "lucide-react";
 
 const services = [
   {
@@ -282,7 +282,6 @@ export default function HomePage() {
                         <span className="text-xs font-normal uppercase tracking-widest">
                           {String(index + 1).padStart(2, "0")}
                         </span>
-                        <ArrowRight size={14} className="opacity-0 transition-opacity group-hover:opacity-100" />
                       </div>
                       <h3 className="mt-3 text-lg font-normal uppercase tracking-tight text-card-foreground">
                         {item.title}
