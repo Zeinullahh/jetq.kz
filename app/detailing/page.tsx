@@ -158,7 +158,7 @@ export default function DetailingPage() {
             title="Процесс работы"
             subtitle="От диагностики до идеального результата — четыре понятных этапа."
           />
-          <div className="relative grid gap-8 md:grid-cols-2">
+          <div className="relative max-w-3xl mx-auto">
             <TimelineLine className="left-[19px] top-0 lg:left-[23px]" />
             <div className="relative space-y-8">
               {steps.map((step, index) => (

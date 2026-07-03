@@ -145,30 +145,29 @@ export default function CarsPage() {
             title="Trade-In / Обмен авто"
             subtitle="Быстрая оценка и честные условия обмена."
           />
-          <div className="bg-card p-8 md:p-12">
-            <div className="grid items-center gap-8 md:grid-cols-[1fr_auto_1fr]">
-              <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <MotionCard className="bg-card p-8 md:p-12" sheen>
-                  <h3 className="text-2xl font-normal uppercase tracking-tight text-card-foreground">
-                    У нас есть Trade-In
-                  </h3>
-                  <p className="mt-4 text-muted-foreground">
-                    Оценим ваш авто по рынку, подберем новый и оформим документы.
-                  </p>
-                  <div className="mt-6">
-                    <MagneticButton>
-                      <CTAButton href={WHATSAPP_URL} variant="primary">
-                        Оценить мой авто
-                      </CTAButton>
-                    </MagneticButton>
-                  </div>
-                </MotionCard>
-              </motion.div>
+          <div className="grid items-center gap-8 md:grid-cols-[1fr_auto_1fr]">
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <MotionCard className="bg-card p-8 md:p-12" sheen>
+                <h3 className="text-2xl font-normal uppercase tracking-tight text-card-foreground">
+                  У нас есть Trade-In
+                </h3>
+                <p className="mt-4 text-muted-foreground">
+                  Оценим ваш авто по рынку, подберем новый и оформим документы.
+                </p>
+                <div className="mt-6">
+                  <MagneticButton>
+                    <CTAButton href={WHATSAPP_URL} variant="primary">
+                      Оценить мой авто
+                    </CTAButton>
+                  </MagneticButton>
+                </div>
+              </MotionCard>
+            </motion.div>
               <div className="hidden justify-center md:flex">
                 <ArrowRight className="text-gold/50" size={40} />
               </div>
@@ -190,8 +189,7 @@ export default function CarsPage() {
               </motion.div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
       <MapSection />
     </>
