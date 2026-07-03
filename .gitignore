@@ -35,3 +35,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python virtual environment
+.venv/
+
+# local planning/tooling files
+.superpowers/
+docs/superpowers/
+
+# large media assets (use CDN/LFS instead)
+public/videos/
