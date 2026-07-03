@@ -3,6 +3,7 @@ import { Oswald } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
+import { PageTransition } from "@/components/page-transition";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
@@ -30,15 +31,17 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body className={cn(oswald.variable, "font-sans")}>
-        <LoadingScreen />
-        <ScrollProgress />
-        <CursorSpotlight />
-        <Navbar />
-        <div className="fixed inset-0 -z-10 bg-black/0 dark:bg-black/60" aria-hidden="true" />
-        <main className="relative min-h-screen">
-          <Providers>{children}</Providers>
-        </main>
-        <Footer />
+        <Providers>
+          <LoadingScreen />
+          <ScrollProgress />
+          <CursorSpotlight />
+          <Navbar />
+          <div className="fixed inset-0 -z-10 bg-black/0 dark:bg-black/60" aria-hidden="true" />
+          <main className="relative min-h-screen">
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
