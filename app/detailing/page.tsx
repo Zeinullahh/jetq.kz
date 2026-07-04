@@ -12,6 +12,7 @@ import { MotionSectionHeader } from "@/components/motion-section-header";
 import { MotionCard } from "@/components/motion-card";
 import { MagneticButton } from "@/components/magnetic-button";
 import { TimelineLine } from "@/components/timeline-line";
+import { FAQSection } from "@/components/faq-section";
 import { Sparkles, Shield, Droplets, Paintbrush } from "lucide-react";
 
 const services = [
@@ -237,6 +238,8 @@ export default function DetailingPage() {
           </div>
         </div>
       </section>
+
+      <FAQSection />
     </>
   );
 }
