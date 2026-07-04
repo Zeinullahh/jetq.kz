@@ -78,18 +78,16 @@ export default function DetailingPage() {
       {/* Fixed full-screen background unique to the detailing page */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <video
+          src="/videos/hero-detailing.mp4"
           poster="/videos/hero-detailing-poster.jpg"
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           webkit-playsinline="true"
           className="absolute inset-0 h-full w-full scale-[1.2] object-cover origin-center"
-        >
-          <source src="/videos/hero-detailing.webm" type="video/webm" />
-          <source src="/videos/hero-detailing.mp4" type="video/mp4" />
-        </video>
+        />
         <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
       </div>
 
