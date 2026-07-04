@@ -9,6 +9,8 @@ import { CTAButton } from "@/components/cta-button";
 import { YouTubeBackground } from "@/components/youtube-background";
 import { CarStockGrid } from "@/components/car-stock-grid";
 import { MapSection } from "@/components/map-section";
+import { ProcessTimeline } from "@/components/process-timeline";
+import { FAQSection } from "@/components/faq-section";
 import { MagneticButton } from "@/components/magnetic-button";
 import { ParallaxImage } from "@/components/parallax-image";
 import { MotionCard } from "@/components/motion-card";
@@ -20,6 +22,34 @@ import {
   Calendar,
   Briefcase,
 } from "lucide-react";
+
+const steps = [
+  {
+    number: "01",
+    title: "Заявка",
+    description: "Менеджер связывается и отвечает на вопросы.",
+  },
+  {
+    number: "02",
+    title: "Договор",
+    description: "Закрепляем условия и ответственность сторон.",
+  },
+  {
+    number: "03",
+    title: "Подбор авто",
+    description: "Вместе находим подходящий автомобиль.",
+  },
+  {
+    number: "04",
+    title: "Доставка",
+    description: "Привозим авто в Алматы и проходим таможню.",
+  },
+  {
+    number: "05",
+    title: "Вручение",
+    description: "Передаем ключи и документы.",
+  },
+];
 
 const purchaseOptions = [
   {
@@ -142,6 +172,8 @@ export default function CarsPage() {
         </div>
       </section>
 
+      <ProcessTimeline steps={steps} />
+
       <section className="bg-muted/50 backdrop-blur-md py-20">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
@@ -195,6 +227,8 @@ export default function CarsPage() {
         </section>
 
       <MapSection />
+
+      <FAQSection />
     </>
   );
 }
