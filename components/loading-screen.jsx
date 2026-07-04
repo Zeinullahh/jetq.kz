@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Image from "next/image";
+import { isVideoExpected, isVideoReady } from "@/lib/loading";
 
 export function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,6 +11,9 @@ export function LoadingScreen() {
 
   useEffect(() => {
     let fallback = null;
+    let cleanedUp = false;
+    let domReady = false;
+    let videoReady = false;
 
     const complete = () => {
       if (fallback) {
@@ -17,22 +21,64 @@ export function LoadingScreen() {
         fallback = null;
       }
       // Small delay so the loader feels intentional, not jarring.
-      setTimeout(() => setIsLoading(false), 800);
+      setTimeout(() => {
+        if (!cleanedUp) {
+          setIsLoading(false);
+        }
+      }, 800);
+    };
+
+    const maybeComplete = () => {
+      if (cleanedUp) return;
+      if (domReady && (!videoExpected || videoReady)) {
+        complete();
+      }
+    };
+
+    const videoExpected = isVideoExpected();
+
+    const onDomReady = () => {
+      domReady = true;
+      maybeComplete();
+    };
+
+    const onVideoReady = () => {
+      videoReady = true;
+      maybeComplete();
     };
 
     // Use DOMContentLoaded instead of window.load so the loader is not blocked
     // by heavy resources such as the full-screen background video.
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-      complete();
+    if (
+      document.readyState === "complete" ||
+      document.readyState === "interactive"
+    ) {
+      domReady = true;
     } else {
-      document.addEventListener("DOMContentLoaded", complete);
-      // Fallback: never let the loader hang longer than 2.5s.
-      fallback = setTimeout(complete, 2500);
-      return () => {
-        document.removeEventListener("DOMContentLoaded", complete);
-        if (fallback) clearTimeout(fallback);
-      };
+      document.addEventListener("DOMContentLoaded", onDomReady);
     }
+
+    if (videoExpected) {
+      if (isVideoReady()) {
+        videoReady = true;
+      } else {
+        window.addEventListener("videoReady", onVideoReady);
+      }
+    }
+
+    // Fallback: never let the loader hang longer than 2.5s (or 5s when a
+    // background video is expected, because YouTube needs more time to buffer).
+    const fallbackMs = videoExpected ? 5000 : 2500;
+    fallback = setTimeout(complete, fallbackMs);
+
+    maybeComplete();
+
+    return () => {
+      cleanedUp = true;
+      document.removeEventListener("DOMContentLoaded", onDomReady);
+      window.removeEventListener("videoReady", onVideoReady);
+      if (fallback) clearTimeout(fallback);
+    };
   }, []);
 
   return (

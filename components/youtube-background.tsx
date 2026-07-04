@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { BackgroundPortal } from "@/components/background-portal";
+import { expectVideo, markVideoReady } from "@/lib/loading";
 import { useEffect, useId, useRef, useState } from "react";
 
 interface SkipSegment {
@@ -162,6 +163,11 @@ function YouTubeBackgroundInner({
                 // ignore
               }
             }
+
+            if (event.data === YT.PlayerState.PLAYING) {
+              // First actual playback means the video is loaded enough to show.
+              markVideoReady();
+            }
           },
         },
       });
@@ -234,6 +240,9 @@ export function YouTubeBackground({
   skipSegments,
 }: YouTubeBackgroundProps) {
   const playerId = useId().replace(/:/g, "-");
+
+  // Tell the global loader that a background video is expected on this page.
+  expectVideo();
 
   return (
     <BackgroundPortal>
