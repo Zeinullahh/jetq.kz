@@ -84,8 +84,17 @@ function loadYouTubeAPI(): Promise<void> {
   return apiPromise;
 }
 
-export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps) {
-  const playerId = useId().replace(/:/g, "-");
+interface YouTubeBackgroundInnerProps {
+  videoId: string;
+  playerId: string;
+  className?: string;
+}
+
+function YouTubeBackgroundInner({
+  videoId,
+  playerId,
+  className,
+}: YouTubeBackgroundInnerProps) {
   const playerRef = useRef<YTPlayer | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -126,7 +135,10 @@ export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps
             event.target.playVideo();
           },
           onStateChange: (event) => {
-            if (event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.BUFFERING) {
+            if (
+              event.data === YT.PlayerState.PLAYING ||
+              event.data === YT.PlayerState.BUFFERING
+            ) {
               setIsPlaying(true);
               try {
                 event.target.unloadModule("captions");
@@ -154,28 +166,40 @@ export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps
   }, [videoId, playerId]);
 
   return (
-    <BackgroundPortal>
+    <div
+      className={cn("fixed inset-0 -z-20 overflow-hidden", className)}
+      aria-hidden="true"
+    >
       <div
-        className={cn("fixed inset-0 -z-20 overflow-hidden", className)}
-        aria-hidden="true"
-      >
-        <div
-          id={playerId}
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-screen w-screen min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
-        />
-        {/* Hide the YouTube title / top chrome */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-black/80 to-transparent" />
-        {/* Hide the bottom controls / next-prev suggestions */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-black/80 to-transparent" />
-        {/* Center play-button hide layer — fades once playback starts */}
-        <div
-          className={cn(
-            "pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-700",
-            isPlaying ? "opacity-0" : "opacity-100"
-          )}
-        />
-        <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-      </div>
+        id={playerId}
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-screen w-screen min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
+      />
+      {/* Hide the YouTube title / top chrome */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-black/80 to-transparent" />
+      {/* Hide the bottom controls / next-prev suggestions */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-black/80 to-transparent" />
+      {/* Center play-button hide layer — fades once playback starts */}
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-700",
+          isPlaying ? "opacity-0" : "opacity-100"
+        )}
+      />
+      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+    </div>
+  );
+}
+
+export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps) {
+  const playerId = useId().replace(/:/g, "-");
+
+  return (
+    <BackgroundPortal>
+      <YouTubeBackgroundInner
+        videoId={videoId}
+        playerId={playerId}
+        className={className}
+      />
     </BackgroundPortal>
   );
 }
