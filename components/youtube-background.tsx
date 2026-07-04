@@ -4,16 +4,24 @@ import { cn } from "@/lib/utils";
 import { BackgroundPortal } from "@/components/background-portal";
 import { useEffect, useId, useRef, useState } from "react";
 
+interface SkipSegment {
+  start: number;
+  end: number;
+}
+
 interface YouTubeBackgroundProps {
   videoId: string;
   className?: string;
   zoom?: number;
+  skipSegments?: SkipSegment[];
 }
 
 interface YTPlayer {
   playVideo(): void;
   destroy(): void;
   unloadModule(name: string): void;
+  getCurrentTime(): number;
+  seekTo(seconds: number, allowSeekAhead?: boolean): void;
 }
 
 interface YTEvent {
@@ -90,6 +98,7 @@ interface YouTubeBackgroundInnerProps {
   playerId: string;
   className?: string;
   zoom?: number;
+  skipSegments?: SkipSegment[];
 }
 
 function YouTubeBackgroundInner({
@@ -97,8 +106,10 @@ function YouTubeBackgroundInner({
   playerId,
   className,
   zoom = 1,
+  skipSegments,
 }: YouTubeBackgroundInnerProps) {
   const playerRef = useRef<YTPlayer | null>(null);
+  const skipIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
@@ -156,18 +167,37 @@ function YouTubeBackgroundInner({
       });
 
       playerRef.current = player;
+
+      // Skip unwanted middle segments by polling current time and seeking past them.
+      if (skipSegments && skipSegments.length > 0) {
+        skipIntervalRef.current = setInterval(() => {
+          const p = playerRef.current;
+          if (!p || typeof p.getCurrentTime !== "function") return;
+          const currentTime = p.getCurrentTime();
+          for (const segment of skipSegments) {
+            if (currentTime >= segment.start && currentTime < segment.end) {
+              p.seekTo(segment.end, true);
+              break;
+            }
+          }
+        }, 200);
+      }
     };
 
     loadYouTubeAPI().then(createPlayer);
 
     return () => {
       isMounted = false;
+      if (skipIntervalRef.current) {
+        clearInterval(skipIntervalRef.current);
+        skipIntervalRef.current = null;
+      }
       if (playerRef.current?.destroy) {
         playerRef.current.destroy();
       }
       playerRef.current = null;
     };
-  }, [videoId, playerId]);
+  }, [videoId, playerId, skipSegments]);
 
   return (
     <div
@@ -197,7 +227,12 @@ function YouTubeBackgroundInner({
   );
 }
 
-export function YouTubeBackground({ videoId, className, zoom }: YouTubeBackgroundProps) {
+export function YouTubeBackground({
+  videoId,
+  className,
+  zoom,
+  skipSegments,
+}: YouTubeBackgroundProps) {
   const playerId = useId().replace(/:/g, "-");
 
   return (
@@ -207,6 +242,7 @@ export function YouTubeBackground({ videoId, className, zoom }: YouTubeBackgroun
         playerId={playerId}
         className={className}
         zoom={zoom}
+        skipSegments={skipSegments}
       />
     </BackgroundPortal>
   );

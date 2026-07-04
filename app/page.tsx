@@ -129,7 +129,10 @@ const faqItems = [
 export default function HomePage() {
   return (
     <>
-      <YouTubeBackground videoId="0_Or6gyR87g" />
+      <YouTubeBackground
+        videoId="0_Or6gyR87g"
+        skipSegments={[{ start: 7, end: 13 }]}
+      />
       <HeroVideo>
         <MotionHeroText className="flex flex-col items-center">
           <MotionHeroItem>
