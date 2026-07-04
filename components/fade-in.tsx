@@ -36,7 +36,7 @@ export function FadeIn({
         delay,
         ease: [0.25, 0.1, 0.25, 1],
       }}
-      className={className}
+      className={`transform-gpu will-change-transform ${className}`}
     >
       {children}
     </motion.div>

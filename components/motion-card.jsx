@@ -21,16 +21,30 @@ export function MotionCard({
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [12, -12]), springConfig);
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-12, 12]), springConfig);
 
+  // Throttle tilt calculations to animation frames to keep mousemove cheap.
+  const rafRef = useRef(null);
+  const pendingRef = useRef({ x: 0, y: 0 });
+
   const handleMouseMove = (e) => {
     if (!tilt || shouldReduceMotion || !ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const px = (e.clientX - rect.left) / rect.width - 0.5;
     const py = (e.clientY - rect.top) / rect.height - 0.5;
-    x.set(px);
-    y.set(py);
+    pendingRef.current = { x: px, y: py };
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      x.set(pendingRef.current.x);
+      y.set(pendingRef.current.y);
+      rafRef.current = null;
+    });
   };
 
   const handleMouseLeave = () => {
+    pendingRef.current = { x: 0, y: 0 };
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
     x.set(0);
     y.set(0);
   };
@@ -38,7 +52,7 @@ export function MotionCard({
   return (
     <motion.div
       ref={ref}
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-hidden transform-gpu will-change-transform backface-hidden ${className}`}
       style={{
         perspective: 1000,
         rotateX: tilt && !shouldReduceMotion ? rotateX : 0,
@@ -52,7 +66,7 @@ export function MotionCard({
     >
       {sheen && !shouldReduceMotion && (
         <motion.div
-          className="pointer-events-none absolute inset-0 z-10"
+          className="pointer-events-none absolute inset-0 z-10 will-change-transform"
           initial={{ x: "-100%", opacity: 0 }}
           whileHover={{ x: "100%", opacity: [0, 0.3, 0] }}
           transition={{ duration: 0.8, ease: "easeInOut" }}

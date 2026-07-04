@@ -9,16 +9,29 @@ export function LoadingScreen() {
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const handleComplete = () => {
+    let fallback = null;
+
+    const complete = () => {
+      if (fallback) {
+        clearTimeout(fallback);
+        fallback = null;
+      }
       // Small delay so the loader feels intentional, not jarring.
       setTimeout(() => setIsLoading(false), 800);
     };
 
-    if (document.readyState === "complete") {
-      handleComplete();
+    // Use DOMContentLoaded instead of window.load so the loader is not blocked
+    // by heavy resources such as the full-screen background video.
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      complete();
     } else {
-      window.addEventListener("load", handleComplete);
-      return () => window.removeEventListener("load", handleComplete);
+      document.addEventListener("DOMContentLoaded", complete);
+      // Fallback: never let the loader hang longer than 2.5s.
+      fallback = setTimeout(complete, 2500);
+      return () => {
+        document.removeEventListener("DOMContentLoaded", complete);
+        if (fallback) clearTimeout(fallback);
+      };
     }
   }, []);
 
@@ -32,7 +45,7 @@ export function LoadingScreen() {
           transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.div
-            className="relative flex flex-col items-center"
+            className="relative flex flex-col items-center transform-gpu will-change-transform"
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.7, ease: [0.22, 1, 0.36, 1] }}

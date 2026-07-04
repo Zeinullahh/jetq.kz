@@ -62,7 +62,7 @@ export function StaggerItem({
               },
             }
       }
-      className={className}
+      className={`transform-gpu will-change-transform ${className}`}
     >
       {children}
     </motion.div>

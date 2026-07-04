@@ -42,7 +42,7 @@ export function MotionHeroItem({ children, className = "" }) {
 
   return (
     <motion.div
-      className={className}
+      className={`transform-gpu will-change-transform ${className}`}
       variants={shouldReduceMotion ? undefined : item}
     >
       {children}

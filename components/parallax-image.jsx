@@ -17,7 +17,7 @@ export function ParallaxImage({ children, className = "", speed = 0.3 }) {
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
       <motion.div
-        className="h-full w-full"
+        className="h-full w-full transform-gpu will-change-transform backface-hidden"
         style={{ y: shouldReduceMotion ? 0 : y }}
       >
         {children}

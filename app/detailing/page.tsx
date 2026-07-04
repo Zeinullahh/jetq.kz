@@ -65,8 +65,8 @@ const steps = [
 
 const gallery = [
   "/images/placeholder-1.jpg",
-  "/images/placeholder-2.png",
-  "/images/placeholder-3.png",
+  "/images/placeholder-2.webp",
+  "/images/placeholder-3.webp",
   "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=80",
   "/images/zeekr-9x.jpg",
@@ -78,16 +78,18 @@ export default function DetailingPage() {
       {/* Fixed full-screen background unique to the detailing page */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
         <video
-          src="/videos/hero-detailing.mp4"
           poster="/videos/hero-detailing-poster.jpg"
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           webkit-playsinline="true"
           className="absolute inset-0 h-full w-full scale-[1.2] object-cover origin-center"
-        />
+        >
+          <source src="/videos/hero-detailing.webm" type="video/webm" />
+          <source src="/videos/hero-detailing.mp4" type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
       </div>
 

@@ -6,6 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 interface YouTubeBackgroundProps {
   videoId: string;
   className?: string;
+  poster?: string;
 }
 
 interface YTPlayer {
@@ -83,12 +84,44 @@ function loadYouTubeAPI(): Promise<void> {
   return apiPromise;
 }
 
-export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps) {
+export function YouTubeBackground({
+  videoId,
+  className,
+  poster,
+}: YouTubeBackgroundProps) {
   const playerId = useId().replace(/:/g, "-");
+  const containerRef = useRef<HTMLDivElement>(null);
   const playerRef = useRef<YTPlayer | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const posterUrl =
+    poster ?? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0, rootMargin: "200px" }
+    );
+
+    observer.observe(container);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
     let isMounted = true;
 
     const createPlayer = () => {
@@ -125,7 +158,10 @@ export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps
             event.target.playVideo();
           },
           onStateChange: (event) => {
-            if (event.data === YT.PlayerState.PLAYING || event.data === YT.PlayerState.BUFFERING) {
+            if (
+              event.data === YT.PlayerState.PLAYING ||
+              event.data === YT.PlayerState.BUFFERING
+            ) {
               setIsPlaying(true);
               try {
                 event.target.unloadModule("captions");
@@ -150,13 +186,37 @@ export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps
       }
       playerRef.current = null;
     };
-  }, [videoId, playerId]);
+  }, [isVisible, videoId, playerId]);
 
   return (
     <div
+      ref={containerRef}
       className={cn("fixed inset-0 -z-20 overflow-hidden", className)}
       aria-hidden="true"
     >
+      {/* Low-res poster / fallback shown until the video is playing */}
+      <div
+        className={cn(
+          "absolute inset-0 transition-opacity duration-700",
+          isPlaying ? "opacity-0" : "opacity-100"
+        )}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={posterUrl}
+          alt=""
+          className="h-full w-full object-cover"
+          loading="eager"
+          decoding="async"
+          onError={(e) => {
+            // Fall back to a guaranteed-available thumbnail if maxres is missing
+            const img = e.currentTarget;
+            if (!img.src.includes("/hqdefault.jpg")) {
+              img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+            }
+          }}
+        />
+      </div>
       <div
         id={playerId}
         className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-screen w-screen min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
