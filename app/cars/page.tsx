@@ -6,6 +6,7 @@ import { HeroVideo } from "@/components/hero-video";
 import { MotionHeroText, MotionHeroItem } from "@/components/motion-hero-text";
 import { MotionSectionHeader } from "@/components/motion-section-header";
 import { CTAButton } from "@/components/cta-button";
+import { YouTubeBackground } from "@/components/youtube-background";
 import { CarStockGrid } from "@/components/car-stock-grid";
 import { MapSection } from "@/components/map-section";
 import { MagneticButton } from "@/components/magnetic-button";
@@ -46,25 +47,7 @@ const purchaseOptions = [
 export default function CarsPage() {
   return (
     <>
-      {/* Static hero background (was YouTube video) */}
-      <div className="fixed inset-0 -z-20 overflow-hidden" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://img.youtube.com/vi/0_Or6gyR87g/maxresdefault.jpg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-          loading="eager"
-          decoding="async"
-          onError={(e) => {
-            const img = e.currentTarget;
-            if (!img.src.includes("/hqdefault.jpg")) {
-              img.src = "https://img.youtube.com/vi/0_Or6gyR87g/hqdefault.jpg";
-            }
-          }}
-        />
-        <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-      </div>
-
+      <YouTubeBackground videoId="0_Or6gyR87g" />
       <HeroVideo>
         <MotionHeroText className="flex flex-col items-center">
           <MotionHeroItem>

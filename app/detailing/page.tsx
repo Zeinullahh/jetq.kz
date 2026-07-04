@@ -75,15 +75,18 @@ const gallery = [
 export default function DetailingPage() {
   return (
     <>
-      {/* Fixed full-screen static background unique to the detailing page */}
+      {/* Fixed full-screen background unique to the detailing page */}
       <div className="fixed inset-0 -z-10 overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/videos/hero-detailing-poster.jpg"
-          alt=""
+        <video
+          src="/videos/hero-detailing.mp4"
+          poster="/videos/hero-detailing-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          webkit-playsinline="true"
           className="absolute inset-0 h-full w-full scale-[1.2] object-cover origin-center"
-          loading="eager"
-          decoding="async"
         />
         <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
       </div>

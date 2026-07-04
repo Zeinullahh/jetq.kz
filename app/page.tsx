@@ -9,6 +9,7 @@ import { ServiceCard } from "@/components/service-card";
 import { ContactBlock } from "@/components/contact-block";
 import { CTAButton } from "@/components/cta-button";
 import { FAQAccordion } from "@/components/faq-accordion";
+import { YouTubeBackground } from "@/components/youtube-background";
 import { PartnersTicker } from "@/components/partners-ticker";
 import { ProcessTimeline } from "@/components/process-timeline";
 import { MotionCard } from "@/components/motion-card";
@@ -128,25 +129,7 @@ const faqItems = [
 export default function HomePage() {
   return (
     <>
-      {/* Static hero background (was YouTube video) */}
-      <div className="fixed inset-0 -z-20 overflow-hidden" aria-hidden="true">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://img.youtube.com/vi/0_Or6gyR87g/maxresdefault.jpg"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-          loading="eager"
-          decoding="async"
-          onError={(e) => {
-            const img = e.currentTarget;
-            if (!img.src.includes("/hqdefault.jpg")) {
-              img.src = "https://img.youtube.com/vi/0_Or6gyR87g/hqdefault.jpg";
-            }
-          }}
-        />
-        <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-      </div>
-
+      <YouTubeBackground videoId="0_Or6gyR87g" />
       <HeroVideo>
         <MotionHeroText className="flex flex-col items-center">
           <MotionHeroItem>
