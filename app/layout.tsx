@@ -36,6 +36,7 @@ export default function RootLayout({
           <ScrollProgress />
           <CursorSpotlight />
           <Navbar />
+          <div id="background-root" className="fixed inset-0 -z-20" aria-hidden="true" />
           <div className="fixed inset-0 -z-10 bg-black/0 dark:bg-black/60" aria-hidden="true" />
           <main className="relative min-h-screen">
             <PageTransition>{children}</PageTransition>

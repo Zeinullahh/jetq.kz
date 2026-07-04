@@ -1,0 +1,23 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
+interface BackgroundPortalProps {
+  children: React.ReactNode;
+}
+
+export function BackgroundPortal({ children }: BackgroundPortalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const root = document.getElementById("background-root");
+  if (!root) return null;
+
+  return createPortal(children, root);
+}

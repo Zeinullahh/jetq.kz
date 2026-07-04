@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { HeroVideo } from "@/components/hero-video";
+import { BackgroundPortal } from "@/components/background-portal";
 import { ContactBlock } from "@/components/contact-block";
 import { CTAButton } from "@/components/cta-button";
 import { WHATSAPP_URL } from "@/lib/constants";
@@ -76,20 +77,22 @@ export default function DetailingPage() {
   return (
     <>
       {/* Fixed full-screen background unique to the detailing page */}
-      <div className="fixed inset-0 -z-10 overflow-hidden">
-        <video
-          src="/videos/hero-detailing.mp4"
-          poster="/videos/hero-detailing-poster.jpg"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          webkit-playsinline="true"
-          className="absolute inset-0 h-full w-full scale-[1.2] object-cover origin-center"
-        />
-        <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
-      </div>
+      <BackgroundPortal>
+        <div className="fixed inset-0 -z-10 overflow-hidden">
+          <video
+            src="/videos/hero-detailing.mp4"
+            poster="/videos/hero-detailing-poster.jpg"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            webkit-playsinline="true"
+            className="absolute inset-0 h-full w-full scale-[1.2] object-cover origin-center"
+          />
+          <div className="absolute inset-0 bg-black/60" aria-hidden="true" />
+        </div>
+      </BackgroundPortal>
 
       <HeroVideo>
         <MotionHeroText className="flex flex-col items-center">

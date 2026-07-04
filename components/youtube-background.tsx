@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { BackgroundPortal } from "@/components/background-portal";
 import { useEffect, useId, useRef, useState } from "react";
 
 interface YouTubeBackgroundProps {
@@ -153,26 +154,28 @@ export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps
   }, [videoId, playerId]);
 
   return (
-    <div
-      className={cn("fixed inset-0 -z-20 overflow-hidden", className)}
-      aria-hidden="true"
-    >
+    <BackgroundPortal>
       <div
-        id={playerId}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-screen w-screen min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
-      />
-      {/* Hide the YouTube title / top chrome */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-black/80 to-transparent" />
-      {/* Hide the bottom controls / next-prev suggestions */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-black/80 to-transparent" />
-      {/* Center play-button hide layer — fades once playback starts */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-700",
-          isPlaying ? "opacity-0" : "opacity-100"
-        )}
-      />
-      <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-    </div>
+        className={cn("fixed inset-0 -z-20 overflow-hidden", className)}
+        aria-hidden="true"
+      >
+        <div
+          id={playerId}
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-screen w-screen min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
+        />
+        {/* Hide the YouTube title / top chrome */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-black/80 to-transparent" />
+        {/* Hide the bottom controls / next-prev suggestions */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-black/80 to-transparent" />
+        {/* Center play-button hide layer — fades once playback starts */}
+        <div
+          className={cn(
+            "pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-700",
+            isPlaying ? "opacity-0" : "opacity-100"
+          )}
+        />
+        <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+      </div>
+    </BackgroundPortal>
   );
 }
