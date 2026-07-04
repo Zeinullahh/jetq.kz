@@ -2,10 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { useTouchDevice } from "@/hooks/use-touch-device";
 
 export function MagneticButton({ children, className = "" }) {
   const ref = useRef(null);
   const shouldReduceMotion = useReducedMotion();
+  const isTouch = useTouchDevice();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -49,15 +51,17 @@ export function MagneticButton({ children, className = "" }) {
       onMouseLeave={handleMouseLeave}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
     >
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-0 opacity-0 will-change-transform"
-        whileHover={{ opacity: 1, x: ["-100%", "100%"] }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        style={{
-          background:
-            "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-        }}
-      />
+      {!isTouch && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 z-0 opacity-0 will-change-transform"
+          whileHover={{ opacity: 1, x: ["-100%", "100%"] }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
+          }}
+        />
+      )}
       <div className="relative z-10">{children}</div>
     </motion.div>
   );

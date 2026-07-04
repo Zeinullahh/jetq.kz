@@ -157,7 +157,7 @@ export default function HomePage() {
                 </CTAButton>
               </MagneticButton>
               <MagneticButton>
-                <CTAButton href={WHATSAPP_URL} variant="ghost">
+                <CTAButton href="/cars/" variant="ghost">
                   Авто в наличии
                 </CTAButton>
               </MagneticButton>

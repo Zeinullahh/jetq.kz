@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
+import { useTouchDevice } from "@/hooks/use-touch-device";
 
 export function MotionCard({
   children,
@@ -13,6 +14,7 @@ export function MotionCard({
 }) {
   const ref = useRef(null);
   const shouldReduceMotion = useReducedMotion();
+  const isTouch = useTouchDevice();
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -61,10 +63,10 @@ export function MotionCard({
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={shouldReduceMotion ? undefined : { scale: hoverScale, z: 40 }}
+      whileHover={shouldReduceMotion || isTouch ? undefined : { scale: hoverScale, z: 40 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
-      {sheen && !shouldReduceMotion && (
+      {sheen && !shouldReduceMotion && !isTouch && (
         <motion.div
           className="pointer-events-none absolute inset-0 z-10 will-change-transform"
           initial={{ x: "-100%", opacity: 0 }}

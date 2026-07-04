@@ -6,8 +6,10 @@ import { carStock } from "@/lib/cars-stock";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { MotionSectionHeader } from "@/components/motion-section-header";
 import { MotionCard } from "@/components/motion-card";
+import { useTouchDevice } from "@/hooks/use-touch-device";
 
 export function CarStockGrid() {
+  const isTouch = useTouchDevice();
   return (
     <section className="bg-background/50 py-20">
       <div className="mx-auto max-w-7xl px-4">
@@ -43,7 +45,7 @@ export function CarStockGrid() {
                 >
                   <div className="relative overflow-hidden">
                     <motion.div
-                      whileHover={{ scale: 1.12 }}
+                      whileHover={isTouch ? undefined : { scale: 1.12 }}
                       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     >
                       <Image

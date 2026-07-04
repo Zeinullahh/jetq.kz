@@ -59,6 +59,16 @@
   }
 }
 
+/* Disable group-hover overlays on touch devices so scrolling doesn't trigger darkening/lightening effects. */
+@media (hover: none), (pointer: coarse) {
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 0 !important;
+  }
+  .group:hover .group-hover\:translate-y-0 {
+    transform: translateY(100%) !important;
+  }
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

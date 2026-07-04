@@ -7,6 +7,7 @@ import { useEffect, useId, useRef, useState } from "react";
 interface YouTubeBackgroundProps {
   videoId: string;
   className?: string;
+  zoom?: number;
 }
 
 interface YTPlayer {
@@ -88,12 +89,14 @@ interface YouTubeBackgroundInnerProps {
   videoId: string;
   playerId: string;
   className?: string;
+  zoom?: number;
 }
 
 function YouTubeBackgroundInner({
   videoId,
   playerId,
   className,
+  zoom = 1,
 }: YouTubeBackgroundInnerProps) {
   const playerRef = useRef<YTPlayer | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -123,6 +126,7 @@ function YouTubeBackgroundInner({
           showinfo: 0,
           autohide: 1,
           start: 0,
+          vq: "hd720",
         },
         events: {
           onReady: (event) => {
@@ -172,7 +176,10 @@ function YouTubeBackgroundInner({
     >
       <div
         id={playerId}
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-screen w-screen min-w-[177.78vh] -translate-x-1/2 -translate-y-1/2 [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[56.25vw] min-h-screen w-screen min-w-[177.78vh] [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:h-full [&_iframe]:w-full [&_iframe]:border-0"
+        style={{
+          transform: `translate(-50%, -50%) scale(${zoom})`,
+        }}
       />
       {/* Hide the YouTube title / top chrome */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-black/80 to-transparent" />
@@ -190,7 +197,7 @@ function YouTubeBackgroundInner({
   );
 }
 
-export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps) {
+export function YouTubeBackground({ videoId, className, zoom }: YouTubeBackgroundProps) {
   const playerId = useId().replace(/:/g, "-");
 
   return (
@@ -199,6 +206,7 @@ export function YouTubeBackground({ videoId, className }: YouTubeBackgroundProps
         videoId={videoId}
         playerId={playerId}
         className={className}
+        zoom={zoom}
       />
     </BackgroundPortal>
   );

@@ -12,6 +12,9 @@ import sharp from "sharp";
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const publicDir = path.join(projectRoot, "public");
 
+// Minimum horizontal resolution for background videos (1280px width = 720p for 16:9).
+const MIN_VIDEO_WIDTH = 1280;
+
 function formatBytes(bytes) {
   if (bytes === 0) return "0 B";
   const k = 1024;
@@ -27,11 +30,11 @@ function run(cmd, args, opts = {}) {
 
 async function optimizeVideo(input, output, options = {}) {
   const {
-    scale = 1280,
+    scale = MIN_VIDEO_WIDTH,
     fps = 24,
-    videoBitrate = "200k",
-    maxrate = "300k",
-    bufsize = "600k",
+    videoBitrate = "1500k",
+    maxrate = "2000k",
+    bufsize = "4000k",
   } = options;
 
   const args = [
@@ -54,7 +57,7 @@ async function optimizeVideo(input, output, options = {}) {
 }
 
 async function optimizeWebM(input, output, options = {}) {
-  const { scale = 1280, fps = 24, videoBitrate = "200k" } = options;
+  const { scale = MIN_VIDEO_WIDTH, fps = 24, videoBitrate = "1500k" } = options;
   const args = [
     "-y",
     "-i", input,
@@ -108,45 +111,46 @@ async function convertImage(inputName, outputName, options) {
 async function main() {
   console.log("Optimizing assets...\n");
 
-  // 1. Hero video: strip audio, lower bitrate, scale to 1280px width
-  const videoInput = path.join(publicDir, "videos/hero-detailing.mp4");
-  const videoOutput = path.join(publicDir, "videos/hero-detailing.mp4");
-  const webmOutput = path.join(publicDir, "videos/hero-detailing.webm");
+  // 1. Background videos: strip audio, scale to at least 720p width, create WebM fallback.
+  const videosDir = path.join(publicDir, "videos");
+  const tmpDir = path.join(projectRoot, ".asset-opt-tmp");
+  fs.mkdirSync(tmpDir, { recursive: true });
 
-  if (fs.existsSync(videoInput)) {
-    const before = fs.statSync(videoInput).size;
-    const tmpDir = path.join(projectRoot, ".asset-opt-tmp");
-    fs.mkdirSync(tmpDir, { recursive: true });
-    const tmpMp4 = path.join(tmpDir, "hero-detailing.opt.mp4");
-    const tmpWebm = path.join(tmpDir, "hero-detailing.opt.webm");
+  if (fs.existsSync(videosDir)) {
+    const videoFiles = fs.readdirSync(videosDir).filter((f) => f.endsWith(".mp4"));
+    for (const file of videoFiles) {
+      const videoInput = path.join(videosDir, file);
+      const baseName = path.basename(file, ".mp4");
+      const tmpMp4 = path.join(tmpDir, `${baseName}.opt.mp4`);
+      const tmpWebm = path.join(tmpDir, `${baseName}.opt.webm`);
+      const videoOutput = path.join(videosDir, file);
+      const webmOutput = path.join(videosDir, `${baseName}.webm`);
 
-    console.log("Re-encoding hero-detailing.mp4...");
-    await optimizeVideo(videoInput, tmpMp4, {
-      scale: 1280,
-      fps: 24,
-      videoBitrate: "200k",
-      maxrate: "300k",
-      bufsize: "600k",
-    });
-
-    console.log("Creating WebM fallback...");
-    try {
-      await optimizeWebM(videoInput, tmpWebm, {
-        scale: 1280,
+      const before = fs.statSync(videoInput).size;
+      console.log(`Re-encoding ${file} (min ${MIN_VIDEO_WIDTH}px width)...`);
+      await optimizeVideo(videoInput, tmpMp4, {
+        scale: MIN_VIDEO_WIDTH,
         fps: 24,
-        videoBitrate: "200k",
       });
-    } catch (err) {
-      console.warn("WebM fallback failed (VP9 encoder may be missing):", err.message);
-    }
 
-    fs.renameSync(tmpMp4, videoOutput);
-    if (fs.existsSync(tmpWebm)) fs.renameSync(tmpWebm, webmOutput);
+      console.log(`Creating WebM fallback for ${file}...`);
+      try {
+        await optimizeWebM(videoInput, tmpWebm, {
+          scale: MIN_VIDEO_WIDTH,
+          fps: 24,
+        });
+      } catch (err) {
+        console.warn(`WebM fallback failed for ${file} (VP9 encoder may be missing):`, err.message);
+      }
 
-    const after = fs.statSync(videoOutput).size;
-    console.log(`Video optimized: ${formatBytes(before)} -> ${formatBytes(after)} (${((after / before) * 100).toFixed(1)}%)`);
-    if (fs.existsSync(webmOutput)) {
-      console.log(`WebM fallback: ${formatBytes(fs.statSync(webmOutput).size)}`);
+      fs.renameSync(tmpMp4, videoOutput);
+      if (fs.existsSync(tmpWebm)) fs.renameSync(tmpWebm, webmOutput);
+
+      const after = fs.statSync(videoOutput).size;
+      console.log(`Video optimized: ${formatBytes(before)} -> ${formatBytes(after)} (${((after / before) * 100).toFixed(1)}%)`);
+      if (fs.existsSync(webmOutput)) {
+        console.log(`WebM fallback: ${formatBytes(fs.statSync(webmOutput).size)}`);
+      }
     }
   }
 
