@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Phone, Clock } from "lucide-react";
-import { addresses } from "@/lib/addresses";
+import { addresses, companyPhone, companyHours } from "@/lib/addresses";
 import { SectionHeader } from "@/components/section-header";
 import { AddressBlock } from "@/components/address-block";
 import { TwoGisMap } from "@/components/two-gis-map";
@@ -47,10 +47,10 @@ export function AddressesSection() {
                     Телефон
                   </p>
                   <a
-                    href={`tel:${almatyAddresses[0].phone.replace(/\D/g, "")}`}
+                    href={`tel:${companyPhone.replace(/\D/g, "")}`}
                     className="mt-1 text-white hover:text-link-blue transition-colors"
                   >
-                    {almatyAddresses[0].phone}
+                    {companyPhone}
                   </a>
                 </div>
               </div>
@@ -60,7 +60,7 @@ export function AddressesSection() {
                   <p className="text-xs font-normal uppercase tracking-widest text-white/70">
                     Режим работы
                   </p>
-                  <p className="mt-1 text-white">{almatyAddresses[0].hours}</p>
+                  <p className="mt-1 text-white">{companyHours}</p>
                 </div>
               </div>
             </div>
@@ -93,10 +93,10 @@ export function AddressesSection() {
                     Телефон
                   </p>
                   <a
-                    href={`tel:${astanaAddresses[0].phone.replace(/\D/g, "")}`}
+                    href={`tel:${companyPhone.replace(/\D/g, "")}`}
                     className="mt-1 text-white hover:text-link-blue transition-colors"
                   >
-                    {astanaAddresses[0].phone}
+                    {companyPhone}
                   </a>
                 </div>
               </div>
@@ -106,7 +106,7 @@ export function AddressesSection() {
                   <p className="text-xs font-normal uppercase tracking-widest text-white/70">
                     Режим работы
                   </p>
-                  <p className="mt-1 text-white">{astanaAddresses[0].hours}</p>
+                  <p className="mt-1 text-white">{companyHours}</p>
                 </div>
               </div>
             </div>

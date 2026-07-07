@@ -9,7 +9,6 @@ interface TwoGisMapProps {
   zoom?: number;
   className?: string;
   title?: string;
-  borderColor?: string;
 }
 
 export function TwoGisMap({
@@ -19,7 +18,6 @@ export function TwoGisMap({
   zoom = 14,
   className = "h-[400px] w-full",
   title = "Карта 2GIS",
-  borderColor = "#202020",
 }: TwoGisMapProps) {
   const src = useMemo(() => {
     const options = JSON.stringify({
@@ -31,17 +29,14 @@ export function TwoGisMap({
   }, [orgIds, city, center, zoom]);
 
   return (
-    <div
-      className={`overflow-hidden bg-[#202020] ${className}`}
-      style={{ borderColor }}
-    >
+    <div className={`overflow-hidden bg-[#202020] ${className}`}>
       <iframe
         src={src}
         width="100%"
         height="100%"
-        frameBorder="0"
+        loading="lazy"
         title={title}
-        className="h-full w-full"
+        className="h-full w-full border-0"
       />
       <noscript className="block p-4 text-sm text-white/70">
         Виджет карты использует JavaScript. Включите его в настройках вашего браузера.

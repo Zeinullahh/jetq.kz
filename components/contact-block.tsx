@@ -1,5 +1,5 @@
 import { MapPin, Phone, Clock } from "lucide-react";
-import { addresses } from "@/lib/addresses";
+import { addresses, companyPhone, companyHours } from "@/lib/addresses";
 import { AddressBlock } from "@/components/address-block";
 
 const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
@@ -41,10 +41,10 @@ export function ContactBlock() {
             Телефон
           </p>
           <a
-            href={`tel:${addresses[0].phone.replace(/\D/g, "")}`}
+            href={`tel:${companyPhone.replace(/\D/g, "")}`}
             className="mt-1 text-foreground hover:text-link-blue transition-colors"
           >
-            {addresses[0].phone}
+            {companyPhone}
           </a>
         </div>
       </div>
@@ -54,7 +54,7 @@ export function ContactBlock() {
           <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Режим работы
           </p>
-          <p className="mt-1 text-foreground">{addresses[0].hours}</p>
+          <p className="mt-1 text-foreground">{companyHours}</p>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { formatMoney } from "@/lib/utils";
 import { CTAButton } from "@/components/cta-button";
 
 interface LoanCalculatorProps {
-  partner: LoanPartner;
+  partner: LoanPartner & { calculator: NonNullable<LoanPartner["calculator"]> };
 }
 
 function clamp(value: number, min: number, max: number) {
@@ -18,7 +18,7 @@ function parseSum(value: string) {
 }
 
 export function LoanCalculator({ partner }: LoanCalculatorProps) {
-  const cfg = partner.calculator!;
+  const cfg = partner.calculator;
   const [priceInput, setPriceInput] = useState(formatMoney(cfg.minAmount * 10).replace(" ₸", ""));
   const [downPaymentInput, setDownPaymentInput] = useState("0");
   const [term, setTerm] = useState(cfg.minTerm);

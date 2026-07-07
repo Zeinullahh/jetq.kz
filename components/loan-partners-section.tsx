@@ -1,11 +1,14 @@
 import { ExternalLink } from "lucide-react";
-import { loanPartners } from "@/lib/loan-partners";
+import { loanPartners, type LoanPartner } from "@/lib/loan-partners";
 import { MotionSectionHeader } from "@/components/motion-section-header";
 import { LoanCalculator } from "@/components/loan-calculator";
 import { FadeIn } from "@/components/fade-in";
 
 export function LoanPartnersSection() {
-  const calculatorPartners = loanPartners.filter((p) => p.calculator);
+  const calculatorPartners = loanPartners.filter(
+    (p): p is LoanPartner & { calculator: NonNullable<LoanPartner["calculator"]> } =>
+      !!p.calculator
+  );
 
   return (
     <section id="LoanPartnersSection" className="bg-background/50 py-24">

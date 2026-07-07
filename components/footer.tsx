@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-import { addresses } from "@/lib/addresses";
+import { addresses, companyPhone, companyHours } from "@/lib/addresses";
 import { AddressBlock } from "@/components/address-block";
 
 const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
@@ -84,8 +84,8 @@ export function Footer() {
               </div>
             </div>
             <div className="space-y-1 text-white">
-              <p>{addresses[0].phone}</p>
-              <p>{addresses[0].hours}</p>
+              <p>{companyPhone}</p>
+              <p>{companyHours}</p>
             </div>
           </div>
         </div>
