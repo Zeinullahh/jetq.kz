@@ -121,56 +121,70 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
                 <X size={24} />
               </button>
             </div>
-            <nav className="flex flex-1 flex-col items-center justify-center gap-6 px-6 pb-20">
-              {links.map((link, index) => {
-                const isActive = currentPath === link.href;
-                return (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.3,
-                      ease: "easeInOut",
-                      delay: index * 0.05,
-                    }}
-                    className="flex flex-col items-center gap-3"
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className={`block text-4xl font-normal uppercase tracking-tight transition-colors hover:text-gold-text md:text-5xl ${
-                        isActive
-                          ? "text-foreground underline decoration-gold decoration-2 underline-offset-8"
-                          : "text-foreground"
-                      }`}
+            <nav className="flex flex-1 items-center justify-center gap-12 px-6 pb-20">
+              <div className="flex flex-col items-end gap-6">
+                {links.map((link, index) => {
+                  const isActive = currentPath === link.href;
+                  return (
+                    <motion.div
+                      key={link.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        ease: "easeInOut",
+                        delay: index * 0.05,
+                      }}
                     >
-                      {link.label}
-                    </Link>
-                    {isActive && sections.length > 0 && (
-                      <div className="flex flex-col items-center gap-2">
-                        {sections.map((section, sIndex) => (
-                          <motion.button
-                            key={section.id}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                              duration: 0.25,
-                              ease: "easeInOut",
-                              delay: 0.15 + sIndex * 0.04,
-                            }}
-                            type="button"
-                            onClick={() => scrollTo(section.id)}
-                            className="text-sm uppercase tracking-wide text-muted-foreground transition-colors hover:text-gold-text"
-                          >
-                            {section.label}
-                          </motion.button>
-                        ))}
-                      </div>
-                    )}
-                  </motion.div>
-                );
-              })}
+                      <Link
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className={`block text-4xl font-normal uppercase tracking-tight transition-colors hover:text-gold-text md:text-5xl ${
+                          isActive
+                            ? "text-foreground underline decoration-gold decoration-2 underline-offset-8"
+                            : "text-foreground"
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              {sections.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    duration: 0.3,
+                    ease: "easeInOut",
+                    delay: 0.2,
+                  }}
+                  className="flex flex-col items-start gap-3 border-l border-border pl-12"
+                >
+                  <p className="text-[10px] font-normal uppercase tracking-widest text-muted-foreground">
+                    Разделы
+                  </p>
+                  {sections.map((section, sIndex) => (
+                    <motion.button
+                      key={section.id}
+                      initial={{ opacity: 0, x: 10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.25,
+                        ease: "easeInOut",
+                        delay: 0.25 + sIndex * 0.04,
+                      }}
+                      type="button"
+                      onClick={() => scrollTo(section.id)}
+                      className="text-left text-sm uppercase tracking-wide text-muted-foreground transition-colors hover:text-gold-text"
+                    >
+                      {section.label}
+                    </motion.button>
+                  ))}
+                </motion.div>
+              )}
             </nav>
           </div>,
           document.body as HTMLElement
