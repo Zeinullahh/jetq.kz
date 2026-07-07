@@ -45,3 +45,4 @@ docs/superpowers/
 
 # large media assets (use CDN/LFS instead)
 public/videos/
+.worktrees/
