@@ -13,6 +13,8 @@ import { MotionCard } from "@/components/motion-card";
 import { MagneticButton } from "@/components/magnetic-button";
 import { FadeIn } from "@/components/fade-in";
 import { CarStockPreview } from "@/components/car-stock-preview";
+import { AddressesSection } from "@/components/addresses-section";
+import { LoanPartnersSection } from "@/components/loan-partners-section";
 import { FAQSection } from "@/components/faq-section";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { Phone, ArrowDown } from "lucide-react";
@@ -171,6 +173,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <LoanPartnersSection />
+
       <section className="bg-muted/50 py-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
@@ -182,6 +186,8 @@ export default function HomePage() {
           </FadeIn>
         </div>
       </section>
+
+      <AddressesSection />
 
       <FAQSection />
     </>
