@@ -11,6 +11,13 @@ export interface LoanPartner {
     rate: number;
     paymentType: "annuity" | "annuity-or-equal";
     gesv: string;
+    /** Optional backend API used by the original site. */
+    api?: {
+      endpoint: string;
+      saleType: number;
+      periods: number[];
+      minDownPaymentRate: number;
+    };
   };
 }
 
@@ -20,7 +27,8 @@ export const loanPartners: LoanPartner[] = [
     name: "MyCar Finance",
     url: "https://mycarfinance.kz/",
     bullets: [
-      "Ставка от 23% годовых",
+      "Программа «Авто от Партнера»",
+      "Ставка от 34% годовых",
       "Для заявки нужны только ИИН и номер телефона",
       "30+ автокредитов выдают ежедневно",
       "80% одобрения заявок",
@@ -30,10 +38,16 @@ export const loanPartners: LoanPartner[] = [
       minAmount: 1_000_000,
       maxAmount: 73_840_000,
       minTerm: 12,
-      maxTerm: 120,
-      rate: 0.23,
+      maxTerm: 84,
+      rate: 0.34,
       paymentType: "annuity-or-equal",
       gesv: "от 26.7% до 46%",
+      api: {
+        endpoint: "https://api.mycarfinance.kz/api/loan-programs/calc-v2",
+        saleType: 4,
+        periods: [12, 24, 36, 48, 60, 72, 84],
+        minDownPaymentRate: 0.2,
+      },
     },
   },
   {
