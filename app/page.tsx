@@ -16,7 +16,6 @@ import { CarStockPreview } from "@/components/car-stock-preview";
 import { AddressesSection } from "@/components/addresses-section";
 import { LoanPartnersSection } from "@/components/loan-partners-section";
 import { FAQSection } from "@/components/faq-section";
-import { SectionNavigator } from "@/components/section-navigator";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { Phone, ArrowDown } from "lucide-react";
 
@@ -50,19 +49,6 @@ const advantages = [
 export default function HomePage() {
   return (
     <>
-      <SectionNavigator
-        pageLabel="Главная"
-        sections={[
-          { id: "hero", label: "Главная" },
-          { id: "stock", label: "Авто в наличии" },
-          { id: "why-jetq", label: "Почему JetQ" },
-          { id: "consultation", label: "Консультация" },
-          { id: "credit", label: "Автокредитование" },
-          { id: "contact", label: "Контакты" },
-          { id: "addresses", label: "Адреса" },
-          { id: "faq", label: "FAQ" },
-        ]}
-      />
       <YouTubeBackground
         videoId="0_Or6gyR87g"
         skipSegments={[{ start: 7, end: 13 }]}

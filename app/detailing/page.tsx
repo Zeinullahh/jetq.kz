@@ -80,8 +80,9 @@ export default function DetailingPage() {
     <>
       <YouTubeBackground videoId="_3W7tuxFYS8" zoom={1.2} />
 
-      <HeroVideo>
-        <MotionHeroText className="flex flex-col items-center">
+      <div id="hero" className="scroll-mt-24">
+        <HeroVideo>
+          <MotionHeroText className="flex flex-col items-center">
           <MotionHeroItem>
             <p className="text-sm font-normal uppercase tracking-widest text-white/80">
               JetQ Детейлинг
@@ -108,8 +109,9 @@ export default function DetailingPage() {
           </MotionHeroItem>
         </MotionHeroText>
       </HeroVideo>
+      </div>
 
-      <section className="bg-muted/50 backdrop-blur-md py-20">
+      <section id="services" className="bg-muted/50 backdrop-blur-md py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Услуги детейлинга"
@@ -141,7 +143,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-background/50 backdrop-blur-md py-20">
+      <section id="process" className="bg-background/50 backdrop-blur-md py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Процесс работы"
@@ -188,7 +190,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-muted/50 backdrop-blur-md py-20">
+      <section id="gallery" className="bg-muted/50 backdrop-blur-md py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Галерея"
@@ -223,7 +225,7 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <section className="bg-background/50 backdrop-blur-md py-20">
+      <section id="contact" className="bg-background/50 backdrop-blur-md py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Запишитесь на детейлинг"
@@ -240,9 +242,9 @@ export default function DetailingPage() {
         </div>
       </section>
 
-      <AddressesSection />
+      <AddressesSection id="addresses" />
 
-      <FAQSection />
+      <FAQSection id="faq" />
     </>
   );
 }

@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useId, useState } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { X } from "lucide-react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
 
-const links = [
+interface PageLink {
+  href: string;
+  label: string;
+}
+
+const links: PageLink[] = [
   { href: "/", label: "Главная" },
   { href: "/detailing", label: "Детейлинг" },
   { href: "/cars", label: "Авто в наличии" },
@@ -24,7 +29,16 @@ const pageSections: Record<string, { id: string; label: string }[]> = {
     { id: "addresses", label: "Адреса" },
     { id: "faq", label: "FAQ" },
   ],
-  "/cars/": [
+  "/detailing": [
+    { id: "hero", label: "Главная" },
+    { id: "services", label: "Услуги" },
+    { id: "process", label: "Процесс" },
+    { id: "gallery", label: "Галерея" },
+    { id: "contact", label: "Запись" },
+    { id: "addresses", label: "Адреса" },
+    { id: "faq", label: "FAQ" },
+  ],
+  "/cars": [
     { id: "hero", label: "Главная" },
     { id: "stock", label: "Авто в наличии" },
     { id: "popular", label: "Популярные авто" },
@@ -41,12 +55,16 @@ interface MobileMenuProps {
   trigger?: React.ReactNode;
 }
 
+function normalizePathname(pathname: string) {
+  return pathname.replace(/\/$/, "") || "/";
+}
+
 export function MobileMenu({ trigger }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
-  const [sectionsOpen, setSectionsOpen] = useState(false);
   const menuId = useId();
   const pathname = usePathname();
-  const sections = pageSections[pathname] ?? [];
+  const currentPath = normalizePathname(pathname ?? "/");
+  const sections = pageSections[currentPath] ?? [];
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -104,77 +122,55 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
               </button>
             </div>
             <nav className="flex flex-1 flex-col items-center justify-center gap-6 px-6 pb-20">
-              {links.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.3,
-                    ease: "easeInOut",
-                    delay: index * 0.05,
-                  }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="block text-4xl font-normal uppercase tracking-tight text-foreground transition-colors hover:text-gold-text md:text-5xl"
+              {links.map((link, index) => {
+                const isActive = currentPath === link.href;
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      ease: "easeInOut",
+                      delay: index * 0.05,
+                    }}
+                    className="flex flex-col items-center gap-3"
                   >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
-
-              {sections.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.3,
-                    ease: "easeInOut",
-                    delay: links.length * 0.05,
-                  }}
-                  className="w-full max-w-xs"
-                >
-                  <button
-                    type="button"
-                    onClick={() => setSectionsOpen((v) => !v)}
-                    className="flex w-full items-center justify-center gap-2 text-sm font-normal uppercase tracking-widest text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    <span>Разделы</span>
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform ${
-                        sectionsOpen ? "rotate-180" : ""
+                    <Link
+                      href={link.href}
+                      onClick={() => setOpen(false)}
+                      className={`block text-4xl font-normal uppercase tracking-tight transition-colors hover:text-gold-text md:text-5xl ${
+                        isActive
+                          ? "text-foreground underline decoration-gold decoration-2 underline-offset-8"
+                          : "text-foreground"
                       }`}
-                    />
-                  </button>
-                  <AnimatePresence>
-                    {sectionsOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="mt-3 flex flex-col items-center gap-2">
-                          {sections.map((section) => (
-                            <button
-                              key={section.id}
-                              type="button"
-                              onClick={() => scrollTo(section.id)}
-                              className="text-sm uppercase tracking-wide text-foreground/70 transition-colors hover:text-gold-text"
-                            >
-                              {section.label}
-                            </button>
-                          ))}
-                        </div>
-                      </motion.div>
+                    >
+                      {link.label}
+                    </Link>
+                    {isActive && sections.length > 0 && (
+                      <div className="flex flex-col items-center gap-2">
+                        {sections.map((section, sIndex) => (
+                          <motion.button
+                            key={section.id}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{
+                              duration: 0.25,
+                              ease: "easeInOut",
+                              delay: 0.15 + sIndex * 0.04,
+                            }}
+                            type="button"
+                            onClick={() => scrollTo(section.id)}
+                            className="text-sm uppercase tracking-wide text-muted-foreground transition-colors hover:text-gold-text"
+                          >
+                            {section.label}
+                          </motion.button>
+                        ))}
+                      </div>
                     )}
-                  </AnimatePresence>
-                </motion.div>
-              )}
+                  </motion.div>
+                );
+              })}
             </nav>
           </div>,
           document.body as HTMLElement
