@@ -1,0 +1,181 @@
+"use client";
+
+import { useMemo, useState } from "react";
+import type { LoanPartner } from "@/lib/loan-partners";
+import { formatMoney } from "@/lib/utils";
+import { CTAButton } from "@/components/cta-button";
+
+interface LoanCalculatorProps {
+  partner: LoanPartner;
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function parseSum(value: string) {
+  return parseInt(value.replace(/\D/g, ""), 10) || 0;
+}
+
+export function LoanCalculator({ partner }: LoanCalculatorProps) {
+  const cfg = partner.calculator!;
+  const [priceInput, setPriceInput] = useState(formatMoney(cfg.minAmount * 10).replace(" ₸", ""));
+  const [downPaymentInput, setDownPaymentInput] = useState("0");
+  const [term, setTerm] = useState(cfg.minTerm);
+  const [paymentType, setPaymentType] = useState<"annuity" | "equal">("annuity");
+
+  const price = parseSum(priceInput);
+  const downPayment = parseSum(downPaymentInput);
+  const principal = Math.max(0, price - downPayment);
+  const monthlyRate = cfg.rate / 12;
+
+  const { monthlyPayment, totalPayment } = useMemo(() => {
+    if (principal <= 0 || term <= 0 || monthlyRate <= 0) {
+      return { monthlyPayment: 0, totalPayment: 0 };
+    }
+
+    if (paymentType === "annuity") {
+      const payment =
+        (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term));
+      return { monthlyPayment: payment, totalPayment: payment * term };
+    }
+
+    // Equal payments (differentiated): show first month payment
+    const principalPart = principal / term;
+    let rest = principal;
+    let totalInterest = 0;
+    let firstMonthPayment = 0;
+
+    for (let k = 0; k < term; k++) {
+      const interest = rest * monthlyRate;
+      const pay = principalPart + interest;
+      if (k === 0) firstMonthPayment = pay;
+      totalInterest += interest;
+      rest -= principalPart;
+    }
+
+    return {
+      monthlyPayment: firstMonthPayment,
+      totalPayment: principal + totalInterest,
+    };
+  }, [principal, term, monthlyRate, paymentType]);
+
+  return (
+    <div className="bg-[#202020] p-6 md:p-8">
+      <h4 className="text-xl font-normal uppercase tracking-tight text-white">
+        Калькулятор {partner.name}
+      </h4>
+
+      <div className="mt-6 space-y-5">
+        <label className="block">
+          <span className="text-xs font-normal uppercase tracking-widest text-white/70">
+            Стоимость автомобиля
+          </span>
+          <input
+            type="text"
+            inputMode="numeric"
+            value={priceInput}
+            onChange={(e) => {
+              const raw = parseSum(e.target.value);
+              const clamped = clamp(raw, cfg.minAmount, cfg.maxAmount);
+              setPriceInput(clamped.toLocaleString("ru-RU").replace(/,/g, " "));
+            }}
+            className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-normal uppercase tracking-widest text-white/70">
+            Первоначальный взнос
+          </span>
+          <input
+            type="text"
+            inputMode="numeric"
+            value={downPaymentInput}
+            onChange={(e) => {
+              const raw = parseSum(e.target.value);
+              const clamped = clamp(raw, 0, price);
+              setDownPaymentInput(clamped.toLocaleString("ru-RU").replace(/,/g, " "));
+            }}
+            className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
+          />
+        </label>
+
+        <label className="block">
+          <span className="text-xs font-normal uppercase tracking-widest text-white/70">
+            Срок (месяцев): {term}
+          </span>
+          <input
+            type="range"
+            min={cfg.minTerm}
+            max={cfg.maxTerm}
+            step={1}
+            value={term}
+            onChange={(e) => setTerm(parseInt(e.target.value, 10))}
+            className="mt-3 w-full accent-gold"
+          />
+          <div className="mt-1 flex justify-between text-xs text-white/50">
+            <span>{cfg.minTerm} мес</span>
+            <span>{cfg.maxTerm} мес</span>
+          </div>
+        </label>
+
+        {cfg.paymentType === "annuity-or-equal" && (
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={() => setPaymentType("annuity")}
+              className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors ${
+                paymentType === "annuity"
+                  ? "bg-gold text-black"
+                  : "border border-white/50 text-white hover:bg-white/10"
+              }`}
+            >
+              Аннуитет
+            </button>
+            <button
+              type="button"
+              onClick={() => setPaymentType("equal")}
+              className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors ${
+                paymentType === "equal"
+                  ? "bg-gold text-black"
+                  : "border border-white/50 text-white hover:bg-white/10"
+              }`}
+            >
+              Равными долями
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-8 grid gap-4 border-t border-white/10 pt-6">
+        <div>
+          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+            Ежемесячный платёж
+          </p>
+          <p className="mt-1 text-3xl font-normal uppercase tracking-tight text-white">
+            {formatMoney(monthlyPayment)}
+          </p>
+        </div>
+        <div>
+          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+            Общая сумма выплат
+          </p>
+          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-white">
+            {formatMoney(totalPayment)}
+          </p>
+        </div>
+      </div>
+
+      <p className="mt-4 text-xs text-white/50">
+        *Расчёт является ориентировочным и носит информационный характер.
+      </p>
+
+      <div className="mt-6">
+        <CTAButton href={partner.url} variant="primary">
+          Оставить заявку
+        </CTAButton>
+      </div>
+    </div>
+  );
+}
