@@ -56,8 +56,8 @@ export const loanPartners: LoanPartner[] = [
   },
   {
     id: "jetfin",
-    name: "JetCar / Jet Finance",
-    url: "https://jetcar.kz/auto/credit",
+    name: "JetFinance",
+    url: "https://jetfin.kz/",
     bullets: [
       "Сумма от 300 000 до 15 000 000 ₸ или до 70% от стоимости авто",
       "Срок от 3 до 84 месяцев",

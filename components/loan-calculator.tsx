@@ -17,15 +17,21 @@ function parseSum(value: string) {
   return parseInt(value.replace(/\D/g, ""), 10) || 0;
 }
 
+function formatSum(value: number) {
+  return value.toLocaleString("ru-RU").replace(/,/g, " ");
+}
+
 export function LoanCalculator({ partner }: LoanCalculatorProps) {
   const cfg = partner.calculator;
-  const [priceInput, setPriceInput] = useState(formatMoney(cfg.minAmount * 10).replace(" ₸", ""));
-  const [downPaymentInput, setDownPaymentInput] = useState("0");
+  const [priceRaw, setPriceRaw] = useState(
+    formatMoney(cfg.minAmount * 10).replace(" ₸", "")
+  );
+  const [downPaymentRaw, setDownPaymentRaw] = useState("0");
   const [term, setTerm] = useState(cfg.minTerm);
   const [paymentType, setPaymentType] = useState<"annuity" | "equal">("annuity");
 
-  const price = parseSum(priceInput);
-  const downPayment = parseSum(downPaymentInput);
+  const price = parseSum(priceRaw);
+  const downPayment = parseSum(downPaymentRaw);
   const principal = Math.max(0, price - downPayment);
   const monthlyRate = cfg.rate / 12;
 
@@ -60,6 +66,20 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
     };
   }, [principal, term, monthlyRate, paymentType]);
 
+  function handlePriceBlur() {
+    const parsed = clamp(parseSum(priceRaw), cfg.minAmount, cfg.maxAmount);
+    setPriceRaw(formatSum(parsed));
+
+    // Keep down payment within the new price bounds.
+    const dpParsed = clamp(parseSum(downPaymentRaw), 0, parsed);
+    setDownPaymentRaw(formatSum(dpParsed));
+  }
+
+  function handleDownPaymentBlur() {
+    const dpParsed = clamp(parseSum(downPaymentRaw), 0, price);
+    setDownPaymentRaw(formatSum(dpParsed));
+  }
+
   return (
     <div className="bg-[#202020] p-6 md:p-8">
       <h4 className="text-xl font-normal uppercase tracking-tight text-white">
@@ -74,12 +94,9 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
           <input
             type="text"
             inputMode="numeric"
-            value={priceInput}
-            onChange={(e) => {
-              const raw = parseSum(e.target.value);
-              const clamped = clamp(raw, cfg.minAmount, cfg.maxAmount);
-              setPriceInput(clamped.toLocaleString("ru-RU").replace(/,/g, " "));
-            }}
+            value={priceRaw}
+            onChange={(e) => setPriceRaw(e.target.value.replace(/\D/g, ""))}
+            onBlur={handlePriceBlur}
             className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
           />
         </label>
@@ -91,12 +108,11 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
           <input
             type="text"
             inputMode="numeric"
-            value={downPaymentInput}
-            onChange={(e) => {
-              const raw = parseSum(e.target.value);
-              const clamped = clamp(raw, 0, price);
-              setDownPaymentInput(clamped.toLocaleString("ru-RU").replace(/,/g, " "));
-            }}
+            value={downPaymentRaw}
+            onChange={(e) =>
+              setDownPaymentRaw(e.target.value.replace(/\D/g, ""))
+            }
+            onBlur={handleDownPaymentBlur}
             className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
           />
         </label>
