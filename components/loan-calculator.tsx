@@ -64,104 +64,158 @@ function handleNumericChange(
   });
 }
 
+interface LocalResult {
+  monthlyPayment: number;
+  totalPayment: number;
+}
+
+function calculateLocal(
+  principal: number,
+  term: number,
+  monthlyRate: number,
+  paymentType: "annuity" | "equal"
+): LocalResult {
+  if (principal <= 0 || term <= 0 || monthlyRate <= 0) {
+    return { monthlyPayment: 0, totalPayment: 0 };
+  }
+
+  if (paymentType === "annuity") {
+    const payment =
+      (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term));
+    return { monthlyPayment: payment, totalPayment: payment * term };
+  }
+
+  const principalPart = principal / term;
+  let rest = principal;
+  let totalInterest = 0;
+  let firstMonthPayment = 0;
+
+  for (let k = 0; k < term; k++) {
+    const interest = rest * monthlyRate;
+    const pay = principalPart + interest;
+    if (k === 0) firstMonthPayment = pay;
+    totalInterest += interest;
+    rest -= principalPart;
+  }
+
+  return {
+    monthlyPayment: firstMonthPayment,
+    totalPayment: principal + totalInterest,
+  };
+}
+
 export function LoanCalculator({ partner }: LoanCalculatorProps) {
   const cfg = partner.calculator;
   const api = cfg.api;
 
-  const [priceRaw, setPriceRaw] = useState(
-    formatMoney(cfg.minAmount * 10).replace(" ₸", "")
+  const initialPrice = clamp(cfg.minAmount * 10, cfg.minAmount, cfg.maxAmount);
+  const initialDownPayment = api
+    ? Math.round(initialPrice * api.minDownPaymentRate)
+    : 0;
+  const initialTerm = api ? api.periods[0] : cfg.minTerm;
+
+  const [priceRaw, setPriceRaw] = useState(formatSum(initialPrice));
+  const [downPaymentRaw, setDownPaymentRaw] = useState(
+    formatSum(initialDownPayment)
   );
-  const [downPaymentRaw, setDownPaymentRaw] = useState("0");
-  const [term, setTerm] = useState(cfg.minTerm);
-  const [paymentType, setPaymentType] = useState<"annuity" | "equal">("annuity");
+  const [term, setTerm] = useState(initialTerm);
+  const [paymentType, setPaymentType] = useState<"annuity" | "equal">(
+    "annuity"
+  );
   const [isKasko, setIsKasko] = useState(0);
   const [isTracker, setIsTracker] = useState(0);
-  const [apiError, setApiError] = useState(false);
-  const [apiResult, setApiResult] = useState<{ monthlyPayment?: number; totalPayment?: number } | null>(null);
 
-  const price = clamp(parseSum(priceRaw), cfg.minAmount, cfg.maxAmount);
+  const price = parseSum(priceRaw);
   const downPayment = parseSum(downPaymentRaw);
-  const effectiveDownPayment = clamp(downPayment, 0, price);
-  const principal = Math.max(0, price - effectiveDownPayment);
   const monthlyRate = cfg.rate / 12;
 
-  const { monthlyPayment, totalPayment } = useMemo(() => {
-    if (principal <= 0 || term <= 0 || monthlyRate <= 0) {
-      return { monthlyPayment: 0, totalPayment: 0 };
-    }
+  const minDownPayment = api ? Math.round(price * api.minDownPaymentRate) : 0;
+  const effectiveDownPayment = api
+    ? clamp(downPayment, minDownPayment, price)
+    : clamp(downPayment, 0, price);
+  const principal = Math.max(0, price - effectiveDownPayment);
 
-    if (paymentType === "annuity") {
-      const payment =
-        (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term));
-      return { monthlyPayment: payment, totalPayment: payment * term };
-    }
+  const localResult = useMemo(
+    () => calculateLocal(principal, term, monthlyRate, paymentType),
+    [principal, term, monthlyRate, paymentType]
+  );
 
-    // Equal payments (differentiated): show first month payment
-    const principalPart = principal / term;
-    let rest = principal;
-    let totalInterest = 0;
-    let firstMonthPayment = 0;
-
-    for (let k = 0; k < term; k++) {
-      const interest = rest * monthlyRate;
-      const pay = principalPart + interest;
-      if (k === 0) firstMonthPayment = pay;
-      totalInterest += interest;
-      rest -= principalPart;
-    }
-
-    return {
-      monthlyPayment: firstMonthPayment,
-      totalPayment: principal + totalInterest,
-    };
-  }, [principal, term, monthlyRate, paymentType]);
+  const [apiResult, setApiResult] = useState<LocalResult | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
-    if (!api) return;
+    if (!api) {
+      setApiResult(null);
+      setApiError(false);
+      return;
+    }
 
-    setApiError(false);
-    fetch(api.endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount: price,
-        prepay: effectiveDownPayment,
-        period: term,
-        paymentMethod: paymentType === "annuity" ? "ann" : "dif",
-        isKaskoChecked: isKasko,
-        isTrackerChecked: isTracker,
-        saleType: api.saleType,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json();
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      setIsLoading(true);
+      setApiError(false);
+      fetch(api.endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: price,
+          prepay: effectiveDownPayment,
+          period: term,
+          paymentMethod: paymentType === "annuity" ? "ann" : "dif",
+          isKaskoChecked: isKasko,
+          isTrackerChecked: isTracker,
+          saleType: api.saleType,
+        }),
+        signal: controller.signal,
       })
-      .then((data) => {
-        setApiResult(data);
-        setApiError(false);
-      })
-      .catch(() => {
-        setApiError(true);
-      });
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.success && json.data) {
+            setApiResult({
+              monthlyPayment: Number(json.data.monthlyPayment) || 0,
+              totalPayment: Number(json.data.total_interest) || 0,
+            });
+            setApiError(false);
+          } else {
+            setApiResult(null);
+          }
+        })
+        .catch(() => {
+          setApiResult(null);
+          setApiError(true);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }, 400);
+
+    return () => {
+      clearTimeout(timeoutId);
+      controller.abort();
+    };
   }, [api, price, effectiveDownPayment, term, paymentType, isKasko, isTracker]);
 
-  const displayMonthlyPayment = apiResult?.monthlyPayment ?? monthlyPayment;
-  const displayTotalPayment = apiResult?.totalPayment ?? totalPayment;
+  const result = apiResult ?? localResult;
 
   function handlePriceBlur() {
     const parsed = clamp(parseSum(priceRaw), cfg.minAmount, cfg.maxAmount);
     setPriceRaw(formatSum(parsed));
 
-    // Keep down payment within the new price bounds.
-    const dpParsed = clamp(parseSum(downPaymentRaw), 0, parsed);
+    const dpParsed = api
+      ? clamp(parseSum(downPaymentRaw), Math.round(parsed * api.minDownPaymentRate), parsed)
+      : clamp(parseSum(downPaymentRaw), 0, parsed);
     setDownPaymentRaw(formatSum(dpParsed));
   }
 
   function handleDownPaymentBlur() {
-    const dpParsed = clamp(parseSum(downPaymentRaw), 0, price);
+    const dpParsed = api
+      ? clamp(parseSum(downPaymentRaw), minDownPayment, price)
+      : clamp(parseSum(downPaymentRaw), 0, price);
     setDownPaymentRaw(formatSum(dpParsed));
   }
+
+  const periods = api?.periods;
 
   return (
     <div className="bg-card p-6 md:p-8">
@@ -184,37 +238,63 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
           />
         </label>
 
-        <label className="block">
-          <span className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
-            Первоначальный взнос
-          </span>
-          <input
-            type="text"
-            inputMode="numeric"
-            value={downPaymentRaw}
-            onChange={(e) => handleNumericChange(e, setDownPaymentRaw)}
-            onBlur={handleDownPaymentBlur}
-            className="mt-2 w-full bg-muted border border-border px-4 py-3 text-card-foreground outline-none focus:ring-1 focus:ring-gold"
-          />
-        </label>
+        {api && (
+          <label className="block">
+            <span className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
+              Первоначальный взнос
+            </span>
+            <input
+              type="text"
+              inputMode="numeric"
+              value={downPaymentRaw}
+              onChange={(e) => handleNumericChange(e, setDownPaymentRaw)}
+              onBlur={handleDownPaymentBlur}
+              className="mt-2 w-full bg-muted border border-border px-4 py-3 text-card-foreground outline-none focus:ring-1 focus:ring-gold"
+            />
+            <span className="mt-1 block text-xs text-muted-foreground">
+              Минимальный взнос — {Math.round(api.minDownPaymentRate * 100)}%
+            </span>
+          </label>
+        )}
 
         <label className="block">
           <span className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Срок (месяцев): {term}
           </span>
-          <input
-            type="range"
-            min={cfg.minTerm}
-            max={cfg.maxTerm}
-            step={1}
-            value={term}
-            onChange={(e) => setTerm(parseInt(e.target.value, 10))}
-            className="mt-3 w-full accent-gold"
-          />
-          <div className="mt-1 flex justify-between text-xs text-muted-foreground">
-            <span>{cfg.minTerm} мес</span>
-            <span>{cfg.maxTerm} мес</span>
-          </div>
+          {periods ? (
+            <div className="mt-3 grid grid-cols-7 gap-2">
+              {periods.map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  onClick={() => setTerm(p)}
+                  className={`px-2 py-2 text-sm transition-colors ${
+                    term === p
+                      ? "bg-gold text-black"
+                      : "border border-border text-card-foreground hover:bg-muted"
+                  }`}
+                >
+                  {p}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <>
+              <input
+                type="range"
+                min={cfg.minTerm}
+                max={cfg.maxTerm}
+                step={1}
+                value={term}
+                onChange={(e) => setTerm(parseInt(e.target.value, 10))}
+                className="mt-3 w-full accent-gold"
+              />
+              <div className="mt-1 flex justify-between text-xs text-muted-foreground">
+                <span>{cfg.minTerm} мес</span>
+                <span>{cfg.maxTerm} мес</span>
+              </div>
+            </>
+          )}
         </label>
 
         {cfg.paymentType === "annuity-or-equal" && (
@@ -279,8 +359,12 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
           <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Ежемесячный платёж
           </p>
-          <p className="mt-1 text-3xl font-normal uppercase tracking-tight text-card-foreground">
-            {formatMoney(displayMonthlyPayment)}
+          <p
+            className={`mt-1 text-3xl font-normal uppercase tracking-tight text-card-foreground ${
+              isLoading ? "opacity-50" : ""
+            }`}
+          >
+            {formatMoney(result.monthlyPayment)}
           </p>
         </div>
         <div>
@@ -288,15 +372,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
             Общая сумма выплат
           </p>
           <p className="mt-1 text-xl font-normal uppercase tracking-tight text-card-foreground">
-            {formatMoney(displayTotalPayment)}
-          </p>
-        </div>
-        <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
-            Первоначальный взнос
-          </p>
-          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-card-foreground">
-            {formatMoney(effectiveDownPayment)}
+            {formatMoney(result.totalPayment)}
           </p>
         </div>
         <div>
