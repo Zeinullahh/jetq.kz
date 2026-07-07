@@ -43,7 +43,7 @@ export function SectionNavigator({ sections }: SectionNavigatorProps) {
   if (sections.length === 0) return null;
 
   return (
-    <nav className="fixed right-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-3 md:flex">
+    <nav className="fixed right-4 top-24 z-50 hidden flex-col items-center gap-3 md:flex">
       <div className="relative flex flex-col items-center gap-3">
         <div className="absolute left-1/2 top-1 h-full w-px -translate-x-1/2 bg-border" />
         {sections.map(({ id, label }) => {
