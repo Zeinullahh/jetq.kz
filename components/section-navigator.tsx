@@ -43,32 +43,37 @@ export function SectionNavigator({ sections }: SectionNavigatorProps) {
   if (sections.length === 0) return null;
 
   return (
-    <nav className="fixed right-4 top-24 z-50 hidden flex-col items-center gap-3 md:flex">
-      <div className="relative flex flex-col items-center gap-3">
-        <div className="absolute left-1/2 top-1 h-full w-px -translate-x-1/2 bg-border" />
-        {sections.map(({ id, label }) => {
-          const isActive = activeId === id;
-          return (
-            <button
-              key={id}
-              type="button"
-              onClick={() => scrollTo(id)}
-              className="group relative flex items-center justify-center rounded-full p-1"
-              aria-label={label}
-            >
-              <span
-                className={`relative z-10 block h-2 w-2 rounded-full transition-colors ${
+    <nav className="fixed right-4 top-1/2 z-50 hidden -translate-y-1/2 flex-col md:flex">
+      <div className="rounded-xl border border-border bg-card/95 p-3 shadow-xl backdrop-blur">
+        <p className="mb-2 text-center text-[10px] font-normal uppercase tracking-widest text-muted-foreground">
+          Разделы
+        </p>
+        <div className="flex flex-col gap-1.5">
+          {sections.map(({ id, label }) => {
+            const isActive = activeId === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                onClick={() => scrollTo(id)}
+                className={`group flex items-center gap-2 rounded px-2 py-1 text-left text-xs transition-colors ${
                   isActive
-                    ? "bg-gold"
-                    : "bg-border group-hover:bg-muted-foreground"
+                    ? "bg-gold/10 text-gold"
+                    : "text-card-foreground hover:bg-muted"
                 }`}
-              />
-              <span className="absolute right-full mr-3 whitespace-nowrap rounded bg-card px-2 py-1 text-xs text-card-foreground opacity-0 shadow transition-opacity group-hover:opacity-100">
-                {label}
-              </span>
-            </button>
-          );
-        })}
+              >
+                <span
+                  className={`block h-2 w-2 rounded-full border transition-colors ${
+                    isActive
+                      ? "border-gold bg-gold"
+                      : "border-muted-foreground bg-transparent group-hover:border-card-foreground"
+                  }`}
+                />
+                <span className="whitespace-nowrap">{label}</span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
