@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Phone, Clock } from "lucide-react";
 import { addresses } from "@/lib/addresses";
 import { SectionHeader } from "@/components/section-header";
@@ -8,6 +9,18 @@ const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
 const astanaAddresses = addresses.filter((a) => a.city === "Астана");
 
 export function AddressesSection() {
+  const almatyOrgIds = useMemo(
+    () => almatyAddresses.flatMap((a) => a.twoGisOrgIds),
+    []
+  );
+  const astanaOrgIds = useMemo(
+    () => astanaAddresses.flatMap((a) => a.twoGisOrgIds),
+    []
+  );
+
+  const almatyCenter = useMemo(() => ({ lat: 43.233, lon: 76.905 }), []);
+  const astanaCenter = useMemo(() => ({ lat: 51.122707, lon: 71.406067 }), []);
+
   return (
     <section id="AddressesSection" className="bg-muted/50 py-20">
       <div className="mx-auto max-w-7xl px-4">
@@ -53,9 +66,9 @@ export function AddressesSection() {
             </div>
             <div className="mt-8">
               <TwoGisMap
-                orgIds={almatyAddresses.flatMap((a) => a.twoGisOrgIds)}
+                orgIds={almatyOrgIds}
                 city="almaty"
-                center={{ lat: 43.233, lon: 76.905 }}
+                center={almatyCenter}
                 zoom={13}
                 className="h-[400px] w-full"
               />
@@ -99,9 +112,9 @@ export function AddressesSection() {
             </div>
             <div className="mt-8">
               <TwoGisMap
-                orgIds={astanaAddresses.flatMap((a) => a.twoGisOrgIds)}
+                orgIds={astanaOrgIds}
                 city="nur_sultan"
-                center={{ lat: 51.122707, lon: 71.406067 }}
+                center={astanaCenter}
                 zoom={16}
                 className="h-[400px] w-full"
               />

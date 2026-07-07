@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo } from "react";
 
 interface TwoGisMapProps {
   orgIds: string[];
@@ -8,12 +8,8 @@ interface TwoGisMapProps {
   center: { lat: number; lon: number };
   zoom?: number;
   className?: string;
-}
-
-declare global {
-  interface Window {
-    DGWidgetLoader?: new (options: Record<string, unknown>) => void;
-  }
+  title?: string;
+  borderColor?: string;
 }
 
 export function TwoGisMap({
@@ -22,47 +18,31 @@ export function TwoGisMap({
   center,
   zoom = 14,
   className = "h-[400px] w-full",
+  title = "Карта 2GIS",
+  borderColor = "#202020",
 }: TwoGisMapProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-
-  useEffect(() => {
-    const existing = document.querySelector('script[src="https://widgets.2gis.com/js/DGWidgetLoader.js"]');
-    if (existing) {
-      setScriptLoaded(true);
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.src = "https://widgets.2gis.com/js/DGWidgetLoader.js";
-    script.charset = "utf-8";
-    script.async = true;
-    script.onload = () => setScriptLoaded(true);
-    document.body.appendChild(script);
-
-    return () => {
-      // Do not remove the shared script; other instances may need it.
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!scriptLoaded || !containerRef.current || !window.DGWidgetLoader) return;
-
-    containerRef.current.innerHTML = "";
-
-    new window.DGWidgetLoader({
-      width: "100%",
-      height: "100%",
-      borderColor: "#202020",
+  const src = useMemo(() => {
+    const options = JSON.stringify({
       pos: { lat: center.lat, lon: center.lon, zoom },
       opt: { city },
-      org: orgIds.map((id) => ({ id })),
+      org: orgIds.join(","),
     });
-  }, [scriptLoaded, orgIds, city, center, zoom]);
+    return `https://widgets.2gis.com/widget?type=firmsonmap&options=${encodeURIComponent(options)}`;
+  }, [orgIds, city, center, zoom]);
 
   return (
-    <div className={`overflow-hidden bg-[#202020] ${className}`}>
-      <div ref={containerRef} className="h-full w-full" />
+    <div
+      className={`overflow-hidden bg-[#202020] ${className}`}
+      style={{ borderColor }}
+    >
+      <iframe
+        src={src}
+        width="100%"
+        height="100%"
+        frameBorder="0"
+        title={title}
+        className="h-full w-full"
+      />
       <noscript className="block p-4 text-sm text-white/70">
         Виджет карты использует JavaScript. Включите его в настройках вашего браузера.
       </noscript>
