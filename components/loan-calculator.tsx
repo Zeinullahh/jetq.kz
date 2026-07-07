@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { LoanPartner } from "@/lib/loan-partners";
 import { formatMoney } from "@/lib/utils";
 import { CTAButton } from "@/components/cta-button";
@@ -66,16 +66,23 @@ function handleNumericChange(
 
 export function LoanCalculator({ partner }: LoanCalculatorProps) {
   const cfg = partner.calculator;
+  const api = cfg.api;
+
   const [priceRaw, setPriceRaw] = useState(
     formatMoney(cfg.minAmount * 10).replace(" ₸", "")
   );
   const [downPaymentRaw, setDownPaymentRaw] = useState("0");
   const [term, setTerm] = useState(cfg.minTerm);
   const [paymentType, setPaymentType] = useState<"annuity" | "equal">("annuity");
+  const [isKasko, setIsKasko] = useState(0);
+  const [isTracker, setIsTracker] = useState(0);
+  const [apiError, setApiError] = useState(false);
+  const [apiResult, setApiResult] = useState<{ monthlyPayment?: number; totalPayment?: number } | null>(null);
 
-  const price = parseSum(priceRaw);
+  const price = clamp(parseSum(priceRaw), cfg.minAmount, cfg.maxAmount);
   const downPayment = parseSum(downPaymentRaw);
-  const principal = Math.max(0, price - downPayment);
+  const effectiveDownPayment = clamp(downPayment, 0, price);
+  const principal = Math.max(0, price - effectiveDownPayment);
   const monthlyRate = cfg.rate / 12;
 
   const { monthlyPayment, totalPayment } = useMemo(() => {
@@ -109,6 +116,39 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
     };
   }, [principal, term, monthlyRate, paymentType]);
 
+  useEffect(() => {
+    if (!api) return;
+
+    setApiError(false);
+    fetch(api.endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: price,
+        prepay: effectiveDownPayment,
+        period: term,
+        paymentMethod: paymentType === "annuity" ? "ann" : "dif",
+        isKaskoChecked: isKasko,
+        isTrackerChecked: isTracker,
+        saleType: api.saleType,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch");
+        return res.json();
+      })
+      .then((data) => {
+        setApiResult(data);
+        setApiError(false);
+      })
+      .catch(() => {
+        setApiError(true);
+      });
+  }, [api, price, effectiveDownPayment, term, paymentType, isKasko, isTracker]);
+
+  const displayMonthlyPayment = apiResult?.monthlyPayment ?? monthlyPayment;
+  const displayTotalPayment = apiResult?.totalPayment ?? totalPayment;
+
   function handlePriceBlur() {
     const parsed = clamp(parseSum(priceRaw), cfg.minAmount, cfg.maxAmount);
     setPriceRaw(formatSum(parsed));
@@ -124,14 +164,14 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
   }
 
   return (
-    <div className="bg-[#202020] p-6 md:p-8">
-      <h4 className="text-xl font-normal uppercase tracking-tight text-white">
+    <div className="bg-card p-6 md:p-8">
+      <h4 className="text-xl font-normal uppercase tracking-tight text-card-foreground">
         Калькулятор {partner.name}
       </h4>
 
       <div className="mt-6 space-y-5">
         <label className="block">
-          <span className="text-xs font-normal uppercase tracking-widest text-white/70">
+          <span className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Стоимость автомобиля
           </span>
           <input
@@ -140,12 +180,12 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
             value={priceRaw}
             onChange={(e) => handleNumericChange(e, setPriceRaw)}
             onBlur={handlePriceBlur}
-            className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
+            className="mt-2 w-full bg-muted border border-border px-4 py-3 text-card-foreground outline-none focus:ring-1 focus:ring-gold"
           />
         </label>
 
         <label className="block">
-          <span className="text-xs font-normal uppercase tracking-widest text-white/70">
+          <span className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Первоначальный взнос
           </span>
           <input
@@ -154,12 +194,12 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
             value={downPaymentRaw}
             onChange={(e) => handleNumericChange(e, setDownPaymentRaw)}
             onBlur={handleDownPaymentBlur}
-            className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
+            className="mt-2 w-full bg-muted border border-border px-4 py-3 text-card-foreground outline-none focus:ring-1 focus:ring-gold"
           />
         </label>
 
         <label className="block">
-          <span className="text-xs font-normal uppercase tracking-widest text-white/70">
+          <span className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Срок (месяцев): {term}
           </span>
           <input
@@ -171,7 +211,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
             onChange={(e) => setTerm(parseInt(e.target.value, 10))}
             className="mt-3 w-full accent-gold"
           />
-          <div className="mt-1 flex justify-between text-xs text-white/50">
+          <div className="mt-1 flex justify-between text-xs text-muted-foreground">
             <span>{cfg.minTerm} мес</span>
             <span>{cfg.maxTerm} мес</span>
           </div>
@@ -185,7 +225,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
               className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors ${
                 paymentType === "annuity"
                   ? "bg-gold text-black"
-                  : "border border-white/50 text-white hover:bg-white/10"
+                  : "border border-border text-card-foreground hover:bg-muted"
               }`}
             >
               Аннуитет
@@ -196,51 +236,86 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
               className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors ${
                 paymentType === "equal"
                   ? "bg-gold text-black"
-                  : "border border-white/50 text-white hover:bg-white/10"
+                  : "border border-border text-card-foreground hover:bg-muted"
               }`}
             >
               Равными долями
             </button>
           </div>
         )}
+
+        <div className="flex gap-3">
+          <button
+            type="button"
+            onClick={() => setIsKasko((v) => (v ? 0 : 1))}
+            className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors border ${
+              isKasko
+                ? "bg-gold text-black border-gold"
+                : "border-border text-card-foreground hover:bg-muted"
+            }`}
+          >
+            КАСКО {isKasko ? "вкл" : "выкл"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsTracker((v) => (v ? 0 : 1))}
+            className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors border ${
+              isTracker
+                ? "bg-gold text-black border-gold"
+                : "border-border text-card-foreground hover:bg-muted"
+            }`}
+          >
+            Трекер {isTracker ? "вкл" : "выкл"}
+          </button>
+        </div>
       </div>
 
-      <div className="mt-8 grid gap-4 border-t border-white/10 pt-6">
+      <p className="mt-8 text-xs font-normal uppercase tracking-widest text-muted-foreground">
+        Программа «Авто от Партнера»
+      </p>
+
+      <div className="mt-2 grid gap-4 border-t border-border pt-6">
         <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Ежемесячный платёж
           </p>
-          <p className="mt-1 text-3xl font-normal uppercase tracking-tight text-white">
-            {formatMoney(monthlyPayment)}
+          <p className="mt-1 text-3xl font-normal uppercase tracking-tight text-card-foreground">
+            {formatMoney(displayMonthlyPayment)}
           </p>
         </div>
         <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Общая сумма выплат
           </p>
-          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-white">
-            {formatMoney(totalPayment)}
+          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-card-foreground">
+            {formatMoney(displayTotalPayment)}
           </p>
         </div>
         <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             Первоначальный взнос
           </p>
-          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-white">
-            {formatMoney(downPayment)}
+          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-card-foreground">
+            {formatMoney(effectiveDownPayment)}
           </p>
         </div>
         <div>
-          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+          <p className="text-xs font-normal uppercase tracking-widest text-muted-foreground">
             ГЭСВ
           </p>
-          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-white">
+          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-card-foreground">
             {cfg.gesv}
           </p>
         </div>
       </div>
 
-      <p className="mt-4 text-xs text-white/50">
+      {apiError && !apiResult && (
+        <p className="mt-2 text-xs text-muted-foreground">
+          Расчёт при отсутствии связи с MyCar
+        </p>
+      )}
+
+      <p className="mt-4 text-xs text-muted-foreground">
         *Расчёт является ориентировочным и носит информационный характер.
       </p>
 
