@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { LoanPartner } from "@/lib/loan-partners";
 import { formatMoney } from "@/lib/utils";
 import { CTAButton } from "@/components/cta-button";
+import { Check } from "lucide-react";
 
 interface LoanCalculatorProps {
   partner: LoanPartner & { calculator: NonNullable<LoanPartner["calculator"]> };
@@ -123,7 +124,6 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
     "annuity"
   );
   const [isKasko, setIsKasko] = useState(0);
-  const [isTracker, setIsTracker] = useState(0);
 
   const price = parseSum(priceRaw);
   const downPayment = parseSum(downPaymentRaw);
@@ -164,7 +164,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
           period: term,
           paymentMethod: paymentType === "annuity" ? "ann" : "dif",
           isKaskoChecked: isKasko,
-          isTrackerChecked: isTracker,
+          isTrackerChecked: 0,
           saleType: api.saleType,
         }),
         signal: controller.signal,
@@ -194,7 +194,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
       clearTimeout(timeoutId);
       controller.abort();
     };
-  }, [api, price, effectiveDownPayment, term, paymentType, isKasko, isTracker]);
+  }, [api, price, effectiveDownPayment, term, paymentType, isKasko]);
 
   const result = apiResult ?? localResult;
 
@@ -324,30 +324,26 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
           </div>
         )}
 
-        <div className="flex gap-3">
+        {api && (
           <button
             type="button"
             onClick={() => setIsKasko((v) => (v ? 0 : 1))}
-            className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors border ${
+            className={`flex w-full items-center justify-between gap-3 px-4 py-3 text-sm uppercase tracking-widest transition-colors border ${
               isKasko
                 ? "bg-gold text-black border-gold"
                 : "border-border text-card-foreground hover:bg-muted"
             }`}
           >
-            КАСКО {isKasko ? "вкл" : "выкл"}
+            <span>КАСКО</span>
+            <span
+              className={`flex h-5 w-5 items-center justify-center border ${
+                isKasko ? "border-black bg-black text-gold" : "border-card-foreground/50"
+              }`}
+            >
+              {isKasko ? <Check size={14} strokeWidth={3} /> : null}
+            </span>
           </button>
-          <button
-            type="button"
-            onClick={() => setIsTracker((v) => (v ? 0 : 1))}
-            className={`flex-1 px-4 py-3 text-sm uppercase tracking-widest transition-colors border ${
-              isTracker
-                ? "bg-gold text-black border-gold"
-                : "border-border text-card-foreground hover:bg-muted"
-            }`}
-          >
-            Трекер {isTracker ? "вкл" : "выкл"}
-          </button>
-        </div>
+        )}
       </div>
 
       <p className="mt-8 text-xs font-normal uppercase tracking-widest text-muted-foreground">
