@@ -8,7 +8,7 @@ export function LoanPartnersSection() {
   const calculatorPartners = loanPartners.filter((p) => p.calculator);
 
   return (
-    <section className="bg-background/50 py-24">
+    <section id="LoanPartnersSection" className="bg-background/50 py-24">
       <div className="mx-auto max-w-7xl px-4">
         <MotionSectionHeader
           title="Автокредитование"

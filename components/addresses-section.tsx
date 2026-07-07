@@ -9,7 +9,7 @@ const astanaAddresses = addresses.filter((a) => a.city === "Астана");
 
 export function AddressesSection() {
   return (
-    <section className="bg-muted/50 py-20">
+    <section id="AddressesSection" className="bg-muted/50 py-20">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           title="Наш адрес"
