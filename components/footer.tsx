@@ -1,6 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
+import { addresses } from "@/lib/addresses";
+import { AddressBlock } from "@/components/address-block";
+
+const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
+const astanaAddresses = addresses.filter((a) => a.city === "Астана");
 
 const socials = [
   { href: "https://www.instagram.com/jetqauto.kz/", label: "Instagram" },
@@ -19,7 +24,7 @@ export function Footer() {
             className="h-14 w-auto object-contain"
           />
           <p className="mt-2 text-white/70">
-            Премиальные автомобильные услуги в Алматы.
+            Премиальные автомобильные услуги в Алматы и Астане.
           </p>
         </div>
         <div>
@@ -57,12 +62,32 @@ export function Footer() {
           <p className="text-xs font-normal uppercase tracking-widest text-white/70">
             Контакты
           </p>
-          <address className="mt-4 not-italic text-white space-y-1">
-            <p>г. Алматы, ЖК Forum Residence</p>
-            <p>ул. Байтурсынова 179/2, блок 2</p>
-            <p>+7 (775) 006-14-11</p>
-            <p>10:00 – 19:00, ежедневно</p>
-          </address>
+          <div className="mt-4 space-y-6">
+            <div>
+              <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+                Алматы
+              </p>
+              <div className="mt-3 space-y-4">
+                {almatyAddresses.map((address) => (
+                  <AddressBlock key={address.id} address={address} />
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+                Астана
+              </p>
+              <div className="mt-3 space-y-4">
+                {astanaAddresses.map((address) => (
+                  <AddressBlock key={address.id} address={address} />
+                ))}
+              </div>
+            </div>
+            <div className="space-y-1 text-white">
+              <p>{addresses[0].phone}</p>
+              <p>{addresses[0].hours}</p>
+            </div>
+          </div>
         </div>
         <div>
           <p className="text-xs font-normal uppercase tracking-widest text-white/70">
