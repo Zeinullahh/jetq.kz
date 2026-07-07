@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { LoanPartner } from "@/lib/loan-partners";
 import { formatMoney } from "@/lib/utils";
 import { CTAButton } from "@/components/cta-button";
+import { WHATSAPP_URL } from "@/lib/constants";
 import { Check } from "lucide-react";
 
 interface LoanCalculatorProps {
@@ -392,7 +393,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
       </p>
 
       <div className="mt-6">
-        <CTAButton href={partner.url} variant="primary">
+        <CTAButton href={WHATSAPP_URL} variant="primary">
           Оставить заявку
         </CTAButton>
       </div>
