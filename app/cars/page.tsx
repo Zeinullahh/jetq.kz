@@ -9,6 +9,7 @@ import { CTAButton } from "@/components/cta-button";
 import { YouTubeBackground } from "@/components/youtube-background";
 import { CarStockGrid } from "@/components/car-stock-grid";
 import { AddressesSection } from "@/components/addresses-section";
+import { LoanPartnersSection } from "@/components/loan-partners-section";
 import { ProcessTimeline } from "@/components/process-timeline";
 import { FAQSection } from "@/components/faq-section";
 import { MagneticButton } from "@/components/magnetic-button";
@@ -225,6 +226,8 @@ export default function CarsPage() {
             </div>
           </div>
         </section>
+
+      <LoanPartnersSection />
 
       <AddressesSection />
 
