@@ -15,6 +15,7 @@ import { FAQSection } from "@/components/faq-section";
 import { MagneticButton } from "@/components/magnetic-button";
 import { ParallaxImage } from "@/components/parallax-image";
 import { MotionCard } from "@/components/motion-card";
+import { SectionNavigator } from "@/components/section-navigator";
 import { WHATSAPP_URL } from "@/lib/constants";
 import {
   ArrowRight,
@@ -78,6 +79,20 @@ const purchaseOptions = [
 export default function CarsPage() {
   return (
     <>
+      <SectionNavigator
+        pageLabel="Авто в наличии"
+        sections={[
+          { id: "hero", label: "Главная" },
+          { id: "stock", label: "Авто в наличии" },
+          { id: "popular", label: "Популярные авто" },
+          { id: "purchase", label: "Способы покупки" },
+          { id: "process", label: "Этапы" },
+          { id: "trade-in", label: "Trade-In" },
+          { id: "credit", label: "Автокредитование" },
+          { id: "addresses", label: "Адреса" },
+          { id: "faq", label: "FAQ" },
+        ]}
+      />
       <YouTubeBackground
         videoId="0_Or6gyR87g"
         skipSegments={[{ start: 7, end: 13 }]}
