@@ -4,14 +4,19 @@ import { MotionSectionHeader } from "@/components/motion-section-header";
 import { LoanCalculator } from "@/components/loan-calculator";
 import { FadeIn } from "@/components/fade-in";
 
-export function LoanPartnersSection() {
+interface LoanPartnersSectionProps {
+  id?: string;
+  className?: string;
+}
+
+export function LoanPartnersSection({ id, className }: LoanPartnersSectionProps) {
   const calculatorPartners = loanPartners.filter(
     (p): p is LoanPartner & { calculator: NonNullable<LoanPartner["calculator"]> } =>
       !!p.calculator
   );
 
   return (
-    <section id="LoanPartnersSection" className="bg-background/50 py-24">
+    <section id={id} className={`bg-background/50 py-24 scroll-mt-24 ${className ?? ""}`}>
       <div className="mx-auto max-w-7xl px-4">
         <MotionSectionHeader
           title="Автокредитование"
@@ -23,18 +28,18 @@ export function LoanPartnersSection() {
             {loanPartners.map((partner) => (
               <div
                 key={partner.id}
-                className="bg-[#202020] p-6 md:p-8"
+                className="bg-card p-6 md:p-8"
               >
                 <a
                   href={partner.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 text-xl font-normal uppercase tracking-tight text-white hover:text-link-blue transition-colors"
+                  className="group inline-flex items-center gap-2 text-xl font-normal uppercase tracking-tight text-card-foreground hover:text-link-blue transition-colors"
                 >
                   {partner.name}
-                  <ExternalLink size={16} className="text-white/50 group-hover:text-link-blue" />
+                  <ExternalLink size={16} className="text-muted-foreground group-hover:text-link-blue" />
                 </a>
-                <ul className="mt-4 list-disc space-y-2 pl-4 text-white/80">
+                <ul className="mt-4 list-disc space-y-2 pl-4 text-muted-foreground">
                   {partner.bullets.map((bullet) => (
                     <li key={bullet}>{bullet}</li>
                   ))}
