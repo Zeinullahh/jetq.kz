@@ -15,6 +15,7 @@ import { FAQSection } from "@/components/faq-section";
 import { MagneticButton } from "@/components/magnetic-button";
 import { ParallaxImage } from "@/components/parallax-image";
 import { MotionCard } from "@/components/motion-card";
+import { SectionNavigator } from "@/components/section-navigator";
 import { WHATSAPP_URL } from "@/lib/constants";
 import {
   ArrowRight,
@@ -78,42 +79,57 @@ const purchaseOptions = [
 export default function CarsPage() {
   return (
     <>
+      <SectionNavigator
+        sections={[
+          { id: "hero", label: "Главная" },
+          { id: "stock", label: "Авто в наличии" },
+          { id: "popular", label: "Популярные авто" },
+          { id: "purchase", label: "Способы покупки" },
+          { id: "process", label: "Этапы" },
+          { id: "trade-in", label: "Trade-In" },
+          { id: "credit", label: "Автокредитование" },
+          { id: "addresses", label: "Адреса" },
+          { id: "faq", label: "FAQ" },
+        ]}
+      />
       <YouTubeBackground
         videoId="0_Or6gyR87g"
         skipSegments={[{ start: 7, end: 13 }]}
       />
-      <HeroVideo>
-        <MotionHeroText className="flex flex-col items-center">
-          <MotionHeroItem>
-            <p className="text-sm font-normal uppercase tracking-widest text-white/80">
-              JetQ Auto
-            </p>
-          </MotionHeroItem>
-          <MotionHeroItem>
-            <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
-              Автомобили
-              <br />
-              из Китая и в наличии
-            </h1>
-          </MotionHeroItem>
-          <MotionHeroItem>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
-              Подбор, выкуп, доставка, таможня и оформление под ключ.
-            </p>
-          </MotionHeroItem>
-          <MotionHeroItem>
-            <MagneticButton>
-              <CTAButton href={WHATSAPP_URL} variant="primary">
-                Получить консультацию
-              </CTAButton>
-            </MagneticButton>
-          </MotionHeroItem>
-        </MotionHeroText>
-      </HeroVideo>
+      <div id="hero" className="scroll-mt-24">
+        <HeroVideo>
+          <MotionHeroText className="flex flex-col items-center">
+            <MotionHeroItem>
+              <p className="text-sm font-normal uppercase tracking-widest text-white/80">
+                JetQ Auto
+              </p>
+            </MotionHeroItem>
+            <MotionHeroItem>
+              <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
+                Автомобили
+                <br />
+                из Китая и в наличии
+              </h1>
+            </MotionHeroItem>
+            <MotionHeroItem>
+              <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
+                Подбор, выкуп, доставка, таможня и оформление под ключ.
+              </p>
+            </MotionHeroItem>
+            <MotionHeroItem>
+              <MagneticButton>
+                <CTAButton href={WHATSAPP_URL} variant="primary">
+                  Получить консультацию
+                </CTAButton>
+              </MagneticButton>
+            </MotionHeroItem>
+          </MotionHeroText>
+        </HeroVideo>
+      </div>
 
-      <CarStockGrid />
+      <CarStockGrid id="stock" />
 
-      <section className="relative overflow-hidden">
+      <section id="popular" className="relative overflow-hidden scroll-mt-24">
         <ParallaxImage className="relative aspect-[21/9] w-full md:aspect-[21/7]" speed={0.2}>
           <Image
             src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80"
@@ -140,7 +156,7 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <section className="bg-background/50 backdrop-blur-md py-20">
+      <section id="purchase" className="bg-background/50 backdrop-blur-md py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Способы приобретения"
@@ -173,9 +189,9 @@ export default function CarsPage() {
         </div>
       </section>
 
-      <ProcessTimeline steps={steps} />
+      <ProcessTimeline steps={steps} id="process" />
 
-      <section className="bg-muted/50 backdrop-blur-md py-20">
+      <section id="trade-in" className="bg-muted/50 backdrop-blur-md py-20 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Trade-In / Обмен авто"
@@ -227,11 +243,11 @@ export default function CarsPage() {
           </div>
         </section>
 
-      <LoanPartnersSection />
+      <LoanPartnersSection id="credit" />
 
-      <AddressesSection />
+      <AddressesSection id="addresses" />
 
-      <FAQSection />
+      <FAQSection id="faq" />
     </>
   );
 }

@@ -13,11 +13,13 @@ interface ProcessStep {
 
 interface ProcessTimelineProps {
   steps: ProcessStep[];
+  id?: string;
+  className?: string;
 }
 
-export function ProcessTimeline({ steps }: ProcessTimelineProps) {
+export function ProcessTimeline({ steps, id, className }: ProcessTimelineProps) {
   return (
-    <section className="relative bg-muted/50 py-24">
+    <section id={id} className={`relative bg-muted/50 py-24 scroll-mt-24 ${className ?? ""}`}>
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           title="Как мы работаем"

@@ -12,14 +12,16 @@ import { ArrowRight } from "lucide-react";
 interface CarStockPreviewProps {
   limit?: number;
   ctaHref?: string;
+  id?: string;
+  className?: string;
 }
 
-export function CarStockPreview({ limit = 3, ctaHref = "/cars" }: CarStockPreviewProps) {
+export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }: CarStockPreviewProps) {
   const isTouch = useTouchDevice();
   const previewCars = carStock.slice(0, limit);
 
   return (
-    <section className="bg-background/50 py-20">
+    <section id={id} className={`bg-background/50 py-20 scroll-mt-24 ${className ?? ""}`}>
       <div className="mx-auto max-w-7xl px-4">
         <MotionSectionHeader
           title="Авто в наличии"

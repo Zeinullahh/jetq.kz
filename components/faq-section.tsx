@@ -32,9 +32,14 @@ const faqItems = [
   },
 ];
 
-export function FAQSection() {
+interface FAQSectionProps {
+  id?: string;
+  className?: string;
+}
+
+export function FAQSection({ id, className }: FAQSectionProps) {
   return (
-    <section className="bg-background/50 py-24">
+    <section id={id} className={`bg-background/50 py-24 scroll-mt-24 ${className ?? ""}`}>
       <div className="mx-auto max-w-7xl px-4">
         <MotionSectionHeader
           title="Частые вопросы"

@@ -8,10 +8,15 @@ import { MotionSectionHeader } from "@/components/motion-section-header";
 import { MotionCard } from "@/components/motion-card";
 import { useTouchDevice } from "@/hooks/use-touch-device";
 
-export function CarStockGrid() {
+interface CarStockGridProps {
+  id?: string;
+  className?: string;
+}
+
+export function CarStockGrid({ id, className }: CarStockGridProps) {
   const isTouch = useTouchDevice();
   return (
-    <section className="bg-background/50 py-20">
+    <section id={id} className={`bg-background/50 py-20 scroll-mt-24 ${className ?? ""}`}>
       <div className="mx-auto max-w-7xl px-4">
         <MotionSectionHeader
           title="Авто в наличии"

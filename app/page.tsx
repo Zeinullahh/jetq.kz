@@ -16,6 +16,7 @@ import { CarStockPreview } from "@/components/car-stock-preview";
 import { AddressesSection } from "@/components/addresses-section";
 import { LoanPartnersSection } from "@/components/loan-partners-section";
 import { FAQSection } from "@/components/faq-section";
+import { SectionNavigator } from "@/components/section-navigator";
 import { WHATSAPP_URL } from "@/lib/constants";
 import { Phone, ArrowDown } from "lucide-react";
 
@@ -49,49 +50,63 @@ const advantages = [
 export default function HomePage() {
   return (
     <>
+      <SectionNavigator
+        sections={[
+          { id: "hero", label: "Главная" },
+          { id: "stock", label: "Авто в наличии" },
+          { id: "why-jetq", label: "Почему JetQ" },
+          { id: "consultation", label: "Консультация" },
+          { id: "credit", label: "Автокредитование" },
+          { id: "contact", label: "Контакты" },
+          { id: "addresses", label: "Адреса" },
+          { id: "faq", label: "FAQ" },
+        ]}
+      />
       <YouTubeBackground
         videoId="0_Or6gyR87g"
         skipSegments={[{ start: 7, end: 13 }]}
       />
-      <HeroVideo>
-        <MotionHeroText className="flex flex-col items-center">
-          <MotionHeroItem>
-            <p className="text-sm font-normal uppercase tracking-widest text-white/80">
-              JetQ Group
-            </p>
-          </MotionHeroItem>
-          <MotionHeroItem>
-            <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
-              Премиальный
-              <br />
-              автомобильный сервис
-            </h1>
-          </MotionHeroItem>
-          <MotionHeroItem>
-            <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
-              Детейлинг, продажа и обмен автомобилей в Алматы. Качество, которое видно с первого взгляда.
-            </p>
-          </MotionHeroItem>
-          <MotionHeroItem>
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <MagneticButton>
-                <CTAButton href={WHATSAPP_URL} variant="primary">
-                  JetQ Детейлинг
-                </CTAButton>
-              </MagneticButton>
-              <MagneticButton>
-                <CTAButton href="/cars/" variant="ghost">
-                  Авто в наличии
-                </CTAButton>
-              </MagneticButton>
-            </div>
-          </MotionHeroItem>
-        </MotionHeroText>
-      </HeroVideo>
+      <div id="hero" className="scroll-mt-24">
+        <HeroVideo>
+          <MotionHeroText className="flex flex-col items-center">
+            <MotionHeroItem>
+              <p className="text-sm font-normal uppercase tracking-widest text-white/80">
+                JetQ Group
+              </p>
+            </MotionHeroItem>
+            <MotionHeroItem>
+              <h1 className="mt-4 text-5xl font-normal uppercase leading-[0.92] md:text-7xl lg:text-8xl xl:text-[7.5rem]">
+                Премиальный
+                <br />
+                автомобильный сервис
+              </h1>
+            </MotionHeroItem>
+            <MotionHeroItem>
+              <p className="mx-auto mt-6 max-w-2xl text-lg text-white/90 md:text-xl">
+                Детейлинг, продажа и обмен автомобилей в Алматы. Качество, которое видно с первого взгляда.
+              </p>
+            </MotionHeroItem>
+            <MotionHeroItem>
+              <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <MagneticButton>
+                  <CTAButton href={WHATSAPP_URL} variant="primary">
+                    JetQ Детейлинг
+                  </CTAButton>
+                </MagneticButton>
+                <MagneticButton>
+                  <CTAButton href="/cars/" variant="ghost">
+                    Авто в наличии
+                  </CTAButton>
+                </MagneticButton>
+              </div>
+            </MotionHeroItem>
+          </MotionHeroText>
+        </HeroVideo>
+      </div>
 
-      <CarStockPreview limit={3} />
+      <CarStockPreview limit={3} id="stock" />
 
-      <section className="relative bg-muted/50 py-24">
+      <section id="why-jetq" className="relative bg-muted/50 py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Почему JetQ?"
@@ -150,7 +165,7 @@ export default function HomePage() {
 
       <PartnersTicker />
 
-      <section className="bg-background/50 py-24">
+      <section id="consultation" className="bg-background/50 py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <div className="overflow-hidden bg-gold p-8 md:p-12">
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
@@ -173,9 +188,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <LoanPartnersSection />
+      <LoanPartnersSection id="credit" />
 
-      <section className="bg-muted/50 py-24">
+      <section id="contact" className="bg-muted/50 py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <MotionSectionHeader
             title="Свяжитесь с нами"
@@ -187,9 +202,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <AddressesSection />
+      <AddressesSection id="addresses" />
 
-      <FAQSection />
+      <FAQSection id="faq" />
     </>
   );
 }

@@ -8,7 +8,12 @@ import { TwoGisMap } from "@/components/two-gis-map";
 const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
 const astanaAddresses = addresses.filter((a) => a.city === "Астана");
 
-export function AddressesSection() {
+interface AddressesSectionProps {
+  id?: string;
+  className?: string;
+}
+
+export function AddressesSection({ id, className }: AddressesSectionProps) {
   const almatyOrgIds = useMemo(
     () => almatyAddresses.flatMap((a) => a.twoGisOrgIds),
     []
@@ -22,7 +27,7 @@ export function AddressesSection() {
   const astanaCenter = useMemo(() => ({ lat: 51.122707, lon: 71.406067 }), []);
 
   return (
-    <section id="AddressesSection" className="bg-muted/50 py-20">
+    <section id={id} className={`bg-muted/50 py-20 scroll-mt-24 ${className ?? ""}`}>
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
           title="Наш адрес"
