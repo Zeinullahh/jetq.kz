@@ -20,34 +20,26 @@ const links: PageLink[] = [
 
 const pageSections: Record<string, { id: string; label: string }[]> = {
   "/": [
-    { id: "hero", label: "Главная" },
     { id: "stock", label: "Авто в наличии" },
     { id: "why-jetq", label: "Почему JetQ" },
     { id: "consultation", label: "Консультация" },
     { id: "credit", label: "Автокредитование" },
     { id: "contact", label: "Контакты" },
     { id: "addresses", label: "Адреса" },
-    { id: "faq", label: "FAQ" },
   ],
   "/detailing": [
-    { id: "hero", label: "Главная" },
     { id: "services", label: "Услуги" },
     { id: "process", label: "Процесс" },
     { id: "gallery", label: "Галерея" },
     { id: "contact", label: "Запись" },
     { id: "addresses", label: "Адреса" },
-    { id: "faq", label: "FAQ" },
   ],
   "/cars": [
-    { id: "hero", label: "Главная" },
     { id: "stock", label: "Авто в наличии" },
-    { id: "popular", label: "Популярные авто" },
     { id: "purchase", label: "Способы покупки" },
-    { id: "process", label: "Этапы" },
     { id: "trade-in", label: "Trade-In" },
     { id: "credit", label: "Автокредитование" },
     { id: "addresses", label: "Адреса" },
-    { id: "faq", label: "FAQ" },
   ],
 };
 
