@@ -14,6 +14,7 @@ import { MagneticButton } from "@/components/magnetic-button";
 import { TimelineLine } from "@/components/timeline-line";
 import { FAQSection } from "@/components/faq-section";
 import { AddressesSection } from "@/components/addresses-section";
+import { SectionNavigator } from "@/components/section-navigator";
 import { Sparkles, Shield, Droplets, Paintbrush } from "lucide-react";
 
 const services = [
@@ -78,6 +79,18 @@ const gallery = [
 export default function DetailingPage() {
   return (
     <>
+      <SectionNavigator
+        pageLabel="Детейлинг"
+        sections={[
+          { id: "hero", label: "Главная" },
+          { id: "services", label: "Услуги" },
+          { id: "process", label: "Процесс" },
+          { id: "gallery", label: "Галерея" },
+          { id: "contact", label: "Запись" },
+          { id: "addresses", label: "Адреса" },
+          { id: "faq", label: "FAQ" },
+        ]}
+      />
       <YouTubeBackground videoId="_3W7tuxFYS8" zoom={1.2} />
 
       <div id="hero" className="scroll-mt-24">
