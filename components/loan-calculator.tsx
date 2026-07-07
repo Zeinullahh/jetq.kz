@@ -21,6 +21,49 @@ function formatSum(value: number) {
   return value.toLocaleString("ru-RU").replace(/,/g, " ");
 }
 
+function formatWithSpaces(value: string): string {
+  const digits = value.replace(/\D/g, "");
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+function countDigitsBefore(value: string, position: number): number {
+  let count = 0;
+  for (let i = 0; i < position && i < value.length; i++) {
+    if (/\d/.test(value[i])) count++;
+  }
+  return count;
+}
+
+function positionAfterDigits(value: string, digitCount: number): number {
+  let count = 0;
+  for (let i = 0; i < value.length; i++) {
+    if (/\d/.test(value[i])) {
+      count++;
+      if (count === digitCount) return i + 1;
+    }
+  }
+  return value.length;
+}
+
+function handleNumericChange(
+  e: React.ChangeEvent<HTMLInputElement>,
+  setter: (value: string) => void
+) {
+  const input = e.currentTarget;
+  const oldValue = input.value;
+  const cursor = input.selectionStart ?? oldValue.length;
+  const digitsBefore = countDigitsBefore(oldValue, cursor);
+
+  const newValue = formatWithSpaces(e.target.value);
+  const newCursor = positionAfterDigits(newValue, digitsBefore);
+
+  setter(newValue);
+
+  requestAnimationFrame(() => {
+    input.setSelectionRange(newCursor, newCursor);
+  });
+}
+
 export function LoanCalculator({ partner }: LoanCalculatorProps) {
   const cfg = partner.calculator;
   const [priceRaw, setPriceRaw] = useState(
@@ -95,7 +138,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
             type="text"
             inputMode="numeric"
             value={priceRaw}
-            onChange={(e) => setPriceRaw(e.target.value.replace(/\D/g, ""))}
+            onChange={(e) => handleNumericChange(e, setPriceRaw)}
             onBlur={handlePriceBlur}
             className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
           />
@@ -109,9 +152,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
             type="text"
             inputMode="numeric"
             value={downPaymentRaw}
-            onChange={(e) =>
-              setDownPaymentRaw(e.target.value.replace(/\D/g, ""))
-            }
+            onChange={(e) => handleNumericChange(e, setDownPaymentRaw)}
             onBlur={handleDownPaymentBlur}
             className="mt-2 w-full bg-black/50 px-4 py-3 text-white outline-none focus:ring-1 focus:ring-gold"
           />
@@ -179,6 +220,22 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
           </p>
           <p className="mt-1 text-xl font-normal uppercase tracking-tight text-white">
             {formatMoney(totalPayment)}
+          </p>
+        </div>
+        <div>
+          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+            Первоначальный взнос
+          </p>
+          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-white">
+            {formatMoney(downPayment)}
+          </p>
+        </div>
+        <div>
+          <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+            ГЭСВ
+          </p>
+          <p className="mt-1 text-xl font-normal uppercase tracking-tight text-white">
+            {cfg.gesv}
           </p>
         </div>
       </div>

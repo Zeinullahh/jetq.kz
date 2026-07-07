@@ -10,6 +10,7 @@ export interface LoanPartner {
     maxTerm: number;
     rate: number;
     paymentType: "annuity" | "annuity-or-equal";
+    gesv: string;
   };
 }
 
@@ -31,7 +32,8 @@ export const loanPartners: LoanPartner[] = [
       minTerm: 12,
       maxTerm: 120,
       rate: 0.23,
-      paymentType: "annuity",
+      paymentType: "annuity-or-equal",
+      gesv: "от 26.7% до 46%",
     },
   },
   {
@@ -52,6 +54,7 @@ export const loanPartners: LoanPartner[] = [
       maxTerm: 84,
       rate: 0.22,
       paymentType: "annuity-or-equal",
+      gesv: "от 2.64% до 40.45%",
     },
   },
   {
