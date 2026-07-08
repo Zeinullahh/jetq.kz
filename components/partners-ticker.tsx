@@ -15,6 +15,7 @@ const partners = [
   { name: "БЦК Бизнес", src: "/images/partners/БЦК Бизнес.png", width: 160, height: 70 },
   { name: "Береке Бизнес", src: "/images/partners/Береке Бизнес.webp", width: 160, height: 70 },
   { name: "Евразийский Банк Развития", src: "/images/partners/Евразийский Банк Развития.jpg", width: 160, height: 70 },
+  { name: "Real-Construction Co", src: "/images/partners/Real-Construction Co.jpeg", width: 160, height: 70 },
 ];
 
 function LogoStrip({ suffix }: { suffix: string }) {
