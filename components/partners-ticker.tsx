@@ -6,10 +6,15 @@ import type { CSSProperties } from "react";
 import { SectionHeader } from "./section-header";
 
 const partners = [
-  { name: "CarPay", src: "/images/partners/CarPay_logo.png", width: 140, height: 60 },
-  { name: "Max Auto", src: "/images/partners/max-logo.png", width: 130, height: 60 },
-  { name: "InDrive", src: "/images/partners/InDrive_Logo.webp", width: 130, height: 60 },
-  { name: "MB RUS", src: "/images/partners/MB_RUS_logo.svg", width: 130, height: 60 },
+  { name: "CarPay", src: "/images/partners/CarPay_logo.png", width: 160, height: 70 },
+  { name: "InDrive", src: "/images/partners/InDrive_Logo.webp", width: 160, height: 70 },
+  { name: "AB Restaurants", src: "/images/partners/AB Restaurants.png", width: 160, height: 70 },
+  { name: "Integra Construction Kz", src: "/images/partners/Integra Construction Kz.jpg", width: 160, height: 70 },
+  { name: "STECOL CORPORATION", src: "/images/partners/STECOL CORPORATION.jpg", width: 160, height: 70 },
+  { name: "А-Лизинг", src: "/images/partners/А-Лизинг.png", width: 160, height: 70 },
+  { name: "БЦК Бизнес", src: "/images/partners/БЦК Бизнес.png", width: 160, height: 70 },
+  { name: "Береке Бизнес", src: "/images/partners/Береке Бизнес.webp", width: 160, height: 70 },
+  { name: "Евразийский Банк Развития", src: "/images/partners/Евразийский Банк Развития.jpg", width: 160, height: 70 },
 ];
 
 function LogoStrip({ suffix }: { suffix: string }) {
@@ -18,17 +23,15 @@ function LogoStrip({ suffix }: { suffix: string }) {
       {partners.map((partner) => (
         <div
           key={`${partner.name}-${suffix}`}
-          className="flex h-[120px] w-[200px] flex-shrink-0 items-center justify-center px-8 md:h-[140px] md:w-[260px]"
+          className="mx-2 flex h-[110px] w-[200px] flex-shrink-0 items-center justify-center rounded-xl bg-white px-6 py-4 md:mx-3 md:h-[130px] md:w-[260px] md:px-8 md:py-6"
         >
-          <div className="flex items-center justify-center">
-            <Image
-              src={partner.src}
-              alt={partner.name}
-              width={partner.width}
-              height={partner.height}
-              className="max-h-full max-w-full object-contain"
-            />
-          </div>
+          <Image
+            src={partner.src}
+            alt={partner.name}
+            width={partner.width}
+            height={partner.height}
+            className="max-h-full max-w-full object-contain"
+          />
         </div>
       ))}
     </>
@@ -44,12 +47,12 @@ export function PartnersTicker() {
     <section className="bg-muted/50 py-24">
       <div className="mx-auto max-w-7xl px-4">
         <SectionHeader
-          title="Партнеры"
-          subtitle="Нам доверяют лидеры автомобильного рынка."
+          title="Нам доверяют"
+          subtitle="Лидеры рынка и бизнеса выбирают JetQ."
         />
       </div>
 
-      <div className="mt-2 bg-smoke">
+      <div className="mt-2 bg-white">
         <div className="group relative overflow-hidden">
           <div
             className={`flex w-max items-center ${prefersReducedMotion ? "" : "animate-marquee"}`}

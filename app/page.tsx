@@ -5,13 +5,11 @@ import { motion } from "framer-motion";
 import { HeroVideo } from "@/components/hero-video";
 import { MotionHeroText, MotionHeroItem } from "@/components/motion-hero-text";
 import { MotionSectionHeader } from "@/components/motion-section-header";
-import { ContactBlock } from "@/components/contact-block";
 import { CTAButton } from "@/components/cta-button";
 import { YouTubeBackground } from "@/components/youtube-background";
 import { PartnersTicker } from "@/components/partners-ticker";
 import { MotionCard } from "@/components/motion-card";
 import { MagneticButton } from "@/components/magnetic-button";
-import { FadeIn } from "@/components/fade-in";
 import { CarStockPreview } from "@/components/car-stock-preview";
 import { AddressesSection } from "@/components/addresses-section";
 import { LoanPartnersSection } from "@/components/loan-partners-section";
@@ -176,18 +174,6 @@ export default function HomePage() {
       </section>
 
       <LoanPartnersSection id="credit" />
-
-      <section id="contact" className="bg-muted/50 py-24 scroll-mt-24">
-        <div className="mx-auto max-w-7xl px-4">
-          <MotionSectionHeader
-            title="Свяжитесь с нами"
-            subtitle="Приезжайте в офис или позвоните — мы ответим на все вопросы."
-          />
-          <FadeIn>
-            <ContactBlock />
-          </FadeIn>
-        </div>
-      </section>
 
       <AddressesSection id="addresses" />
 
