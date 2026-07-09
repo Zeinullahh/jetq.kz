@@ -2,10 +2,10 @@
 
 import { useEffect, useId, useState } from "react";
 import { X } from "lucide-react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
+import { CityLink, useCity } from "@/components/site-context";
 
 interface PageLink {
   href: string;
@@ -51,11 +51,20 @@ function normalizePathname(pathname: string) {
   return pathname.replace(/\/$/, "") || "/";
 }
 
+function stripCity(pathname: string, city: string | null) {
+  if (!city) return pathname;
+  return pathname.replace(new RegExp(`^/${city}(?=/|$)`), "") || "/";
+}
+
 export function MobileMenu({ trigger }: MobileMenuProps) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const pathname = usePathname();
-  const currentPath = normalizePathname(pathname ?? "/");
+  const city = useCity();
+  const currentPath = stripCity(
+    normalizePathname(pathname ?? "/"),
+    city
+  );
   const sections = pageSections[currentPath] ?? [];
 
   useEffect(() => {
@@ -128,7 +137,7 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
                         delay: index * 0.05,
                       }}
                     >
-                      <Link
+                      <CityLink
                         href={link.href}
                         onClick={() => setOpen(false)}
                         className={`block text-4xl font-normal uppercase tracking-tight transition-colors hover:text-gold-text md:text-5xl ${
@@ -138,7 +147,7 @@ export function MobileMenu({ trigger }: MobileMenuProps) {
                         }`}
                       >
                         {link.label}
-                      </Link>
+                      </CityLink>
                     </motion.div>
                   );
                 })}

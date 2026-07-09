@@ -7,11 +7,14 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { ThemeToggle } from "./theme-toggle";
 import { MobileMenu } from "./mobile-menu";
+import { useCityHref, usePhones } from "@/components/site-context";
 
 export function Navbar() {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const homeHref = useCityHref("/");
+  const { generalPhone } = usePhones();
 
   useEffect(() => {
     setMounted(true);
@@ -44,7 +47,7 @@ export function Navbar() {
             </span>
           }
         />
-        <Link href="/" className="absolute left-1/2 -translate-x-1/2">
+        <Link href={homeHref} className="absolute left-1/2 -translate-x-1/2">
           <Image
             src={isDark ? "/images/JetQ_Type_White.png" : "/images/JetQ_Type_Black.png"}
             alt="JetQ"
@@ -56,8 +59,8 @@ export function Navbar() {
         </Link>
         <div className="flex items-center gap-3">
           <a
-            href="tel:+77750061411"
-            aria-label="Позвонить +7 (775) 006-14-11"
+            href={`tel:${generalPhone.replace(/\D/g, "")}`}
+            aria-label={`Позвонить ${generalPhone}`}
             className={`rounded-full p-2 transition-colors duration-300 ${
               isDark
                 ? "text-white hover:bg-white/10"

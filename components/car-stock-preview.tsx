@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { carStock } from "@/lib/cars-stock";
 import { MotionSectionHeader } from "@/components/motion-section-header";
 import { MotionCard } from "@/components/motion-card";
 import { CTAButton } from "@/components/cta-button";
 import { useTouchDevice } from "@/hooks/use-touch-device";
+import { useCity, useCityHref } from "@/components/site-context";
 import { ArrowRight } from "lucide-react";
 
 interface CarStockPreviewProps {
@@ -16,8 +18,17 @@ interface CarStockPreviewProps {
   className?: string;
 }
 
+function useCityLabel() {
+  const city = useCity();
+  if (city === "astana") return "Астане";
+  if (city === "almaty") return "Алматы";
+  return "Алматы и Астане";
+}
+
 export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }: CarStockPreviewProps) {
   const isTouch = useTouchDevice();
+  const cityCtaHref = useCityHref(ctaHref);
+  const cityLabel = useCityLabel();
   const previewCars = carStock.slice(0, limit);
 
   return (
@@ -25,7 +36,7 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
       <div className="mx-auto max-w-7xl px-4">
         <MotionSectionHeader
           title="Авто в наличии"
-          subtitle="Актуальный сток популярных автомобилей из Китая в Алматы."
+          subtitle={`Актуальный сток популярных автомобилей из Китая в ${cityLabel}.`}
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {previewCars.map((car, index) => (
@@ -40,8 +51,8 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <a
-                href={ctaHref}
+              <Link
+                href={cityCtaHref}
                 aria-label={`Узнать подробнее о ${car.model}`}
                 className="block"
               >
@@ -74,7 +85,7 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
                     <p className="mt-2 text-sm text-white/80">Подробнее →</p>
                   </motion.div>
                 </MotionCard>
-              </a>
+              </Link>
             </motion.div>
           ))}
         </div>

@@ -286,3 +286,179 @@ When refining existing screens generated with this design system:
 3. Use natural language descriptions, not CSS values — "sharp-cut golden rectangle" not "border-radius: 0px; background: #FFC000"
 4. Describe the desired "feel" alongside specific measurements — "floating in total darkness" communicates the black canvas better than "background: #000000"
 5. Remember that UPPERCASE IS THE DEFAULT — if text isn't uppercase at display sizes, it probably should be
+
+## 10. Motion & Scroll Animations
+
+The JetQ site uses a deliberate, cinematic motion layer built on **Framer Motion**. Animations are not decorative noise — they are timed like cuts in a car reveal film. Elements emerge from the dark canvas as the user scrolls, CTAs respond to the cursor with mechanical precision, and global ambient effects add depth without stealing attention from the content.
+
+All motion follows three guardrails:
+
+- **Accessibility first.** Every animation respects `prefers-reduced-motion` via Framer Motion's `useReducedMotion()`. When reduced motion is enabled, entrance offsets are removed, springs are zeroed, loops stop, and durations collapse to `0`.
+- **Touch-aware.** Cursor-driven effects (3D tilt, magnetic pull, sheen) are disabled on touch/pointer-coarse devices through a custom `useTouchDevice()` hook so scrolling and tapping stay clean.
+- **GPU-optimized.** Animated layers carry `transform-gpu`, `will-change-transform`, and `backface-hidden` to keep motion off the main thread.
+
+Two easing curves dominate the choreography:
+
+| Curve | Values | Character |
+|-------|--------|-----------|
+| Smooth ease-out | `[0.25, 0.1, 0.25, 1]` | Used for scroll-reveal building blocks (`FadeIn`, `StaggerContainer`). |
+| Cinematic ease-out | `[0.22, 1, 0.36, 1]` | Used for hero text, section headers, cards, and high-impact section reveals. |
+
+### 10.1 Global Ambient Effects
+
+These effects run at the layout level and set the mood before any content enters the viewport.
+
+**Scroll progress bar** (`components/scroll-progress.jsx`)
+A fixed 4px horizontal bar sits at the very top of the viewport. Its `scaleX` is bound to the global `scrollYProgress` value through a spring (`stiffness: 100`, `damping: 30`, `restDelta: 0.001`), so the bar stretches smoothly as the page is scrolled. The fill is a left-to-right gold gradient (`from-gold via-yellow-300 to-gold`).
+
+**Cursor spotlight** (`components/cursor-spotlight.jsx`)
+A 400×400px radial gold glow (`rgba(212,175,55,0.08)` center to transparent at 70%) follows the mouse through Framer Motion spring values (`stiffness: 80`, `damping: 25`). Updates are throttled to `requestAnimationFrame`. The effect is hidden entirely on touch devices and when reduced motion is preferred.
+
+**Page transitions** (`components/page-transition.tsx`)
+Route changes are wrapped in `AnimatePresence` with `mode="wait"`. The outgoing page exits with `{ opacity: 0, y: -20 }` while the incoming page enters from `{ opacity: 0, y: 20 }` to `{ opacity: 1, y: 0 }`. The transition lasts `0.4s` and uses Framer Motion's `"easeInOut"`.
+
+**Loading screen** (`components/loading-screen.jsx`)
+A full-screen black overlay shows the JetQ logo while the DOM and any expected background video initialize. The loader waits for an intentional 800ms delay, then exits with a fade to `{ opacity: 0 }` over `0.6s` (`ease: [0.22, 1, 0.36, 1]`). Inside the loader:
+
+- The logo container scales from `{ opacity: 0, scale: 0.8 }` to `{ opacity: 1, scale: 1 }` over `0.7s`.
+- The logo breathes in an infinite loop: `scale: [1, 1.05, 1]` with a gold `drop-shadow` pulsing from `0px` to `24px` blur at `0.6` alpha, cycling every `1.6s` (`easeInOut`).
+- A gold progress bar shimmer translates `x: ["-100%", "100%"]` every `1.2s` (`easeInOut`, infinite).
+
+**YouTube background fade** (`components/youtube-background.tsx`)
+The cinematic background video is overlaid with a dark scrim (`bg-black/40`) that fades out via `transition-opacity duration-700` once the player reports `PLAYING` or `BUFFERING`. The video container can be scaled with a `zoom` prop (e.g. `zoom={1.2}` on the Detailing page), applied through a CSS `scale()` transform.
+
+### 10.2 Scroll-Reveal Building Blocks
+
+These reusable components are the foundation of the site's "elements beautifully coming while scrolling" behavior.
+
+**`FadeIn`** (`components/fade-in.tsx`)
+A general-purpose scroll-reveal wrapper.
+
+| Property | Value |
+|----------|-------|
+| Initial | `opacity: 0` + directional offset (`x` or `y: ±24px`) |
+| In view | `opacity: 1`, `x: 0`, `y: 0` |
+| Viewport | `{ once: true, amount: 0.2 }` |
+| Duration | `0.6s` |
+| Easing | `[0.25, 0.1, 0.25, 1]` |
+| Delay | Passed via `delay` prop (default `0`) |
+| Directions | `up`, `down`, `left`, `right` |
+
+**`StaggerContainer` / `StaggerItem`** (`components/stagger-container.tsx`)
+Used for lists and timelines where children should appear one after another.
+
+| Property | Value |
+|----------|-------|
+| Container trigger | `{ once: true, amount: 0.15 }` |
+| Default stagger | `0.08s` per child (overridable via `staggerDelay`) |
+| Item initial | `opacity: 0`, `y: 20px` |
+| Item in view | `opacity: 1`, `y: 0` |
+| Item duration | `0.5s` |
+| Item easing | `[0.25, 0.1, 0.25, 1]` |
+
+**`MotionSectionHeader`** (`components/motion-section-header.jsx`)
+Every major section title uses this orchestrated reveal:
+
+1. The wrapper fades in (`opacity: 0 → 1`).
+2. Two 60px gold decorative lines grow horizontally (`scaleX: 0 → 1`) from opposite origins (`origin-right` left line, `origin-left` right line) over `0.6s`.
+3. The title slides up from `y: 30px` with a `0.2s` delay.
+4. The optional subtitle slides up from `y: 20px` with a `0.35s` delay.
+
+All elements share the cinematic easing `[0.22, 1, 0.36, 1]` and viewport `{ once: true, amount: 0.3 }`.
+
+**`MotionHeroText` / `MotionHeroItem`** (`components/motion-hero-text.jsx`)
+Hero headlines are revealed on page load, not scroll. The container staggers children by `0.08s`; each child starts at `opacity: 0`, `y: 60px`, `rotateX: 15deg` and resolves to `opacity: 1`, `y: 0`, `rotateX: 0` over `0.7s` (`ease: [0.22, 1, 0.36, 1]`). The container has `perspective: 1000` so the rotation feels three-dimensional.
+
+### 10.3 Section-Specific Scroll Reveals
+
+Individual sections layer the building blocks above with their own offsets and staggers.
+
+**Car stock grids** (`components/car-stock-grid.tsx`, `components/car-stock-preview.tsx`)
+Each car card enters with:
+
+- Initial: `opacity: 0`, `y: 80px`, `scale: 0.92`
+- In view: `opacity: 1`, `y: 0`, `scale: 1`
+- Duration: `0.7s`
+- Delay: `index * 0.1s`
+- Easing: `[0.22, 1, 0.36, 1]`
+- Viewport: `{ once: true, amount: 0.15 }`
+
+Inside the card, `MotionCard` adds tilt and sheen (see below), and the car image scales to `1.12` on hover over `0.6s`. The "Смотреть все авто" CTA row fades in from `y: 20px` with a `0.2s` delay.
+
+**Home "Why JetQ" advantages** (`components/pages/home-page.tsx`)
+Advantage cards use the same `MotionCard` sheen wrapper and enter from `opacity: 0`, `y: 40px` with `0.5s` duration and `index * 0.08s` stagger.
+
+**Cars parallax banner** (`components/pages/cars-page.tsx`)
+A full-width cinematic image uses `ParallaxImage` with `speed={0.2}`. As the section crosses the viewport, the inner layer translates from `-20px` to `+20px` on the Y axis based on element scroll progress (`offset: ["start end", "end start"]`).
+
+**Cars purchase options** (`components/pages/cars-page.tsx`)
+Each option card enters from `opacity: 0`, `y: 50px`, `rotateX: 15deg` to `opacity: 1`, `y: 0`, `rotateX: 0` over `0.6s` with `index * 0.1s` stagger. Each card has `perspective: 1000`.
+
+**Cars trade-in section** (`components/pages/cars-page.tsx`)
+The left text card slides in from `x: -40px`; the right image card slides in from `x: 40px` with a `0.15s` delay.
+
+**Detailing services** (`components/pages/detailing-page.tsx`)
+Service cards alternate their horizontal entrance: even-index cards come from `x: -40px`, odd-index cards from `x: 40px`, both with `y: 40px`. Duration `0.6s`, stagger `index * 0.1s`.
+
+**Detailing process** (`components/pages/detailing-page.tsx`)
+A `TimelineLine` draws the vertical gold line as the user scrolls (`scaleY` mapped to scroll progress from `start center` to `end center`). Each step card slides in from `x: 40px` with `index * 0.12s` stagger. The step-number badge performs a small pop: `scale: [0.8, 1.1, 1]` over `0.5s` (`easeOut`) when it enters the viewport.
+
+**Process timeline** (`components/process-timeline.tsx`)
+The left atmospheric car image uses `FadeIn direction="left"`. The right steps use `StaggerContainer` with a heavier `staggerDelay={0.12}`. Step cards have a CSS-only hover transition (`transition-colors duration-300 hover:bg-card/80`).
+
+**Gallery** (`components/pages/detailing-page.tsx`)
+Gallery items scale into view from `opacity: 0`, `scale: 0.8` to `opacity: 1`, `scale: 1` over `0.5s` with `i * 0.08s` stagger. The viewport trigger uses `amount: "some"` with a `-100px` margin so thumbnails start animating slightly before they fully enter the screen.
+
+**FAQ accordion** (`components/faq-accordion.tsx`)
+Each FAQ card fades up from `opacity: 0`, `y: 20px` with `0.5s` duration and `index * 0.08s` stagger. The chevron rotates `0deg → 180deg` on open using a spring (`stiffness: 200`, `damping: 20`). The answer panel animates `height: 0 → auto` and `opacity: 0 → 1` over `0.3s` (`easeInOut`) through `AnimatePresence`.
+
+**Loan partners** (`components/loan-partners-section.tsx`)
+Partner cards and calculators are wrapped in `FadeIn` blocks, so the whole grid reveals as a single unit.
+
+### 10.4 Interactive Micro-Effects
+
+These animations respond to hover, focus, or cursor position.
+
+**`MotionCard`** (`components/motion-card.jsx`)
+A wrapper that turns static cards into tactile surfaces:
+
+- **3D tilt.** Mouse position is normalized to `[-0.5, 0.5]` on each axis and mapped through `useTransform` and `useSpring` (`stiffness: 150`, `damping: 20`) to `rotateX: ±12deg` and `rotateY: ±12deg`. The container uses `perspective: 1000` and `transformStyle: "preserve-3d"`.
+- **Hover lift.** On hover the card scales to `hoverScale` (default `1.02`) and translates `z: 40px` toward the viewer, with a `0.4s` transition (`ease: [0.22, 1, 0.36, 1]`).
+- **Sheen sweep.** An optional diagonal white gradient overlay (`rgba(255,255,255,0.25)`) sweeps from `x: "-100%"` to `x: "100%"` on hover, with opacity keyframes `[0, 0.3, 0]` over `0.8s` (`easeInOut`).
+- **Glow.** An optional gold glow overlay fades in on hover via `group-hover:opacity-100` over `500ms`.
+
+Tilt, lift, sheen, and glow are all suppressed on touch devices and when reduced motion is preferred.
+
+**`MagneticButton`** (`components/magnetic-button.jsx`)
+Buttons wrapped in this component feel magnetically attracted to the cursor:
+
+- The button center is calculated from `getBoundingClientRect()`.
+- Cursor offset from center is multiplied by `0.2` and applied to `x`/`y` motion values.
+- `useSpring` smooths the movement (`stiffness: 150`, `damping: 15`).
+- A white glare overlay (`rgba(255,255,255,0.3)`) sweeps across on hover (`x: ["-100%", "100%"]`, `0.8s`, `easeInOut`).
+- A press state scales the button to `0.96` (`whileTap`).
+
+Like `MotionCard`, the magnetic effect and glare are disabled for reduced motion and touch devices.
+
+**CTA buttons and service cards**
+`CTAButton` and `ServiceCard` rely on Tailwind `transition-colors` for hover state changes (e.g. primary gold darkens to Dark Gold, ghost/outline fills with Teal Action). These are intentionally color-only micro-interactions, keeping the aggressive Lamborghini typographic system intact.
+
+**Navbar on scroll** (`components/navbar.tsx`)
+When the user scrolls more than 20px, the floating nav shrinks subtly (`scale: 0.98`) and fades to `opacity: 0.95` via `transition-all duration-300`.
+
+**Mobile menu** (`components/mobile-menu.tsx`)
+When the menu opens, page links slide in from `x: -20px` with a `0.3s` stagger of `index * 0.05s`; the sections panel slides in from `x: 20px` after a `0.2s` delay; individual section buttons follow with `0.25s + sIndex * 0.04s`. All use `"easeInOut"`.
+
+### 10.5 Continuous / Ambient Loops
+
+**Partners ticker** (`components/partners-ticker.tsx`, `app/globals.css`)
+A pure CSS marquee translates the duplicated partner strip from `translateX(0)` to `translateX(var(--marquee-translate))` over `40s` linear infinite. With `COPIES = 6`, the translate value is `-16.666%`, producing a seamless loop. The animation pauses on hover and is disabled entirely under `@media (prefers-reduced-motion: reduce)`.
+
+### 10.6 Performance & Accessibility Summary
+
+- **Reduced motion:** `useReducedMotion()` gates nearly every effect. Entrance animations receive `initial={false}`, spring-driven layers are pinned to neutral transforms, and looped animations are removed.
+- **Touch detection:** `useTouchDevice()` (a `window.matchMedia("(pointer: coarse)")` hook) prevents tilt, magnetic pull, and sheen on phones and tablets.
+- **GPU layers:** `transform-gpu`, `will-change-transform`, and `backface-hidden` are applied to animated containers; mousemove handlers are throttled to `requestAnimationFrame`.
+- **CSS fallbacks:** The partners marquee is CSS-based so it can be disabled cleanly with a media query, independent of JavaScript state.
+
+This motion system ensures that every section feels like it emerges from darkness under a spotlight — consistent with the Lamborghini-inspired visual language while remaining accessible, performant, and touch-friendly.

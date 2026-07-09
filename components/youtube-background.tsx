@@ -224,7 +224,7 @@ function YouTubeBackgroundInner({
       {/* Center play-button hide layer — fades once playback starts */}
       <div
         className={cn(
-          "pointer-events-none absolute inset-0 z-10 bg-black/40 transition-opacity duration-700",
+          "pointer-events-none absolute inset-0 z-10 bg-black transition-opacity duration-700",
           isPlaying ? "opacity-0" : "opacity-100"
         )}
       />
