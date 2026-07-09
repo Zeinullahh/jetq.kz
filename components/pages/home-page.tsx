@@ -184,13 +184,14 @@ export function HomePage() {
                   </MagneticButton>
                 </div>
               </div>
-              <div className="bg-black/5 p-6 md:p-8">
+              <div className="bg-white p-6 md:p-8 shadow-lg">
                 <h3 className="text-lg font-normal uppercase tracking-tight text-black">
                   Оставить заявку
                 </h3>
                 <LeadForm
                   submitLabel="Отправить"
                   className="mt-4"
+                  theme="light"
                 />
               </div>
             </div>

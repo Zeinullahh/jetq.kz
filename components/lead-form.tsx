@@ -7,18 +7,34 @@ interface LeadFormProps {
   auto?: string;
   submitLabel?: string;
   className?: string;
+  theme?: "dark" | "light";
 }
 
 export function LeadForm({
   auto,
   submitLabel = "Получить консультацию",
   className = "",
+  theme = "dark",
 }: LeadFormProps) {
   const city = useCity();
   const thankYouUrl = useCityHref("/thankyou");
 
   const cityLabel =
     city === "astana" ? "Астана" : city === "almaty" ? "Алматы" : "";
+
+  const isLight = theme === "light";
+
+  const labelClass = isLight
+    ? "block text-xs font-normal uppercase tracking-widest text-black/70"
+    : "block text-xs font-normal uppercase tracking-widest text-muted-foreground";
+
+  const inputClass = isLight
+    ? "mt-2 w-full bg-white border border-black/20 px-4 py-3 text-black placeholder:text-black/40 outline-none focus:ring-1 focus:ring-black"
+    : "mt-2 w-full bg-muted border border-border px-4 py-3 text-card-foreground outline-none focus:ring-1 focus:ring-gold";
+
+  const noteClass = isLight
+    ? "text-xs text-black/60"
+    : "text-xs text-muted-foreground";
 
   return (
     <form
@@ -28,10 +44,7 @@ export function LeadForm({
       className={`space-y-4 ${className}`}
     >
       <div>
-        <label
-          htmlFor="lead-name"
-          className="block text-xs font-normal uppercase tracking-widest text-muted-foreground"
-        >
+        <label htmlFor="lead-name" className={labelClass}>
           Ваше имя
         </label>
         <input
@@ -42,15 +55,12 @@ export function LeadForm({
           required
           autoComplete="name"
           placeholder="Имя"
-          className="mt-2 w-full bg-muted border border-border px-4 py-3 text-card-foreground outline-none focus:ring-1 focus:ring-gold"
+          className={inputClass}
         />
       </div>
 
       <div>
-        <label
-          htmlFor="lead-phone"
-          className="block text-xs font-normal uppercase tracking-widest text-muted-foreground"
-        >
+        <label htmlFor="lead-phone" className={labelClass}>
           Телефон
         </label>
         <input
@@ -62,7 +72,7 @@ export function LeadForm({
           autoComplete="tel"
           inputMode="tel"
           placeholder="+7 (___) ___-__-__"
-          className="mt-2 w-full bg-muted border border-border px-4 py-3 text-card-foreground outline-none focus:ring-1 focus:ring-gold"
+          className={inputClass}
         />
       </div>
 
@@ -78,7 +88,7 @@ export function LeadForm({
         </CTAButton>
       </div>
 
-      <p className="text-xs text-muted-foreground">
+      <p className={noteClass}>
         Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.
       </p>
     </form>
