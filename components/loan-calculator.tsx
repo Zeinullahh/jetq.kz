@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { LoanPartner } from "@/lib/loan-partners";
 import { formatMoney } from "@/lib/utils";
 import { CTAButton } from "@/components/cta-button";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useWhatsAppUrl } from "@/components/site-context";
 import { Check } from "lucide-react";
 
 interface LoanCalculatorProps {
@@ -108,6 +108,7 @@ function calculateLocal(
 
 export function LoanCalculator({ partner }: LoanCalculatorProps) {
   const cfg = partner.calculator;
+  const whatsappUrl = useWhatsAppUrl();
   const api = cfg.api;
 
   const initialPrice = clamp(cfg.minAmount * 10, cfg.minAmount, cfg.maxAmount);
@@ -393,7 +394,7 @@ export function LoanCalculator({ partner }: LoanCalculatorProps) {
       </p>
 
       <div className="mt-6">
-        <CTAButton href={WHATSAPP_URL} variant="primary">
+        <CTAButton href={whatsappUrl} variant="primary">
           Оставить заявку
         </CTAButton>
       </div>

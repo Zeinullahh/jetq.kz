@@ -3,24 +3,34 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { carStock } from "@/lib/cars-stock";
-import { WHATSAPP_URL } from "@/lib/constants";
+import { useWhatsAppUrl } from "@/components/site-context";
 import { MotionSectionHeader } from "@/components/motion-section-header";
 import { MotionCard } from "@/components/motion-card";
 import { useTouchDevice } from "@/hooks/use-touch-device";
+import { useCity } from "@/components/site-context";
 
 interface CarStockGridProps {
   id?: string;
   className?: string;
 }
 
+function useCityLabel() {
+  const city = useCity();
+  if (city === "astana") return "Астане";
+  if (city === "almaty") return "Алматы";
+  return "Алматы и Астане";
+}
+
 export function CarStockGrid({ id, className }: CarStockGridProps) {
   const isTouch = useTouchDevice();
+  const cityLabel = useCityLabel();
+  const whatsappUrl = useWhatsAppUrl();
   return (
     <section id={id} className={`bg-background/50 py-20 scroll-mt-24 ${className ?? ""}`}>
       <div className="mx-auto max-w-7xl px-4">
         <MotionSectionHeader
           title="Авто в наличии"
-          subtitle="Актуальный сток популярных автомобилей из Китая в Алматы."
+          subtitle={`Актуальный сток популярных автомобилей из Китая в ${cityLabel}.`}
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {carStock.map((car, index) => (
@@ -36,7 +46,7 @@ export function CarStockGrid({ id, className }: CarStockGridProps) {
               }}
             >
               <a
-                href={WHATSAPP_URL}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Узнать подробнее о ${car.model} в WhatsApp`}
