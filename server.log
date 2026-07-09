@@ -1,3 +1,121 @@
  INFO  Accepting connections at http://localhost:3000
  HTTP  7/9/2026 6:25:02 PM ::1 GET /almaty/
  HTTP  7/9/2026 6:25:02 PM ::1 Returned 200 in 46 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /almaty/
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 17 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /images/JetQ_Type_White.png
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/css/a0e36b622925ba9b.css
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/webpack-b11ae58f64666b8e.js
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/fd9d1056-bb367eba3fb38883.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 4 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/117-581cd4a1bf58ec29.js
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/main-app-4ef673d8184dc3ac.js
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/0-fbee2b9dc8ac2414.js
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/873-c7e147e17aacbaa9.js
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/213-929f0f74ea54e363.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 7 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 8 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 11 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/694-d1cc85a3ee0b990f.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 12 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 17 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/672-ebdca78912f0c987.js
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/426-c50d09eecdf71d89.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 9 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/81-e6d766b57683858d.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 10 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/173-34247ae99f28bb9c.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 11 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/386-0cb7deed91e2fd46.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 7 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/app/%5Bcity%5D/%5B%5B...page%5D%5D/page-44714d4cd0870eb1.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 8 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/930-dd2313b522d0f716.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 7 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/chunks/app/layout-74e5cd822f8cc450.js
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/media/3b2a65bc67cf51e8-s.p.woff2
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/media/7f06be3f780a819a-s.p.woff2
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:01 PM ::1 GET /_next/static/media/70b116b8ecb87519-s.woff2
+ HTTP  7/9/2026 6:26:01 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/cars/deepal-s07.webp
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/cars/byd-leopard-3.webp
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/cars/car-03.webp
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/CarPay_logo.png
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/InDrive_Logo.webp
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/AB%20Restaurants.png
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 4 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/Integra%20Construction%20Kz.jpg
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/STECOL%20CORPORATION.jpg
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/%D0%90-%D0%9B%D0%B8%D0%B7%D0%B8%D0%BD%D0%B3.png
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/%D0%91%D0%A6%D0%9A%20%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81.png
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/%D0%91%D0%B5%D1%80%D0%B5%D0%BA%D0%B5%20%D0%91%D0%B8%D0%B7%D0%BD%D0%B5%D1%81.webp
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/%D0%95%D0%B2%D1%80%D0%B0%D0%B7%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D0%B9%20%D0%91%D0%B0%D0%BD%D0%BA%20%D0%A0%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D1%8F.jpg
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 8 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 10 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 8 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 9 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /images/partners/Real-Construction%20Co.jpeg
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 9 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 8 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 GET /almaty/cars/index.txt?_rsc=1v0x1
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 6 ms
+ HTTP  7/9/2026 6:26:02 PM ::1 Returned 200 in 4 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /almaty/thankyou?name=%D0%90%D0%B2%D1%82%D0%BE%D1%82%D0%B5%D1%81%D1%82&phone=%2B7+701+123+4567&city=%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 200 in 3 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /images/JetQ_Type_White.png
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/css/a0e36b622925ba9b.css
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 1 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/webpack-b11ae58f64666b8e.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 0 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/fd9d1056-bb367eba3fb38883.js
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/117-581cd4a1bf58ec29.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 1 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/main-app-4ef673d8184dc3ac.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/0-fbee2b9dc8ac2414.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/873-c7e147e17aacbaa9.js
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/213-929f0f74ea54e363.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 3 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 3 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/694-d1cc85a3ee0b990f.js
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/672-ebdca78912f0c987.js
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/426-c50d09eecdf71d89.js
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/81-e6d766b57683858d.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 3 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/173-34247ae99f28bb9c.js
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/386-0cb7deed91e2fd46.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 3 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 1 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/app/%5Bcity%5D/%5B%5B...page%5D%5D/page-44714d4cd0870eb1.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 3 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/930-dd2313b522d0f716.js
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /_next/static/chunks/app/layout-74e5cd822f8cc450.js
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 304 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /almaty/index.txt?name=%D0%90%D0%B2%D1%82%D0%BE%D1%82%D0%B5%D1%81%D1%82&phone=%2B7+701+123+4567&city=%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B&_rsc=hphzt
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /almaty/index.txt?_rsc=hphzt
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /almaty/detailing/index.txt?name=%D0%90%D0%B2%D1%82%D0%BE%D1%82%D0%B5%D1%81%D1%82&phone=%2B7+701+123+4567&city=%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B&_rsc=hphzt
+ HTTP  7/9/2026 6:26:06 PM ::1 GET /almaty/cars/index.txt?name=%D0%90%D0%B2%D1%82%D0%BE%D1%82%D0%B5%D1%81%D1%82&phone=%2B7+701+123+4567&city=%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B&_rsc=hphzt
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 200 in 2 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 200 in 5 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 200 in 4 ms
+ HTTP  7/9/2026 6:26:06 PM ::1 Returned 200 in 4 ms
