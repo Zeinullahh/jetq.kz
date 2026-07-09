@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { useCityHref } from "@/components/site-context";
 
 interface CTAButtonProps {
   href?: string;
@@ -7,6 +10,7 @@ interface CTAButtonProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
 function isExternal(href: string) {
@@ -17,12 +21,17 @@ function isExternal(href: string) {
   );
 }
 
+function isUnprefixed(href: string) {
+  return href.startsWith("#");
+}
+
 export function CTAButton({
   href,
   variant = "primary",
   children,
   className,
   onClick,
+  type = "button",
 }: CTAButtonProps) {
   const base =
     "inline-flex items-center justify-center rounded-none text-base font-normal uppercase tracking-wide transition-colors";
@@ -50,6 +59,14 @@ export function CTAButton({
     );
   }
 
+  if (href && !isUnprefixed(href)) {
+    return (
+      <CityCTALink href={href} className={classes}>
+        {children}
+      </CityCTALink>
+    );
+  }
+
   if (href) {
     return (
       <Link href={href} className={classes}>
@@ -59,8 +76,26 @@ export function CTAButton({
   }
 
   return (
-    <button onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} className={classes}>
       {children}
     </button>
+  );
+}
+
+function CityCTALink({
+  href,
+  className,
+  children,
+}: {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const cityHref = useCityHref(href);
+
+  return (
+    <Link href={cityHref} className={className}>
+      {children}
+    </Link>
   );
 }

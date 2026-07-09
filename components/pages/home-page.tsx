@@ -16,6 +16,7 @@ import { AddressesSection } from "@/components/addresses-section";
 import { LoanPartnersSection } from "@/components/loan-partners-section";
 import { FAQSection } from "@/components/faq-section";
 import { useWhatsAppUrl } from "@/components/site-context";
+import { LeadForm } from "@/components/lead-form";
 import { Phone, ArrowDown } from "lucide-react";
 
 const advantages = [
@@ -166,21 +167,32 @@ export function HomePage() {
       <section id="consultation" className="bg-background/50 py-24 scroll-mt-24">
         <div className="mx-auto max-w-7xl px-4">
           <div className="overflow-hidden bg-gold p-8 md:p-12">
-            <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
+            <div className="grid gap-8 md:grid-cols-2 md:items-start">
               <div>
                 <h2 className="text-3xl font-normal uppercase tracking-tight text-black md:text-4xl">
                   Бесплатная консультация
                 </h2>
-                <p className="mt-4 max-w-2xl text-lg text-black/80">
+                <p className="mt-4 max-w-xl text-lg text-black/80">
                   Проконсультируем по всем вопросам и подберем нужный вариант авто.
                 </p>
+                <div className="mt-6">
+                  <MagneticButton>
+                    <CTAButton href={whatsappUrl} variant="white">
+                      <Phone size={18} className="mr-2" />
+                      Написать в WhatsApp
+                    </CTAButton>
+                  </MagneticButton>
+                </div>
               </div>
-              <MagneticButton>
-                <CTAButton href={whatsappUrl} variant="white">
-                  <Phone size={18} className="mr-2" />
-                  Написать в WhatsApp
-                </CTAButton>
-              </MagneticButton>
+              <div className="bg-black/5 p-6 md:p-8">
+                <h3 className="text-lg font-normal uppercase tracking-tight text-black">
+                  Оставить заявку
+                </h3>
+                <LeadForm
+                  submitLabel="Отправить"
+                  className="mt-4"
+                />
+              </div>
             </div>
           </div>
         </div>

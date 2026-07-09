@@ -17,6 +17,7 @@ import { MagneticButton } from "@/components/magnetic-button";
 import { ParallaxImage } from "@/components/parallax-image";
 import { MotionCard } from "@/components/motion-card";
 import { useWhatsAppUrl } from "@/components/site-context";
+import { LeadForm } from "@/components/lead-form";
 import {
   ArrowRight,
   RefreshCw,
@@ -184,6 +185,18 @@ export function CarsPage() {
                 </MotionCard>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="request" className="bg-background/50 backdrop-blur-md py-20 scroll-mt-24">
+        <div className="mx-auto max-w-3xl px-4">
+          <div className="bg-card p-8 md:p-12">
+            <MotionSectionHeader
+              title="Подобрать автомобиль"
+              subtitle="Оставьте контакты — менеджер подберёт авто под ваш бюджет и задачи."
+            />
+            <LeadForm submitLabel="Подобрать" className="mt-8" />
           </div>
         </div>
       </section>

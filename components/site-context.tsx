@@ -11,14 +11,8 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import {
-  almatyPhone,
-  astanaPhone,
-  astanaUtmPhone,
-} from "@/lib/addresses";
+import { almatyPhone, astanaPhone } from "@/lib/addresses";
 import { ALMATY_WHATSAPP_URL, ASTANA_WHATSAPP_URL } from "@/lib/constants";
-
-const SESSION_KEY = "jetq-utm-phones";
 
 export type City = "almaty" | "astana";
 
@@ -31,53 +25,16 @@ interface PhonesValue {
 const PhoneContext = createContext<PhonesValue | null>(null);
 const CityContext = createContext<City | null>(null);
 
-function detectOverrideFromUrl(): boolean {
-  if (typeof window === "undefined") return false;
-  const params = new URLSearchParams(window.location.search);
-  return (
-    params.get("utm_source") === "blogger" &&
-    params.get("utm_campaign") === "erkesha"
-  );
-}
-
-function hasOverrideFlag(): boolean {
-  if (typeof window === "undefined") return false;
-  return sessionStorage.getItem(SESSION_KEY) === "1";
-}
-
-function setOverrideFlag(): void {
-  if (typeof window === "undefined") return;
-  sessionStorage.setItem(SESSION_KEY, "1");
-}
-
 export function SiteProvider({ children }: { children: ReactNode }) {
-  const [overrideAstana, setOverrideAstana] = useState(false);
-
-  useEffect(() => {
-    if (hasOverrideFlag() || detectOverrideFromUrl()) {
-      setOverrideAstana(true);
-      setOverrideFlag();
-    }
-  }, []);
-
   const city = useCityFromPathname();
 
-  // When the UTM flag is active, every phone number on the site becomes
-  // the override number. Otherwise city paths use their default numbers.
   const phones = useMemo<PhonesValue>(() => {
-    if (overrideAstana) {
-      return {
-        almatyPhone: astanaUtmPhone,
-        astanaPhone: astanaUtmPhone,
-        generalPhone: astanaUtmPhone,
-      };
-    }
     return {
       almatyPhone,
       astanaPhone,
       generalPhone: city === "astana" ? astanaPhone : almatyPhone,
     };
-  }, [overrideAstana, city]);
+  }, [city]);
 
   return (
     <CityContext.Provider value={city}>

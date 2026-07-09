@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Providers } from "@/components/providers";
@@ -43,6 +44,14 @@ export default function RootLayout({
           </main>
           <Footer />
         </Providers>
+        <Script
+          src="https://app.callgear.com/static/cs.min.js?k=XEmb2MfD94LuDgsci84y4rSTHGXTgFch"
+          strategy="afterInteractive"
+        />
+        <Script
+          src="https://custom.callgear.com/static/69996/script.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
