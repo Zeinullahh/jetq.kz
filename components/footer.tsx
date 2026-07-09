@@ -1,17 +1,22 @@
-import Image from "next/image";
-import Link from "next/link";
-import { ExternalLink } from "lucide-react";
-import { addresses, companyPhone, companyHours } from "@/lib/addresses";
-import { AddressBlock } from "@/components/address-block";
+"use client";
 
-const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
-const astanaAddresses = addresses.filter((a) => a.city === "Астана");
+import Image from "next/image";
+import { ExternalLink } from "lucide-react";
+import { addresses, companyHours } from "@/lib/addresses";
+import { useCity, usePhones, CityLink } from "@/components/site-context";
+import { AddressBlock } from "@/components/address-block";
 
 const socials = [
   { href: "https://www.instagram.com/jetqauto.kz/", label: "Instagram" },
 ];
 
 export function Footer() {
+  const city = useCity();
+  const { generalPhone } = usePhones();
+
+  const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
+  const astanaAddresses = addresses.filter((a) => a.city === "Астана");
+
   return (
     <footer className="rounded-none bg-charcoal text-white">
       <div className="mx-auto max-w-7xl px-4 py-12 grid gap-8 md:grid-cols-4">
@@ -33,28 +38,28 @@ export function Footer() {
           </p>
           <ul className="mt-4 space-y-2 text-white">
             <li>
-              <Link
+              <CityLink
                 href="/"
                 className="hover:text-link-blue transition-colors"
               >
                 Главная
-              </Link>
+              </CityLink>
             </li>
             <li>
-              <Link
+              <CityLink
                 href="/detailing"
                 className="hover:text-link-blue transition-colors"
               >
                 Детейлинг
-              </Link>
+              </CityLink>
             </li>
             <li>
-              <Link
+              <CityLink
                 href="/cars"
                 className="hover:text-link-blue transition-colors"
               >
                 Авто в наличии
-              </Link>
+              </CityLink>
             </li>
           </ul>
         </div>
@@ -63,28 +68,32 @@ export function Footer() {
             Контакты
           </p>
           <div className="mt-4 space-y-6">
-            <div>
-              <p className="text-xs font-normal uppercase tracking-widest text-white/70">
-                Алматы
-              </p>
-              <div className="mt-3 space-y-4">
-                {almatyAddresses.map((address) => (
-                  <AddressBlock key={address.id} address={address} />
-                ))}
+            {(city === null || city === "almaty") && (
+              <div>
+                <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+                  Алматы
+                </p>
+                <div className="mt-3 space-y-4">
+                  {almatyAddresses.map((address) => (
+                    <AddressBlock key={address.id} address={address} variant="light" />
+                  ))}
+                </div>
               </div>
-            </div>
-            <div>
-              <p className="text-xs font-normal uppercase tracking-widest text-white/70">
-                Астана
-              </p>
-              <div className="mt-3 space-y-4">
-                {astanaAddresses.map((address) => (
-                  <AddressBlock key={address.id} address={address} />
-                ))}
+            )}
+            {(city === null || city === "astana") && (
+              <div>
+                <p className="text-xs font-normal uppercase tracking-widest text-white/70">
+                  Астана
+                </p>
+                <div className="mt-3 space-y-4">
+                  {astanaAddresses.map((address) => (
+                    <AddressBlock key={address.id} address={address} variant="light" />
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
             <div className="space-y-1 text-white">
-              <p>{companyPhone}</p>
+              <p>{generalPhone}</p>
               <p>{companyHours}</p>
             </div>
           </div>
