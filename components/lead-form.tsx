@@ -1,7 +1,17 @@
 "use client";
 
+import { FormEvent } from "react";
 import { useCity, useCityHref } from "@/components/site-context";
 import { CTAButton } from "@/components/cta-button";
+
+declare global {
+  interface Window {
+    CallGear?: {
+      getCredentials?: () => { hit_id?: number | string };
+      addOfflineRequest?: (request: Record<string, string>, callback?: (resp: unknown) => void) => void;
+    };
+  }
+}
 
 interface LeadFormProps {
   auto?: string;
@@ -36,12 +46,41 @@ export function LeadForm({
     ? "text-xs text-black/60"
     : "text-xs text-muted-foreground";
 
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    const name = String(formData.get("name") || "").trim();
+    const phone = String(formData.get("phone") || "").trim();
+    const cityValue = String(formData.get("city") || "").trim();
+    const autoValue = String(formData.get("auto") || "").trim();
+
+    if (!name || !phone) return;
+
+    let message = "";
+    if (autoValue) {
+      message += `Какой автомобиль вы ищете: ${autoValue} \n`;
+    }
+    if (cityValue) {
+      message += `Ваш город: ${cityValue} \n`;
+    }
+
+    const payload = { name, phone, message };
+
+    try {
+      sessionStorage.setItem("curs-form-1", JSON.stringify(payload));
+    } catch {
+      // ignore sessionStorage errors
+    }
+  }
+
   return (
     <form
       action={thankYouUrl}
       method="GET"
       data-success-url={thankYouUrl}
       className={`space-y-4 ${className}`}
+      onSubmit={handleSubmit}
     >
       <div>
         <label htmlFor="lead-name" className={labelClass}>
