@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useState, ChangeEvent } from "react";
 import { useCity, useCityHref } from "@/components/site-context";
 import { CTAButton } from "@/components/cta-button";
 
@@ -8,7 +8,10 @@ declare global {
   interface Window {
     CallGear?: {
       getCredentials?: () => { hit_id?: number | string };
-      addOfflineRequest?: (request: Record<string, string>, callback?: (resp: unknown) => void) => void;
+      addOfflineRequest?: (
+        request: Record<string, string>,
+        callback?: (resp: unknown) => void
+      ) => void;
     };
   }
 }
@@ -18,6 +21,37 @@ interface LeadFormProps {
   submitLabel?: string;
   className?: string;
   theme?: "dark" | "light";
+}
+
+function formatPhone(value: string): string {
+  let digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && /^[78]/.test(digits)) {
+    digits = digits.slice(1);
+  }
+  digits = digits.slice(0, 10);
+
+  let out = "+7";
+  if (digits.length > 0) out += " (" + digits.slice(0, 3);
+  if (digits.length >= 3) out += ")";
+  if (digits.length > 3) out += " " + digits.slice(3, 6);
+  if (digits.length > 6) out += "-" + digits.slice(6, 8);
+  if (digits.length > 8) out += "-" + digits.slice(8, 10);
+  return out;
+}
+
+function validateName(value: string): string {
+  if (!value || value.trim().length < 2) return "Введите имя";
+  return "";
+}
+
+function validatePhone(value: string): string {
+  let digits = value.replace(/\D/g, "");
+  if (digits.length === 11 && /^[78]/.test(digits)) {
+    digits = digits.slice(1);
+  }
+  if (digits.length < 10) return "Введите номер полностью";
+  if (digits.length > 10) return "Неверный формат номера";
+  return "";
 }
 
 export function LeadForm({
@@ -46,6 +80,30 @@ export function LeadForm({
     ? "text-xs text-black/60"
     : "text-xs text-muted-foreground";
 
+  const [phoneValue, setPhoneValue] = useState("+7");
+  const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
+
+  function handlePhoneChange(e: ChangeEvent<HTMLInputElement>) {
+    setPhoneValue(formatPhone(e.target.value));
+    if (errors.phone) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next.phone;
+        return next;
+      });
+    }
+  }
+
+  function handleNameChange() {
+    if (errors.name) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next.name;
+        return next;
+      });
+    }
+  }
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     const form = event.currentTarget;
     const formData = new FormData(form);
@@ -55,7 +113,16 @@ export function LeadForm({
     const cityValue = String(formData.get("city") || "").trim();
     const autoValue = String(formData.get("auto") || "").trim();
 
-    if (!name || !phone) return;
+    const nameError = validateName(name);
+    const phoneError = validatePhone(phone);
+
+    if (nameError || phoneError) {
+      event.preventDefault();
+      setErrors({ name: nameError, phone: phoneError });
+      return;
+    }
+
+    setErrors({});
 
     let message = "";
     if (autoValue) {
@@ -94,8 +161,12 @@ export function LeadForm({
           required
           autoComplete="name"
           placeholder="Имя"
-          className={inputClass}
+          onChange={handleNameChange}
+          className={inputClass + (errors.name ? " border-red-500" : "")}
         />
+        {errors.name ? (
+          <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+        ) : null}
       </div>
 
       <div>
@@ -111,8 +182,13 @@ export function LeadForm({
           autoComplete="tel"
           inputMode="tel"
           placeholder="+7 (___) ___-__-__"
-          className={inputClass}
+          value={phoneValue}
+          onChange={handlePhoneChange}
+          className={inputClass + (errors.phone ? " border-red-500" : "")}
         />
+        {errors.phone ? (
+          <p className="mt-1 text-xs text-red-500">{errors.phone}</p>
+        ) : null}
       </div>
 
       {cityLabel && (
