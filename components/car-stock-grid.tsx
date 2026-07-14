@@ -16,7 +16,6 @@ import {
   USD_PER_YUAN,
   parseAmount,
   formatUsd,
-  formatYuan,
   isDollar,
   isYuan,
 } from "@/lib/car-price-utils";
@@ -35,17 +34,15 @@ function useCityLabel() {
 }
 
 function getCarPrice(car: CarStockItem): string {
-  if (car.colorCategory === "Gray") {
-    if (car.price) return formatYuan(parseAmount(car.price));
-    if (car.exwPrice && isYuan(car.exwPrice)) return car.exwPrice;
-    return car.exwPrice;
-  }
+  // Always display a USD price. Prefer explicit USD EXW prices,
+  // otherwise convert Yuan prices/EXW to USD at the fixed rate.
   if (car.exwPrice) {
     if (isDollar(car.exwPrice)) return car.exwPrice;
     if (isYuan(car.exwPrice))
       return formatUsd(parseAmount(car.exwPrice) * USD_PER_YUAN);
   }
-  if (car.price) return formatUsd(parseAmount(car.price) * USD_PER_YUAN);
+  if (car.price)
+    return formatUsd(parseAmount(car.price) * USD_PER_YUAN);
   return car.exwPrice;
 }
 
