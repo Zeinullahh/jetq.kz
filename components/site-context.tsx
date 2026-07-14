@@ -12,7 +12,13 @@ import {
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { almatyPhone, astanaPhone } from "@/lib/addresses";
-import { ALMATY_WHATSAPP_URL, ASTANA_WHATSAPP_URL } from "@/lib/constants";
+import {
+  ALMATY_WHATSAPP_URL,
+  ASTANA_WHATSAPP_URL,
+  ASTANA_DETAILING_WHATSAPP_URL,
+  ASTANA_INSTAGRAM_URL,
+  INSTAGRAM_URL,
+} from "@/lib/constants";
 
 export type City = "almaty" | "astana";
 
@@ -73,6 +79,18 @@ export function usePhones(): PhonesValue {
 export function useWhatsAppUrl(): string {
   const city = useCity();
   if (city === "astana") return ASTANA_WHATSAPP_URL;
+  return ALMATY_WHATSAPP_URL;
+}
+
+export function useInstagramUrl(): string {
+  const city = useCity();
+  if (city === "astana") return ASTANA_INSTAGRAM_URL;
+  return INSTAGRAM_URL;
+}
+
+export function useDetailingWhatsAppUrl(): string {
+  const city = useCity();
+  if (city === "astana") return ASTANA_DETAILING_WHATSAPP_URL;
   return ALMATY_WHATSAPP_URL;
 }
 

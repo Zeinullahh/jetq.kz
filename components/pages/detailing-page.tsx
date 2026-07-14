@@ -7,7 +7,7 @@ import { HeroVideo } from "@/components/hero-video";
 import { YouTubeBackground } from "@/components/youtube-background";
 import { ContactBlock } from "@/components/contact-block";
 import { CTAButton } from "@/components/cta-button";
-import { useWhatsAppUrl } from "@/components/site-context";
+import { useDetailingWhatsAppUrl } from "@/components/site-context";
 import { MotionHeroText, MotionHeroItem } from "@/components/motion-hero-text";
 import { MotionSectionHeader } from "@/components/motion-section-header";
 import { MotionCard } from "@/components/motion-card";
@@ -85,7 +85,7 @@ function useCityLabel() {
 
 export function DetailingPage() {
   const cityLabel = useCityLabel();
-  const whatsappUrl = useWhatsAppUrl();
+  const whatsappUrl = useDetailingWhatsAppUrl();
 
   return (
     <>

@@ -3,15 +3,17 @@
 import Image from "next/image";
 import { ExternalLink } from "lucide-react";
 import { addresses, companyHours } from "@/lib/addresses";
-import { useCity, usePhones, CityLink } from "@/components/site-context";
+import {
+  useCity,
+  usePhones,
+  useInstagramUrl,
+  CityLink,
+} from "@/components/site-context";
 import { AddressBlock } from "@/components/address-block";
-
-const socials = [
-  { href: "https://www.instagram.com/jetqauto.kz/", label: "Instagram" },
-];
 
 export function Footer() {
   const city = useCity();
+  const instagramUrl = useInstagramUrl();
   const { generalPhone } = usePhones();
 
   const almatyAddresses = addresses.filter((a) => a.city === "Алматы");
@@ -103,18 +105,16 @@ export function Footer() {
             Мы в соцсетях
           </p>
           <ul className="mt-4 space-y-2 text-white">
-            {socials.map((social) => (
-              <li key={social.href}>
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 hover:text-link-blue transition-colors"
-                >
-                  {social.label} <ExternalLink size={14} />
-                </a>
-              </li>
-            ))}
+            <li>
+              <a
+                href={instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 hover:text-link-blue transition-colors"
+              >
+                Instagram <ExternalLink size={14} />
+              </a>
+            </li>
           </ul>
         </div>
       </div>
