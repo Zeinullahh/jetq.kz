@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { carStock } from "@/lib/cars-stock";
+import { newCarStock } from "@/lib/new-cars-stock";
 import { MotionSectionHeader } from "@/components/motion-section-header";
 import { MotionCard } from "@/components/motion-card";
 import { CTAButton } from "@/components/cta-button";
@@ -29,7 +29,7 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
   const isTouch = useTouchDevice();
   const cityCtaHref = useCityHref(ctaHref);
   const cityLabel = useCityLabel();
-  const previewCars = carStock.slice(0, limit);
+  const previewCars = newCarStock.slice(0, limit);
 
   return (
     <section id={id} className={`bg-background/50 py-20 scroll-mt-24 ${className ?? ""}`}>
@@ -53,7 +53,7 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
             >
               <Link
                 href={cityCtaHref}
-                aria-label={`Узнать подробнее о ${car.model}`}
+                aria-label={`Узнать подробнее о ${car.fullModel}`}
                 className="block"
               >
                 <MotionCard
@@ -69,7 +69,7 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
                     >
                       <Image
                         src={car.image}
-                        alt={car.model}
+                        alt={car.fullModel}
                         width={1113}
                         height={516}
                         className="h-auto w-full object-contain"
@@ -80,8 +80,8 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
                   <motion.div
                     className="absolute bottom-0 left-0 right-0 translate-y-full bg-gradient-to-t from-black/80 to-transparent p-6 text-white opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
                   >
-                    <p className="text-sm uppercase tracking-widest text-gold">{car.model}</p>
-                    <h3 className="mt-1 text-xl uppercase tracking-tight">{car.model}</h3>
+                    <p className="text-sm uppercase tracking-widest text-gold">{car.fullModel}</p>
+                    <h3 className="mt-1 text-xl uppercase tracking-tight">{car.fullModel}</h3>
                     <p className="mt-2 text-sm text-white/80">Подробнее →</p>
                   </motion.div>
                 </MotionCard>
