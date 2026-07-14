@@ -17,6 +17,13 @@ SHEET_URLS = {
 
 KNOWN_BRANDS = ["Lynk & Co", "ZEEKR", "Toyota", "Ti"]
 
+# Some cells use an old/export name in the Russian line while the site
+# (and photos) use a different canonical name. Map full-model patterns to
+# canonical (brand, model) pairs.
+MODEL_OVERRIDES = {
+    "BYD LEOPARD 7 190 KM 4WD Ultra, 2025": ("Ti", "7 190 KM 4WD Ultra, 2025"),
+}
+
 COLOR_MAP = [
     ("золотистый", "Gold"),
     ("горный зел", "Green"),
@@ -73,6 +80,8 @@ def clean_price(value: str) -> str:
 
 def extract_brand_model(full: str):
     full = normalize(full)
+    if full in MODEL_OVERRIDES:
+        return MODEL_OVERRIDES[full]
     for brand in KNOWN_BRANDS:
         if full.lower().startswith(brand.lower()):
             remainder = full[len(brand):].strip()
@@ -111,9 +120,14 @@ def extract_color_category(raw_color: str) -> str:
     return ""
 
 
-def image_path_for(brand: str, model: str, color: str, year: int) -> str:
-    """Map a car to the photo filename used by the site."""
-    slug = slugify(f"{brand} {model} {year} {color}")
+def image_path_for(brand: str, model: str, color: str) -> str:
+    """Map a car to the photo filename used by the site.
+
+    The model string already contains the year in this sheet, so we do not
+    append the year separately. "&" is expanded to "and" to match the
+    restored photo filenames (e.g. lynk-and-co-900-...jpg).
+    """
+    slug = slugify(f"{brand} {model} {color}".replace("&", "and"))
     return f"/images/cars/{slug}.jpg"
 
 
@@ -166,7 +180,7 @@ def parse_sheet1(path: Path, category: str):
             "battery": "",
             "wheels": "",
             "packages": "",
-            "image": image_path_for(brand, model, color_category, year),
+            "image": image_path_for(brand, model, color_category),
             "category": category,
         }
         cars.append(car)
@@ -226,7 +240,7 @@ def parse_sheet2(path: Path, category: str):
             "battery": battery,
             "wheels": wheels,
             "packages": packages,
-            "image": image_path_for(brand, f"8X {trim}", color_category, 2026),
+            "image": image_path_for(brand, f"8X {trim}", color_category),
             "category": category,
         }
         cars.append(car)
