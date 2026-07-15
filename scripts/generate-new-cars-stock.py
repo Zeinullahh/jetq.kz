@@ -15,13 +15,13 @@ SHEET_URLS = {
     "sheet3.csv": "https://docs.google.com/spreadsheets/d/16qcZ9vlwllGksU4U3CWyVKwwrllvvokv8oAW7KEqUVw/export?format=csv&gid=1578108247",
 }
 
-KNOWN_BRANDS = ["Lynk & Co", "ZEEKR", "Toyota", "Ti"]
+KNOWN_BRANDS = ["Lynk & Co", "ZEEKR", "Toyota", "BYD"]
 
 # Some cells use an old/export name in the Russian line while the site
 # (and photos) use a different canonical name. Map full-model patterns to
 # canonical (brand, model) pairs.
 MODEL_OVERRIDES = {
-    "BYD LEOPARD 7 190 KM 4WD Ultra, 2025": ("Ti", "7 190 KM 4WD Ultra, 2025"),
+    "BYD LEOPARD 7 190 KM 4WD Ultra, 2025": ("BYD", "7 190 KM 4WD Ultra, 2025"),
 }
 
 COLOR_MAP = [
@@ -123,7 +123,7 @@ def extract_color_category(raw_color: str) -> str:
 # Explicit image filename overrides for cars whose photo names do not
 # follow the default slugified convention.
 IMAGE_OVERRIDES = {
-    ("Ti", "7 190 KM 4WD Ultra, 2025"): {
+    ("BYD", "7 190 KM 4WD Ultra, 2025"): {
         "Black": "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Black.jpg",
         "Gray": "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Gray.jpg",
         "Green": "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Green.png",
