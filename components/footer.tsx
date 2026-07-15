@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { addresses, companyHours } from "@/lib/addresses";
 import {
@@ -62,6 +63,14 @@ export function Footer() {
               >
                 Авто в наличии
               </CityLink>
+            </li>
+            <li>
+              <Link
+                href="/cookie-policy"
+                className="hover:text-link-blue transition-colors"
+              >
+                Политика cookie
+              </Link>
             </li>
           </ul>
         </div>
