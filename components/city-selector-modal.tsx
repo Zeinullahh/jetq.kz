@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { createPortal } from "react-dom";
 import { MapPin } from "lucide-react";
 import { CTAButton } from "@/components/cta-button";
 
@@ -41,9 +42,9 @@ export function CitySelectorModal() {
     router.push(`/${slug}`);
   }
 
-  if (!ready || !isOpen) return null;
+  if (!ready || !isOpen || typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[300] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
       role="dialog"
@@ -80,6 +81,7 @@ export function CitySelectorModal() {
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
