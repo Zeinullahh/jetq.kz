@@ -120,6 +120,17 @@ def extract_color_category(raw_color: str) -> str:
     return ""
 
 
+# Explicit image filename overrides for cars whose photo names do not
+# follow the default slugified convention.
+IMAGE_OVERRIDES = {
+    ("Ti", "7 190 KM 4WD Ultra, 2025"): {
+        "Black": "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Black.jpg",
+        "Gray": "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Gray.jpg",
+        "Green": "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Green.png",
+    }
+}
+
+
 def image_path_for(brand: str, model: str, color: str) -> str:
     """Map a car to the photo filename used by the site.
 
@@ -127,6 +138,9 @@ def image_path_for(brand: str, model: str, color: str) -> str:
     append the year separately. "&" is expanded to "and" to match the
     restored photo filenames (e.g. lynk-and-co-900-...jpg).
     """
+    override = IMAGE_OVERRIDES.get((brand, model), {}).get(color)
+    if override:
+        return override
     slug = slugify(f"{brand} {model} {color}".replace("&", "and"))
     return f"/images/cars/{slug}.jpg"
 

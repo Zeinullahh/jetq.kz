@@ -118,7 +118,7 @@ export const newCarStock: CarStockItem[] = [
     battery: "",
     wheels: "",
     packages: "",
-    image: "/images/cars/ti-7-190-km-4wd-ultra-2025-gray.jpg",
+    image: "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Gray.jpg",
     category: "border-stock",
   },
   {
@@ -138,7 +138,7 @@ export const newCarStock: CarStockItem[] = [
     battery: "",
     wheels: "",
     packages: "",
-    image: "/images/cars/ti-7-190-km-4wd-ultra-2025-black.jpg",
+    image: "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Black.jpg",
     category: "border-stock",
   },
   {
@@ -158,7 +158,7 @@ export const newCarStock: CarStockItem[] = [
     battery: "",
     wheels: "",
     packages: "",
-    image: "/images/cars/ti-7-190-km-4wd-ultra-2025-green.jpg",
+    image: "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Green.png",
     category: "border-stock",
   },
   {
@@ -178,7 +178,7 @@ export const newCarStock: CarStockItem[] = [
     battery: "",
     wheels: "",
     packages: "",
-    image: "/images/cars/ti-7-190-km-4wd-ultra-2025-green.jpg",
+    image: "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Green.png",
     category: "border-stock",
   },
   {
@@ -198,7 +198,7 @@ export const newCarStock: CarStockItem[] = [
     battery: "",
     wheels: "",
     packages: "",
-    image: "/images/cars/ti-7-190-km-4wd-ultra-2025-black.jpg",
+    image: "/images/cars/BYD_7_190_KM_4WD_Ultra_2025_Black.jpg",
     category: "border-stock",
   },
   {
