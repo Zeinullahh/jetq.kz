@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Политика использования cookie — JetQ",
   description:
-    "Узнайте, как JetQ использует файлы cookie и локальное хранилище для сохранения выбранного города и улучшения работы сайта.",
+    "Узнайте, как JetQ использует файлы cookie и локальное хранилище для сохранения выбранного города, отслеживания конверсий рекламы и аналитики звонков.",
 };
 
 export default function CookiePolicyPage() {
@@ -35,7 +35,18 @@ export default function CookiePolicyPage() {
 
           <div>
             <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
-              Как мы используем cookie и localStorage
+              Какие технологии мы используем
+            </h2>
+            <p className="mt-2">
+              На сайте применяются файлы cookie, локальное хранилище браузера
+              (localStorage) и скрипты сторонних сервисов. Ниже перечислены
+              основные цели их использования.
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+              1. Необходимые и функциональные cookie
             </h2>
             <p className="mt-2">
               Мы используем локальное хранилище браузера (localStorage) для
@@ -64,13 +75,100 @@ export default function CookiePolicyPage() {
 
           <div>
             <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
-              Управление cookie
+              2. Аналитика и отслеживание конверсий
+            </h2>
+            <p className="mt-2">
+              Для измерения эффективности рекламы и понимания того, как
+              пользователи взаимодействуют с сайтом, мы используем сервис Google
+              Ads (conversion tracking tag, идентификатор AW-17674546420).
+              Google может устанавливать cookie и собирать технические данные,
+              такие как:
+            </p>
+            <ul className="mt-3 list-inside list-disc space-y-1">
+              <li>идентификаторы устройства и браузера;</li>
+              <li>IP-адрес (может обрабатываться в анонимизированном виде);</li>
+              <li>история посещений страниц и совершённых действий;</li>
+              <li>источник перехода на сайт.</li>
+            </ul>
+            <p className="mt-2">
+              Эти данные помогают нам оценивать результативность рекламных
+              кампаний и не передаются третьим лицам вне экосистемы Google.
+              Подробнее о том, как Google использует cookie, можно узнать в{" "}
+              <a
+                href="https://policies.google.com/technologies/cookies"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground underline underline-offset-4"
+              >
+                политике Google
+              </a>
+              .
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+              3. Коллтрекинг и коммуникации
+            </h2>
+            <p className="mt-2">
+              На сайте подключены сервисы CallGear (скрипты с доменов
+              app.callgear.com и custom.callgear.com). Они используются для
+              аналитики звонков, подмены номеров и улучшения качества
+              коммуникации с клиентами. CallGear может использовать cookie,
+              локальное хранилище и другие технологии для:
+            </p>
+            <ul className="mt-3 list-inside list-disc space-y-1">
+              <li>определения источника звонка;</li>
+              <li>связи звонка с посещением сайта;</li>
+              <li>предоставления удобных каналов связи на сайте.</li>
+            </ul>
+            <p className="mt-2">
+              Подробная информация о данных, которые обрабатывает CallGear,
+              доступна в{" "}
+              <a
+                href="https://callgear.com/privacy-policy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground underline underline-offset-4"
+              >
+                политике конфиденциальности CallGear
+              </a>
+              .
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+              Управление cookie и отказ от отслеживания
             </h2>
             <p className="mt-2">
               Вы можете в любой момент удалить сохранённую информацию о городе,
               очистив локальное хранилище браузера или удалив cookie для сайта
               jetq.kz. Обратите внимание: после этого при следующем посещении
               главной страницы вам снова будет предложено выбрать город.
+            </p>
+            <p className="mt-2">
+              Чтобы отказаться от персонализированной рекламы Google, вы можете
+              использовать{" "}
+              <a
+                href="https://adssettings.google.com/authenticated"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground underline underline-offset-4"
+              >
+                настройки рекламы Google
+              </a>{" "}
+              или установить расширение{" "}
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground underline underline-offset-4"
+              >
+                Google Analytics Opt-out
+              </a>
+              . Большинство браузеров также позволяют блокировать сторонние
+              cookie в настройках приватности.
             </p>
           </div>
 
