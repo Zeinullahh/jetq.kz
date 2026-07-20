@@ -10,6 +10,7 @@ import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { CursorSpotlight } from "@/components/cursor-spotlight";
 import { LoadingScreen } from "@/components/loading-screen";
+import { CookieConsent } from "@/components/cookie-consent";
 
 const oswald = Oswald({
   subsets: ["cyrillic", "latin"],
@@ -64,6 +65,7 @@ export default function RootLayout({
             gtag('config', 'AW-17674546420');
           `}
         </Script>
+        <CookieConsent />
       </body>
     </html>
   );
