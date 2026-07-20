@@ -52,6 +52,18 @@ export default function RootLayout({
           src="https://custom.callgear.com/static/69996/script.js"
           strategy="afterInteractive"
         />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17674546420"
+          strategy="afterInteractive"
+        />
+        <Script id="google-conversion-tracking" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17674546420');
+          `}
+        </Script>
       </body>
     </html>
   );
