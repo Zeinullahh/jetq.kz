@@ -32,7 +32,7 @@ export function CookieConsent() {
 
   return createPortal(
     <div
-      className="fixed bottom-4 left-4 right-4 z-[200] md:left-auto md:right-4 md:w-full md:max-w-md"
+      className="fixed bottom-4 left-4 right-4 z-[200] md:right-auto md:w-full md:max-w-md"
       role="dialog"
       aria-live="polite"
       aria-label="Согласие на использование cookie"
