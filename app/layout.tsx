@@ -33,6 +33,16 @@ export default function RootLayout({
   return (
     <html lang="ru" suppressHydrationWarning>
       <body className={cn(oswald.variable, "font-sans")}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-K5NFX68B"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         <Providers>
           <LoadingScreen />
           <ScrollProgress />
@@ -45,6 +55,17 @@ export default function RootLayout({
           </main>
           <Footer />
         </Providers>
+        {/* Google Tag Manager */}
+        <Script id="google-tag-manager" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-K5NFX68B');
+          `}
+        </Script>
+        {/* End Google Tag Manager */}
         <Script
           src="https://app.callgear.com/static/cs.min.js?k=XEmb2MfD94LuDgsci84y4rSTHGXTgFch"
           strategy="afterInteractive"
@@ -53,16 +74,17 @@ export default function RootLayout({
           src="https://custom.callgear.com/static/69996/script.js"
           strategy="afterInteractive"
         />
+        {/* Google tag (gtag.js) — GA4 */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17674546420"
+          src="https://www.googletagmanager.com/gtag/js?id=G-J05Y4WBEHN"
           strategy="afterInteractive"
         />
-        <Script id="google-conversion-tracking" strategy="afterInteractive">
+        <Script id="ga4-gtag" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'AW-17674546420');
+            gtag('config', 'G-J05Y4WBEHN');
           `}
         </Script>
         <CookieConsent />
