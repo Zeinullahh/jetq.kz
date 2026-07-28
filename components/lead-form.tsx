@@ -3,6 +3,11 @@
 import { FormEvent, useState, ChangeEvent } from "react";
 import { useCity, useCityHref } from "@/components/site-context";
 import { CTAButton } from "@/components/cta-button";
+import {
+  applyPhoneInput,
+  normalizePhone,
+  validatePhone,
+} from "@/lib/phone";
 
 declare global {
   interface Window {
@@ -23,34 +28,8 @@ interface LeadFormProps {
   theme?: "dark" | "light";
 }
 
-function formatPhone(value: string): string {
-  let digits = value.replace(/\D/g, "");
-  if (digits.length === 11 && /^[78]/.test(digits)) {
-    digits = digits.slice(1);
-  }
-  digits = digits.slice(0, 10);
-
-  let out = "+7";
-  if (digits.length > 0) out += " (" + digits.slice(0, 3);
-  if (digits.length >= 3) out += ")";
-  if (digits.length > 3) out += " " + digits.slice(3, 6);
-  if (digits.length > 6) out += "-" + digits.slice(6, 8);
-  if (digits.length > 8) out += "-" + digits.slice(8, 10);
-  return out;
-}
-
 function validateName(value: string): string {
   if (!value || value.trim().length < 2) return "Введите имя";
-  return "";
-}
-
-function validatePhone(value: string): string {
-  let digits = value.replace(/\D/g, "");
-  if (digits.length === 11 && /^[78]/.test(digits)) {
-    digits = digits.slice(1);
-  }
-  if (digits.length < 10) return "Введите номер полностью";
-  if (digits.length > 10) return "Неверный формат номера";
   return "";
 }
 
@@ -80,11 +59,11 @@ export function LeadForm({
     ? "text-xs text-black/60"
     : "text-xs text-muted-foreground";
 
-  const [phoneValue, setPhoneValue] = useState("+7");
+  const [phoneValue, setPhoneValue] = useState("");
   const [errors, setErrors] = useState<{ name?: string; phone?: string }>({});
 
   function handlePhoneChange(e: ChangeEvent<HTMLInputElement>) {
-    setPhoneValue(formatPhone(e.target.value));
+    setPhoneValue(applyPhoneInput(phoneValue, e.target.value));
     if (errors.phone) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -124,6 +103,8 @@ export function LeadForm({
 
     setErrors({});
 
+    const normalizedPhone = normalizePhone(phone) || phone;
+
     let message = "";
     if (autoValue) {
       message += `Какой автомобиль вы ищете: ${autoValue} \n`;
@@ -132,7 +113,7 @@ export function LeadForm({
       message += `Ваш город: ${cityValue} \n`;
     }
 
-    const payload = { name, phone, message };
+    const payload = { name, phone: normalizedPhone, message };
 
     try {
       sessionStorage.setItem("curs-form-1", JSON.stringify(payload));
@@ -181,7 +162,7 @@ export function LeadForm({
           required
           autoComplete="tel"
           inputMode="tel"
-          placeholder="+7 (___) ___-__-__"
+          placeholder="+7 777 123 4567"
           value={phoneValue}
           onChange={handlePhoneChange}
           className={inputClass + (errors.phone ? " border-red-500" : "")}
