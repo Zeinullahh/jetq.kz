@@ -58,7 +58,7 @@ export function CarStockPreview({ limit = 3, ctaHref = "/cars", id, className }:
               >
                 <MotionCard
                   className="group cursor-pointer overflow-hidden rounded-3xl bg-white shadow-sm"
-                  tilt
+                  tilt={false}
                   sheen
                   hoverScale={1.03}
                 >

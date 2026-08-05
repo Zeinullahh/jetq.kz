@@ -132,13 +132,13 @@ export function CarStockGrid({
                   }}
                 >
                   <a
-                    href="#lead-form"
+                    href="#request"
                     aria-label={`Оставить заявку о ${car.fullModel}`}
                     className="block"
                   >
                     <MotionCard
                       className="group flex h-full cursor-pointer flex-col overflow-hidden rounded-3xl bg-card text-card-foreground shadow-sm"
-                      tilt
+                      tilt={false}
                       sheen
                       hoverScale={1.02}
                     >

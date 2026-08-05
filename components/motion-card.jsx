@@ -63,7 +63,11 @@ export function MotionCard({
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      whileHover={shouldReduceMotion || isTouch ? undefined : { scale: hoverScale, z: 40 }}
+      whileHover={
+        shouldReduceMotion || isTouch
+          ? undefined
+          : { scale: hoverScale, ...(tilt ? { z: 40 } : {}) }
+      }
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     >
       {sheen && !shouldReduceMotion && !isTouch && (
