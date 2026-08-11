@@ -142,168 +142,25 @@ export default function PrivacyPolicyPage() {
       </div>
 
       <div id="cookies">
-        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
-          5. Файлы cookie и локальное хранилище
+        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+          5. Файлы cookie на сайте
         </h2>
         <p className="mt-2">
-          Настоящий раздел объясняет, как Платформа использует файлы cookie и
-          схожие технологии локального хранилища браузера (localStorage) при
-          посещении вами сайта jetq.kz.
+          Информация об использовании файлов cookie и схожих технологий
+          локального хранилища на сайте jetq.kz вынесена в отдельный документ —{" "}
+          <a
+            href="/cookie-policy/"
+            className="text-link-blue underline underline-offset-4"
+          >
+            Политику использования cookie
+          </a>
+          . Рекомендуем ознакомиться с ней для понимания того, какие
+          технические данные собираются при посещении сайта.
         </p>
-
-        <div className="mt-4">
-          <h3 className="text-base font-normal uppercase tracking-wide text-foreground">
-            Что такое cookie
-          </h3>
-          <p className="mt-2">
-            Cookie — это небольшие текстовые файлы, которые веб-сайт сохраняет
-            на вашем устройстве. Они помогают сайту запоминать информацию о
-            вашем визите, например, выбранный язык или регион, и обеспечивать
-            более удобную работу.
-          </p>
-        </div>
-
-        <div className="mt-4">
-          <h3 className="text-base font-normal uppercase tracking-wide text-foreground">
-            Какие технологии мы используем
-          </h3>
-          <p className="mt-2">
-            На сайте применяются файлы cookie, локальное хранилище браузера
-            (localStorage) и скрипты сторонних сервисов. Ниже перечислены
-            основные цели их использования.
-          </p>
-        </div>
-
-        <div className="mt-4">
-          <h3 className="text-base font-normal uppercase tracking-wide text-foreground">
-            Необходимые и функциональные cookie
-          </h3>
-          <p className="mt-2">
-            Мы используем локальное хранилище браузера (localStorage) для
-            сохранения информации о том, из какого города вы предпочитаете
-            заказывать автомобиль — Алматы или Астана. Это позволяет:
-          </p>
-          <ul className="mt-3 list-inside list-disc space-y-1">
-            <li>
-              автоматически направлять вас на страницу выбранного города при
-              повторном посещении;
-            </li>
-            <li>
-              показывать актуальные контакты, адреса и автомобили в наличии для
-              вашего города;
-            </li>
-            <li>
-              не запрашивать выбор города каждый раз при переходе на главную
-              страницу.
-            </li>
-          </ul>
-          <p className="mt-2">
-            Эти данные хранятся только на вашем устройстве и не передаются на
-            наши серверы третьим лицам.
-          </p>
-        </div>
-
-        <div className="mt-4">
-          <h3 className="text-base font-normal uppercase tracking-wide text-foreground">
-            Аналитика и отслеживание конверсий
-          </h3>
-          <p className="mt-2">
-            Для понимания того, как пользователи взаимодействуют с сайтом, мы
-            используем сервисы Google Tag Manager (идентификатор GTM-K5NFX68B)
-            и Google Analytics 4 (идентификатор G-J05Y4WBEHN). Google может
-            устанавливать cookie и собирать технические данные, такие как:
-          </p>
-          <ul className="mt-3 list-inside list-disc space-y-1">
-            <li>идентификаторы устройства и браузера;</li>
-            <li>IP-адрес (может обрабатываться в анонимизированном виде);</li>
-            <li>история посещений страниц и совершённых действий;</li>
-            <li>источник перехода на сайт.</li>
-          </ul>
-          <p className="mt-2">
-            Эти данные помогают нам анализировать посещаемость сайта и не
-            передаются третьим лицам вне экосистемы Google. Подробнее о том, как
-            Google использует cookie, можно узнать в{" "}
-            <a
-              href="https://policies.google.com/technologies/cookies"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-blue underline underline-offset-4"
-            >
-              политике Google
-            </a>
-            .
-          </p>
-        </div>
-
-        <div className="mt-4">
-          <h3 className="text-base font-normal uppercase tracking-wide text-foreground">
-            Коллтрекинг и коммуникации
-          </h3>
-          <p className="mt-2">
-            На сайте подключены сервисы CallGear (скрипты с доменов
-            app.callgear.com и custom.callgear.com). Они используются для
-            аналитики звонков, подмены номеров и улучшения качества коммуникации
-            с клиентами. CallGear может использовать cookie, локальное хранилище
-            и другие технологии для:
-          </p>
-          <ul className="mt-3 list-inside list-disc space-y-1">
-            <li>определения источника звонка;</li>
-            <li>связи звонка с посещением сайта;</li>
-            <li>предоставления удобных каналов связи на сайте.</li>
-          </ul>
-          <p className="mt-2">
-            Подробная информация о данных, которые обрабатывает CallGear,
-            доступна в{" "}
-            <a
-              href="https://callgear.com/privacy-policy/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-blue underline underline-offset-4"
-            >
-              политике конфиденциальности CallGear
-            </a>
-            .
-          </p>
-        </div>
-
-        <div className="mt-4">
-          <h3 className="text-base font-normal uppercase tracking-wide text-foreground">
-            Управление cookie и отказ от отслеживания
-          </h3>
-          <p className="mt-2">
-            Вы можете в любой момент удалить сохранённую информацию о городе,
-            очистив локальное хранилище браузера или удалив cookie для сайта
-            jetq.kz. Обратите внимание: после этого при следующем посещении
-            главной страницы вам снова будет предложено выбрать город.
-          </p>
-          <p className="mt-2">
-            Чтобы отказаться от персонализированной рекламы Google, вы можете
-            использовать{" "}
-            <a
-              href="https://adssettings.google.com/authenticated"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-blue underline underline-offset-4"
-            >
-              настройки рекламы Google
-            </a>{" "}
-            или установить расширение{" "}
-            <a
-              href="https://tools.google.com/dlpage/gaoptout"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-link-blue underline underline-offset-4"
-            >
-              Google Analytics Opt-out
-            </a>
-            . Большинство браузеров также позволяют блокировать сторонние cookie
-            в настройках приватности.
-          </p>
-        </div>
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
           6. Права субъекта данных
         </h2>
         <p className="mt-2">
@@ -334,7 +191,7 @@ export default function PrivacyPolicyPage() {
 
       <div>
         <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
-          7. Хранение и защита данных
+          6. Хранение и защита данных
         </h2>
         <p className="mt-2">
           JetQ принимает необходимые организационные и технические меры для
@@ -351,7 +208,7 @@ export default function PrivacyPolicyPage() {
 
       <div>
         <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
-          8. Изменения в Политике и контакты
+          7. Изменения в Политике и контакты
         </h2>
         <p className="mt-2">
           JetQ может время от времени обновлять настоящую Политику. Актуальная
