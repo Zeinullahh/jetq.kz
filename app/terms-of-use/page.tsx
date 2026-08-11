@@ -24,7 +24,7 @@ export default function TermsOfUsePage() {
           правила использования сайта{" "}
           <a
             href="https://jetq.kz"
-            className="text-foreground underline underline-offset-4"
+            className="text-link-blue underline underline-offset-4"
           >
             jetq.kz
           </a>{" "}
@@ -159,7 +159,7 @@ export default function TermsOfUsePage() {
           регулируются{" "}
           <a
             href="/terms-of-service/"
-            className="text-foreground underline underline-offset-4"
+            className="text-link-blue underline underline-offset-4"
           >
             Условиями предоставления услуг
           </a>
@@ -196,7 +196,7 @@ export default function TermsOfUsePage() {
             Телефон:{" "}
             <a
               href="tel:+77750061411"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               +7 (775) 006-14-11
             </a>
@@ -205,7 +205,7 @@ export default function TermsOfUsePage() {
             Email:{" "}
             <a
               href="mailto:info@jetq.kz"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               info@jetq.kz
             </a>

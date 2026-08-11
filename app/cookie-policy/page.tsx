@@ -23,7 +23,7 @@ export default function CookiePolicyPage() {
             Политика использования cookie теперь является частью{" "}
             <a
               href="/privacy-policy#cookies"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               Политики конфиденциальности
             </a>

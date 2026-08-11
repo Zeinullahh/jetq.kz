@@ -25,7 +25,7 @@ export default function TermsOfServicePage() {
           пользователями сайта{" "}
           <a
             href="https://jetq.kz"
-            className="text-foreground underline underline-offset-4"
+            className="text-link-blue underline underline-offset-4"
           >
             jetq.kz
           </a>{" "}
@@ -344,7 +344,7 @@ export default function TermsOfServicePage() {
           одностороннем порядке. Актуальная редакция всегда доступна на странице{" "}
           <a
             href="https://jetq.kz/terms-of-service/"
-            className="text-foreground underline underline-offset-4"
+            className="text-link-blue underline underline-offset-4"
           >
             jetq.kz/terms-of-service
           </a>
@@ -359,7 +359,7 @@ export default function TermsOfServicePage() {
             Телефон:{" "}
             <a
               href="tel:+77010063753"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               +7 (701) 006-37-53
             </a>
@@ -368,7 +368,7 @@ export default function TermsOfServicePage() {
             E-mail:{" "}
             <a
               href="mailto:info@jetq.kz"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               info@jetq.kz
             </a>

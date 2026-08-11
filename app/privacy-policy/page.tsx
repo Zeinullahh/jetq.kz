@@ -227,7 +227,7 @@ export default function PrivacyPolicyPage() {
               href="https://policies.google.com/technologies/cookies"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               политике Google
             </a>
@@ -258,7 +258,7 @@ export default function PrivacyPolicyPage() {
               href="https://callgear.com/privacy-policy/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               политике конфиденциальности CallGear
             </a>
@@ -283,7 +283,7 @@ export default function PrivacyPolicyPage() {
               href="https://adssettings.google.com/authenticated"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               настройки рекламы Google
             </a>{" "}
@@ -292,7 +292,7 @@ export default function PrivacyPolicyPage() {
               href="https://tools.google.com/dlpage/gaoptout"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               Google Analytics Opt-out
             </a>
@@ -373,7 +373,7 @@ export default function PrivacyPolicyPage() {
             Телефон:{" "}
             <a
               href="tel:+77750061411"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               +7 (775) 006-14-11
             </a>
@@ -382,7 +382,7 @@ export default function PrivacyPolicyPage() {
             Email:{" "}
             <a
               href="mailto:info@jetq.kz"
-              className="text-foreground underline underline-offset-4"
+              className="text-link-blue underline underline-offset-4"
             >
               info@jetq.kz
             </a>
