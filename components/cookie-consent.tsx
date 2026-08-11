@@ -43,10 +43,10 @@ export function CookieConsent() {
           CallGear), для анализа эффективности рекламы, звонков и улучшения
           работы сайта. Продолжая пользоваться сайтом, вы соглашаетесь с{" "}
           <Link
-            href="/cookie-policy"
+            href="/privacy-policy"
             className="text-gold underline underline-offset-4 transition-colors hover:text-gold-text"
           >
-            Политикой использования cookie
+            Политикой конфиденциальности
           </Link>
           .
         </p>
