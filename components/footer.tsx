@@ -144,7 +144,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10 py-6 text-center text-sm text-white/70">
-        © {new Date().getFullYear()} ТОО «JETQ GROUP». Все права защищены.
+        © {new Date().getFullYear()} ТОО «JetQ Digital». Все права защищены.
       </div>
     </footer>
   );

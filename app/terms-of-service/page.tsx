@@ -21,7 +21,7 @@ export default function TermsOfServicePage() {
         </h2>
         <p className="mt-2">
           Настоящие Условия предоставления услуг (далее — «Условия») регулируют
-          отношения между ТОО «JETQ GROUP» (далее — «JetQ», «Платформа») и
+          отношения между ТОО «JetQ Digital» (далее — «JetQ», «Платформа») и
           пользователями сайта{" "}
           <a
             href="https://jetq.kz"
@@ -304,7 +304,40 @@ export default function TermsOfServicePage() {
 
       <div>
         <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
-          8. Изменения и контакты
+          8. Реквизиты
+        </h2>
+        <div className="mt-3 space-y-2">
+          <p>
+            <strong>Полное наименование:</strong> Товарищество с ограниченной
+            ответственностью «JetQ Digital»
+          </p>
+          <p>
+            <strong>БИН:</strong> 260740016529
+          </p>
+          <p>
+            <strong>Юридический и фактический адрес:</strong> Республика
+            Казахстан, город республиканского значения Алматы, район
+            Бостандыкский, улица Сатпаева, дом 90/21, почтовый индекс 050046
+          </p>
+          <p>
+            <strong>Банковские реквизиты:</strong>
+          </p>
+          <ul className="list-inside list-disc space-y-1">
+            <li>ИИК: KZ81601A861090297391</li>
+            <li>Банк: АО «Народный Банк Казахстана»</li>
+            <li>БИК: HSBKKZKX</li>
+            <li>КБЕ: 17</li>
+          </ul>
+          <p>
+            <strong>Дата постановки на регистрационный учёт плательщика НДС:</strong>{" "}
+            10 июля 2026 г.
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+          9. Изменения и контакты
         </h2>
         <p className="mt-2">
           JetQ оставляет за собой право вносить изменения в настоящие Условия в
@@ -323,31 +356,22 @@ export default function TermsOfServicePage() {
         </p>
         <ul className="mt-3 list-inside list-disc space-y-1">
           <li>
-            по телефону:{" "}
-            <a
-              href="tel:+77750061411"
-              className="text-foreground underline underline-offset-4"
-            >
-              +7 (775) 006-14-11
-            </a>{" "}
-            (Алматы),{" "}
+            Телефон:{" "}
             <a
               href="tel:+77010063753"
               className="text-foreground underline underline-offset-4"
             >
               +7 (701) 006-37-53
-            </a>{" "}
-            (Астана);
+            </a>
           </li>
           <li>
-            по электронной почте:{" "}
+            E-mail:{" "}
             <a
               href="mailto:info@jetq.kz"
               className="text-foreground underline underline-offset-4"
             >
               info@jetq.kz
             </a>
-            .
           </li>
         </ul>
       </div>
