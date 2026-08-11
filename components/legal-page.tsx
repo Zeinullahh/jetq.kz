@@ -10,15 +10,15 @@ interface LegalPageProps {
 
 export function LegalPage({ title, lastUpdated, children }: LegalPageProps) {
   return (
-    <section className="min-h-screen bg-charcoal py-24 text-white">
+    <section className="min-h-screen bg-background dark:bg-charcoal py-24 text-foreground">
       <div className="mx-auto max-w-3xl px-4">
         <h1 className="text-center text-3xl font-normal uppercase tracking-tight md:text-4xl">
           {title}
         </h1>
-        <div className="mt-12 space-y-8 text-base leading-relaxed text-white/90">
+        <div className="mt-12 space-y-8 text-base leading-relaxed text-muted-foreground">
           {children}
         </div>
-        <p className="mt-12 text-sm text-white/50">{lastUpdated}</p>
+        <p className="mt-12 text-sm text-muted-foreground/50">{lastUpdated}</p>
       </div>
     </section>
   );

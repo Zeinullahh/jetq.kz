@@ -16,7 +16,7 @@ export default function CookiePolicyPage() {
       lastUpdated={`Последнее обновление: ${year}.`}
     >
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           1. Общие положения
         </h2>
         <p className="mt-2">
@@ -46,7 +46,7 @@ export default function CookiePolicyPage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           2. Что такое cookie
         </h2>
         <p className="mt-2">
@@ -58,7 +58,7 @@ export default function CookiePolicyPage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           3. Какие технологии мы используем
         </h2>
         <p className="mt-2">
@@ -69,7 +69,7 @@ export default function CookiePolicyPage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           4. Необходимые и функциональные cookie
         </h2>
         <p className="mt-2">
@@ -98,7 +98,7 @@ export default function CookiePolicyPage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           5. Аналитика и отслеживание конверсий
         </h2>
         <p className="mt-2">
@@ -131,7 +131,7 @@ export default function CookiePolicyPage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           6. Коллтрекинг и коммуникации
         </h2>
         <p className="mt-2">
@@ -162,7 +162,7 @@ export default function CookiePolicyPage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           7. Управление cookie и отказ от отслеживания
         </h2>
         <p className="mt-2">
@@ -172,32 +172,13 @@ export default function CookiePolicyPage() {
           главной страницы вам снова будет предложено выбрать город.
         </p>
         <p className="mt-2">
-          Чтобы отказаться от персонализированной рекламы Google, вы можете
-          использовать{" "}
-          <a
-            href="https://adssettings.google.com/authenticated"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-link-blue underline underline-offset-4"
-          >
-            настройки рекламы Google
-          </a>{" "}
-          или установить расширение{" "}
-          <a
-            href="https://tools.google.com/dlpage/gaoptout"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-link-blue underline underline-offset-4"
-          >
-            Google Analytics Opt-out
-          </a>
-          . Большинство браузеров также позволяют блокировать сторонние
-          cookie в настройках приватности.
+          Вы также можете управлять настройками cookie через параметры
+          приватности вашего браузера.
         </p>
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           8. Изменения в Политике
         </h2>
         <p className="mt-2">

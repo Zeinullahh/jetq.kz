@@ -25,7 +25,7 @@ export default function PrivacyPolicyPage() {
           Пользователей сайта{" "}
           <a
             href="https://jetq.kz"
-            className="text-foreground underline underline-offset-4"
+            className="text-link-blue underline underline-offset-4"
           >
             jetq.kz
           </a>{" "}
@@ -142,8 +142,8 @@ export default function PrivacyPolicyPage() {
       </div>
 
       <div id="cookies">
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
-          5. Файлы cookie на сайте
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+          7. Файлы cookie на сайте
         </h2>
         <p className="mt-2">
           Информация об использовании файлов cookie и схожих технологий
@@ -160,8 +160,8 @@ export default function PrivacyPolicyPage() {
       </div>
 
       <div>
-        <h2 className="text-lg font-normal uppercase tracking-wide text-white">
-          6. Права субъекта данных
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+          5. Права субъекта данных
         </h2>
         <p className="mt-2">
           В соответствии с законодательством Республики Казахстан Пользователь
@@ -208,14 +208,14 @@ export default function PrivacyPolicyPage() {
 
       <div>
         <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
-          7. Изменения в Политике и контакты
+          8. Изменения в Политике и контакты
         </h2>
         <p className="mt-2">
           JetQ может время от времени обновлять настоящую Политику. Актуальная
           версия всегда доступна на странице{" "}
           <a
             href="https://jetq.kz/privacy-policy/"
-            className="text-foreground underline underline-offset-4"
+            className="text-link-blue underline underline-offset-4"
           >
             jetq.kz/privacy-policy
           </a>
