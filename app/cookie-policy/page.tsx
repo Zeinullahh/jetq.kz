@@ -17,6 +17,33 @@ export default function CookiePolicyPage() {
     >
       <div>
         <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
+          Определения
+        </h2>
+        <p className="mt-2">В настоящей Политике используются следующие термины:</p>
+        <ul className="mt-3 list-inside list-disc space-y-1">
+          <li>
+            <strong>JetQ (Платформа)</strong> — цифровая платформа-агрегатор,
+            управляемая ТОО «JetQ Digital», включая сайт{" "}
+            <a href="https://jetq.kz" className="text-link-blue underline underline-offset-4">jetq.kz</a>{" "}
+            и мобильное приложение JetQ (iOS и Android);
+          </li>
+          <li>
+            <strong>Cookie (файлы cookie)</strong> — небольшие текстовые
+            файлы, сохраняемые веб-сайтом на устройстве Пользователя;
+          </li>
+          <li>
+            <strong>Локальное хранилище (localStorage)</strong> — механизм
+            хранения данных в браузере Пользователя без передачи на сервер;
+          </li>
+          <li>
+            <strong>Пользователь</strong> — физическое лицо, посещающее сайт
+            или использующее мобильное приложение JetQ.
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 className="text-lg font-normal uppercase tracking-wide text-foreground">
           1. Общие положения
         </h2>
         <p className="mt-2">
