@@ -15,10 +15,10 @@ export function LegalPage({ title, lastUpdated, children }: LegalPageProps) {
         <h1 className="text-center text-3xl font-normal uppercase tracking-tight md:text-4xl">
           {title}
         </h1>
-        <div className="mt-12 space-y-8 text-base leading-relaxed text-muted-foreground">
+        <div className="mt-12 space-y-8 text-base leading-relaxed text-foreground">
           {children}
         </div>
-        <p className="mt-12 text-sm text-muted-foreground/50">{lastUpdated}</p>
+        <p className="mt-12 text-sm text-foreground/50">{lastUpdated}</p>
       </div>
     </section>
   );
