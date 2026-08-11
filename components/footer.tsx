@@ -66,10 +66,26 @@ export function Footer() {
             </li>
             <li>
               <Link
-                href="/cookie-policy"
+                href="/terms-of-service"
                 className="hover:text-link-blue transition-colors"
               >
-                Политика cookie
+                Условия предоставления услуг
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/terms-of-use"
+                className="hover:text-link-blue transition-colors"
+              >
+                Условия использования
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/privacy-policy"
+                className="hover:text-link-blue transition-colors"
+              >
+                Политика конфиденциальности
               </Link>
             </li>
           </ul>
